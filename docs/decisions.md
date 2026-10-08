@@ -32,3 +32,11 @@ theme blocks and Theme Editor control, so the last commit of Skeleton that has t
 ## 2. Theme Check configuration
 
 `.theme-check.yml` is kept as shipped by Skeleton (`extends: theme-check:recommended`). No checks are disabled.
+
+## 3. Theme Check in CI without the GitHub Checks token
+
+The `shopify/theme-check-action@v2` step runs without its optional `token` input. With `token` set (and
+`checks: write` granted), the action created a check run and then failed with `HttpError: Not Found` while updating it,
+before reporting any Theme Check result. Without `token` the action only runs `shopify theme check` and fails the job on
+errors; the only difference is that no GitHub check annotations are posted. See the action's
+[configuration](https://github.com/Shopify/theme-check-action#configuration).

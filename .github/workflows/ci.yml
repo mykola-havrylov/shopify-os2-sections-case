@@ -11,13 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      checks: write
     steps:
       - uses: actions/checkout@v7
       - name: Theme Check
         uses: shopify/theme-check-action@v2
-        with:
-          token: ${{ github.token }}
 
   format-lint:
     name: Format and lint

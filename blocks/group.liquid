@@ -1,16 +1,28 @@
 {% doc %}
-  Renders a group of blocks in a row or a column, with configurable gap, alignment and padding.
+  Renders a group of blocks in a row or a column, with alignment, and a gap and padding chosen from the spacing scale.
   Rows wrap on narrow screens, so their children never overflow the viewport.
 
   @example
   {% content_for 'block', type: 'group', id: 'group' %}
 {% enddoc %}
 
+{% liquid
+  assign gap = '0'
+  if block.settings.gap != 'none'
+    assign gap = 'var(--' | append: block.settings.gap | append: ')'
+  endif
+
+  assign padding = '0'
+  if block.settings.padding != 'none'
+    assign padding = 'var(--' | append: block.settings.padding | append: ')'
+  endif
+%}
+
 <div
   class="group {{ block.settings.layout_direction }}"
   style="
-    --group-gap: {{ block.settings.gap }}px;
-    --group-padding: {{ block.settings.padding }}px;
+    --group-gap: {{ gap }};
+    --group-padding: {{ padding }};
     --group-alignment: {{ block.settings.alignment }};
   "
   {{ block.shopify_attributes }}
@@ -66,37 +78,46 @@
       ]
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "gap",
       "label": "t:labels.gap",
-      "default": 16,
-      "min": 0,
-      "max": 64,
-      "step": 4,
-      "unit": "px"
+      "default": "space-3",
+      "options": [
+        { "value": "none", "label": "t:options.spacing.none" },
+        { "value": "space-1", "label": "t:options.spacing.space_1" },
+        { "value": "space-2", "label": "t:options.spacing.space_2" },
+        { "value": "space-3", "label": "t:options.spacing.space_3" },
+        { "value": "space-4", "label": "t:options.spacing.space_4" },
+        { "value": "space-5", "label": "t:options.spacing.space_5" },
+        { "value": "space-6", "label": "t:options.spacing.space_6" }
+      ]
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "padding",
       "label": "t:labels.padding",
-      "default": 0,
-      "min": 0,
-      "max": 64,
-      "step": 4,
-      "unit": "px"
+      "default": "none",
+      "options": [
+        { "value": "none", "label": "t:options.spacing.none" },
+        { "value": "space-2", "label": "t:options.spacing.space_2" },
+        { "value": "space-3", "label": "t:options.spacing.space_3" },
+        { "value": "space-4", "label": "t:options.spacing.space_4" },
+        { "value": "space-5", "label": "t:options.spacing.space_5" },
+        { "value": "space-6", "label": "t:options.spacing.space_6" }
+      ]
     }
   ],
   "presets": [
     {
       "name": "t:general.column",
       "category": "t:general.layout",
-      "settings": { "layout_direction": "group--vertical", "alignment": "flex-start" },
+      "settings": { "layout_direction": "group--vertical", "alignment": "flex-start", "gap": "space-3" },
       "blocks": [{ "type": "heading" }, { "type": "text" }]
     },
     {
       "name": "t:general.buttons_row",
       "category": "t:general.layout",
-      "settings": { "layout_direction": "group--horizontal", "alignment": "flex-start", "gap": 12 },
+      "settings": { "layout_direction": "group--horizontal", "alignment": "flex-start", "gap": "space-3" },
       "blocks": [
         { "type": "button", "settings": { "link": "shopify://collections/all" } },
         {

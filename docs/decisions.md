@@ -86,3 +86,70 @@ component-specific values stay inside each block's or section's `{% stylesheet %
 - Heading level and heading size are separate settings, so the document outline does not depend on the look.
 - Focus ring and reduced motion are not settings: the ring is always visible on keyboard focus, and
   `prefers-reduced-motion` always turns animations off, whatever the "Animations" setting says.
+
+## 7. Spacing scale instead of free pixel values
+
+Date: 2026-10-09.
+
+Spacing is a seven-step rem scale (`--space-1` … `--space-7`: 4, 8, 16, 24, 40, 64, 96px) in `assets/critical.css`.
+The `group` block's gap and padding and the `rich-text` section's vertical padding are `select` settings of these
+steps instead of `range` settings in pixels, so every layout lines up on the same rhythm and a merchant can't pick an
+off-scale value. The scale is not a theme setting: changing it would change every component at once, which is a
+design decision, not a merchant one. The global "Section spacing" setting stays as it was. Only values used by at least
+two components became tokens (spacing, line length, grid gutter, control height, line heights, letter spacings, media
+ratios); everything else stays inside the component's own stylesheet.
+
+## 8. Small headings use the body font
+
+Date: 2026-10-09.
+
+Cormorant was checked in the browser at the sizes used for `h4` (20px) and product card titles (16px). Its small
+x-height makes those sizes look smaller and lighter than the Work Sans text next to them (a 16px card title looked no
+larger than the 14px price under it). A heavier weight from the font library (`cormorant_n7`; the family has
+`n3`–`n7`, see [available fonts](https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts))
+does not change the x-height, so it was not used. Instead `h4`/`.h4` (now 18px) and card titles use the body font:
+`h4` in bold, card titles in regular. `h0`–`h3` keep Cormorant, where it reads well.
+
+## 9. Line icons from Lucide
+
+Date: 2026-10-09.
+
+`snippets/icon.liquid` renders twelve icons as inline SVG, with paths copied from
+[Lucide](https://lucide.dev) `lucide-static` v1.54.0 (ISC; six of the icons are derived from Feather, MIT). One open
+set gives a consistent stroke style for both UI icons and the themed feature icons; inline SVG with `currentColor`
+needs no extra request and follows the color scheme. The stroke width is 1.5 instead of Lucide's 2, to match the light
+typography. Licence texts are in [third-party-assets.md](third-party-assets.md).
+
+The header still uses Skeleton's `icon-account.svg` and `icon-cart.svg`: the account icon carries
+`slot="signed-out-avatar"` for the `shopify-account` component, so the swap is not a clean one-line change. It is done
+when the header is rewritten.
+
+## 10. Surface color in every scheme and a derived button hover
+
+Date: 2026-10-09.
+
+The color schemes gained a `surface` color: the background behind images and image placeholders. A scheme needs its
+own surface, because the Surface scheme's background is the Base scheme's surface, and a placeholder of the same color
+as its section would be invisible. Values: Base `#EDE5DA`, Surface `#E3D9CC`, Inverse `#38312C`, Accent `#8A5034`.
+
+The primary button's hover color was `color-mix(button 85%, foreground)`. In the Inverse and Accent schemes the button
+and the foreground are the same color, so the hover changed nothing. The hover is now `--color-button-hover`, the
+button color darkened by 8% with the [`color_darken`](https://shopify.dev/docs/api/liquid/filters/color_darken) filter
+in `snippets/css-variables.liquid`; label contrast stays above 7:1 in every scheme (see [design.md](design.md#contrast)).
+
+## 11. `rich-text` as a utility section, and the style guide
+
+Date: 2026-10-09.
+
+`sections/rich-text.liquid` holds headings, text, buttons and groups in one column, in any color scheme. It is a
+utility for text pages (About) and the style guide, not one of the showcase sections. It accepts `group`, `heading`,
+`text` and `button` by explicit type. The "Link with arrow" style was added to the `button` block instead of a new
+link block, because a link and a button share every setting.
+
+The style guide (`templates/page.styleguide.json`) needs product cards, form controls and icons, which no
+merchant-facing block renders. They come from one private block, `_styleguide-specimen`, with no presets: a theme
+block without presets is not offered in the block picker
+([theme blocks quick start](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/quick-start)),
+so it can only be placed by the template. The block uses `"tag": null`
+([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)) so that its own
+element, not Shopify's `shopify-block` wrapper, is the flex item of the section and can stretch to the full width.

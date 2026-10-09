@@ -1,6 +1,7 @@
 {% doc %}
-  Renders a link styled as a button. Nothing is rendered on the storefront until both the label and the link are
-  set; in the theme editor an incomplete button shows as disabled so the merchant can still select it.
+  Renders a link styled as a primary or secondary button, or as a text link with an arrow. Nothing is rendered on the
+  storefront until both the label and the link are set; in the theme editor an incomplete button shows as disabled so
+  the merchant can still select it.
 
   @example
   {% content_for 'block', type: 'button', id: 'button' %}
@@ -9,15 +10,19 @@
 {% liquid
   assign label = block.settings.label | strip
   assign link = block.settings.link
-  assign style_class = ''
-  if block.settings.style == 'secondary'
-    assign style_class = ' button--secondary'
-  endif
+  case block.settings.style
+    when 'secondary'
+      assign style_class = 'button button--secondary'
+    when 'link'
+      assign style_class = 'link-arrow'
+    else
+      assign style_class = 'button'
+  endcase
 %}
 
 {% if label != blank and link != blank %}
   <a
-    class="button{{ style_class }}"
+    class="{{ style_class }}"
     href="{{ link }}"
     {% if block.settings.new_tab %}
       target="_blank" rel="noopener"
@@ -28,9 +33,12 @@
     {%- if block.settings.new_tab -%}
       <span class="visually-hidden"> {{ 'accessibility.opens_in_new_tab' | t }}</span>
     {%- endif -%}
+    {%- if block.settings.style == 'link' -%}
+      {% render 'icon', name: 'arrow-right' %}
+    {%- endif -%}
   </a>
 {% elsif request.design_mode %}
-  <span class="button{{ style_class }}" aria-disabled="true" {{ block.shopify_attributes }}>
+  <span class="{{ style_class }}" aria-disabled="true" {{ block.shopify_attributes }}>
     {{- label | default: block.settings.label -}}
   </span>
 {% endif %}
@@ -63,7 +71,8 @@
       "default": "primary",
       "options": [
         { "value": "primary", "label": "t:options.button_style.primary" },
-        { "value": "secondary", "label": "t:options.button_style.secondary" }
+        { "value": "secondary", "label": "t:options.button_style.secondary" },
+        { "value": "link", "label": "t:options.button_style.link" }
       ]
     }
   ],

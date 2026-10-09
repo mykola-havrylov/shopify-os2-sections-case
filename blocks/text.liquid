@@ -1,14 +1,26 @@
 {% doc %}
-  Renders rich text: paragraphs, lists and links. Headings have their own `heading` block.
+  Renders rich text: paragraphs, lists and links. Headings have their own `heading` block. The "Eyebrow" size is a
+  small uppercase label in the secondary text color, meant for a line above a heading.
 
   @example
   {% content_for 'block', type: 'text', id: 'text' %}
 {% enddoc %}
 
+{% liquid
+  case block.settings.max_width
+    when 'narrow'
+      assign max_width = 'var(--text-measure-narrow)'
+    when 'normal'
+      assign max_width = 'var(--text-measure)'
+    else
+      assign max_width = 'none'
+  endcase
+%}
+
 {% if block.settings.text != blank %}
   <div
     class="text {{ block.settings.size }}{% if block.settings.muted %} text-muted{% endif %}"
-    style="--text-align: {{ block.settings.alignment }}; --text-max-width: {{ block.settings.max_width }};"
+    style="--text-align: {{ block.settings.alignment }}; --text-max-width: {{ max_width }};"
     {{ block.shopify_attributes }}
   >
     {{ block.settings.text }}
@@ -42,6 +54,7 @@
       "label": "t:labels.size",
       "default": "text-body",
       "options": [
+        { "value": "text-eyebrow", "label": "t:options.text_size.eyebrow" },
         { "value": "text-small", "label": "t:options.text_size.small" },
         { "value": "text-body", "label": "t:options.text_size.body" },
         { "value": "text-large", "label": "t:options.text_size.large" }
@@ -51,10 +64,10 @@
       "type": "select",
       "id": "max_width",
       "label": "t:labels.max_width",
-      "default": "65ch",
+      "default": "normal",
       "options": [
-        { "value": "45ch", "label": "t:options.max_width.narrow" },
-        { "value": "65ch", "label": "t:options.max_width.normal" },
+        { "value": "narrow", "label": "t:options.max_width.narrow" },
+        { "value": "normal", "label": "t:options.max_width.normal" },
         { "value": "none", "label": "t:options.max_width.none" }
       ]
     },
@@ -68,6 +81,7 @@
       "type": "checkbox",
       "id": "muted",
       "label": "t:labels.muted_text",
+      "info": "t:info.muted_text",
       "default": false
     }
   ],

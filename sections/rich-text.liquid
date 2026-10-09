@@ -1,0 +1,124 @@
+{% comment %}
+  Utility section for text content: headings, text, buttons and groups of them in one column, in any color scheme.
+  The background spans the full width; the content column has a chosen width and alignment.
+{% endcomment %}
+
+{% liquid
+  case section.settings.padding
+    when 'section'
+      assign padding = 'calc(var(--section-spacing) / 2)'
+    when 'none'
+      assign padding = '0'
+    else
+      assign padding = 'var(--' | append: section.settings.padding | append: ')'
+  endcase
+%}
+
+<div
+  class="rich-text full-width color-{{ section.settings.color_scheme }}"
+  style="
+    --rich-text-padding: {{ padding }};
+    --rich-text-alignment: {{ section.settings.alignment }};
+  "
+>
+  <div class="rich-text__content rich-text__content--{{ section.settings.content_width }}">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .rich-text {
+    display: grid;
+    grid-template-columns: var(--content-grid);
+    padding-block: var(--rich-text-padding);
+  }
+
+  .rich-text__content {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: var(--rich-text-alignment);
+    gap: var(--space-4);
+    width: 100%;
+    justify-self: var(--rich-text-alignment);
+  }
+
+  .rich-text__content--narrow {
+    max-width: var(--text-measure);
+  }
+
+  .rich-text__content--normal {
+    max-width: 60rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "tag": "section",
+  "class": "rich-text-section",
+  "blocks": [
+    { "type": "group" },
+    { "type": "heading" },
+    { "type": "text" },
+    { "type": "button" },
+    { "type": "_styleguide-specimen" }
+  ],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-base"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:labels.content_width",
+      "default": "normal",
+      "options": [
+        { "value": "narrow", "label": "t:options.content_width.narrow" },
+        { "value": "normal", "label": "t:options.content_width.normal" },
+        { "value": "wide", "label": "t:options.content_width.wide" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:labels.alignment",
+      "info": "t:info.section_alignment",
+      "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "t:options.alignment.left" },
+        { "value": "center", "label": "t:options.alignment.center" },
+        { "value": "flex-end", "label": "t:options.alignment.right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "t:labels.vertical_padding",
+      "info": "t:info.vertical_padding",
+      "default": "section",
+      "options": [
+        { "value": "section", "label": "t:options.vertical_padding.section" },
+        { "value": "none", "label": "t:options.spacing.none" },
+        { "value": "space-5", "label": "t:options.spacing.space_5" },
+        { "value": "space-6", "label": "t:options.spacing.space_6" },
+        { "value": "space-7", "label": "t:options.spacing.space_7" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.name",
+      "category": "t:general.text",
+      "blocks": [
+        { "type": "heading" },
+        { "type": "text" },
+        { "type": "button", "settings": { "link": "shopify://collections/all" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

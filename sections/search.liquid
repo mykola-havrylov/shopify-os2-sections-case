@@ -26,7 +26,6 @@
 
     <div class="search-results">
       {% paginate search.results by 20 %}
-        {% # Search result items may be an article, a page, or a product. %}
         {% for result in search.results %}
           <div class="search-result">
             {% assign featured_image = result.featured_image | default: result.image %}

@@ -81,6 +81,13 @@
             "default": "#D9CFC2"
           },
           {
+            "type": "color",
+            "id": "surface",
+            "label": "t:labels.surface",
+            "info": "t:info.surface",
+            "default": "#EDE5DA"
+          },
+          {
             "type": "header",
             "content": "t:general.buttons"
           },

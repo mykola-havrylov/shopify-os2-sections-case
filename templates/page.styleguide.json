@@ -1,0 +1,884 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "scheme_base": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Color scheme</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "display": {
+          "type": "heading",
+          "settings": {
+            "heading": "Base",
+            "tag": "h2",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 1: thrown, trimmed and glazed",
+            "tag": "h3",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "heading_2": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 2: made in small batches",
+            "tag": "h3",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 3: three quiet glazes",
+            "tag": "h3",
+            "size": "h3",
+            "alignment": "left"
+          }
+        },
+        "heading_4": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 4: care and use",
+            "tag": "h3",
+            "size": "h4",
+            "alignment": "left"
+          }
+        },
+        "text_large": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Large text. Stoneware thrown in small batches, glazed in three quiet colours and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body text with a <a href=\"/collections/all\" title=\"All products\">text link</a>. Every piece is fired twice, the second time to 1,240 °C, which makes it dense, durable and safe for the dishwasher.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_small": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Small text. Sizes and weights vary slightly from piece to piece.</p>",
+            "size": "text-small",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_muted": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Secondary text color, used for prices, captions and notes.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": true
+          }
+        },
+        "label_buttons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Buttons and links</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "buttons": {
+          "type": "group",
+          "settings": {
+            "layout_direction": "group--horizontal",
+            "alignment": "flex-start",
+            "gap": "space-4",
+            "padding": "none"
+          },
+          "blocks": {
+            "primary": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "primary"
+              }
+            },
+            "secondary": {
+              "type": "button",
+              "settings": {
+                "label": "Learn more",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "secondary"
+              }
+            },
+            "link": {
+              "type": "button",
+              "settings": {
+                "label": "Read our story",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "link"
+              }
+            }
+          },
+          "block_order": ["primary", "secondary", "link"]
+        },
+        "label_cards": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Product cards</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "cards": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "product_cards",
+            "products": ["stoneware-mug", "cereal-bowl", "bud-vase"]
+          }
+        },
+        "label_controls": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Form controls</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "controls": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "controls",
+            "products": []
+          }
+        },
+        "label_icons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Icons</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "icons": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "icons",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "display",
+        "heading_1",
+        "heading_2",
+        "heading_3",
+        "heading_4",
+        "text_large",
+        "text_body",
+        "text_small",
+        "text_muted",
+        "label_buttons",
+        "buttons",
+        "label_cards",
+        "cards",
+        "label_controls",
+        "controls",
+        "label_icons",
+        "icons"
+      ],
+      "settings": {
+        "color_scheme": "scheme-base",
+        "content_width": "wide",
+        "alignment": "flex-start",
+        "padding": "space-6"
+      }
+    },
+    "scheme_surface": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Color scheme</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "display": {
+          "type": "heading",
+          "settings": {
+            "heading": "Surface",
+            "tag": "h2",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 1: thrown, trimmed and glazed",
+            "tag": "h3",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "heading_2": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 2: made in small batches",
+            "tag": "h3",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 3: three quiet glazes",
+            "tag": "h3",
+            "size": "h3",
+            "alignment": "left"
+          }
+        },
+        "heading_4": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 4: care and use",
+            "tag": "h3",
+            "size": "h4",
+            "alignment": "left"
+          }
+        },
+        "text_large": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Large text. Stoneware thrown in small batches, glazed in three quiet colours and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body text with a <a href=\"/collections/all\" title=\"All products\">text link</a>. Every piece is fired twice, the second time to 1,240 °C, which makes it dense, durable and safe for the dishwasher.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_small": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Small text. Sizes and weights vary slightly from piece to piece.</p>",
+            "size": "text-small",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_muted": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Secondary text color, used for prices, captions and notes.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": true
+          }
+        },
+        "label_buttons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Buttons and links</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "buttons": {
+          "type": "group",
+          "settings": {
+            "layout_direction": "group--horizontal",
+            "alignment": "flex-start",
+            "gap": "space-4",
+            "padding": "none"
+          },
+          "blocks": {
+            "primary": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "primary"
+              }
+            },
+            "secondary": {
+              "type": "button",
+              "settings": {
+                "label": "Learn more",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "secondary"
+              }
+            },
+            "link": {
+              "type": "button",
+              "settings": {
+                "label": "Read our story",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "link"
+              }
+            }
+          },
+          "block_order": ["primary", "secondary", "link"]
+        },
+        "label_cards": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Product cards</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "cards": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "product_cards",
+            "products": ["stoneware-mug", "cereal-bowl", "bud-vase"]
+          }
+        },
+        "label_controls": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Form controls</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "controls": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "controls",
+            "products": []
+          }
+        },
+        "label_icons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Icons</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "icons": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "icons",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "display",
+        "heading_1",
+        "heading_2",
+        "heading_3",
+        "heading_4",
+        "text_large",
+        "text_body",
+        "text_small",
+        "text_muted",
+        "label_buttons",
+        "buttons",
+        "label_cards",
+        "cards",
+        "label_controls",
+        "controls",
+        "label_icons",
+        "icons"
+      ],
+      "settings": {
+        "color_scheme": "scheme-surface",
+        "content_width": "wide",
+        "alignment": "flex-start",
+        "padding": "space-6"
+      }
+    },
+    "scheme_inverse": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Color scheme</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "display": {
+          "type": "heading",
+          "settings": {
+            "heading": "Inverse",
+            "tag": "h2",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 1: thrown, trimmed and glazed",
+            "tag": "h3",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "heading_2": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 2: made in small batches",
+            "tag": "h3",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 3: three quiet glazes",
+            "tag": "h3",
+            "size": "h3",
+            "alignment": "left"
+          }
+        },
+        "heading_4": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 4: care and use",
+            "tag": "h3",
+            "size": "h4",
+            "alignment": "left"
+          }
+        },
+        "text_large": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Large text. Stoneware thrown in small batches, glazed in three quiet colours and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body text with a <a href=\"/collections/all\" title=\"All products\">text link</a>. Every piece is fired twice, the second time to 1,240 °C, which makes it dense, durable and safe for the dishwasher.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_small": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Small text. Sizes and weights vary slightly from piece to piece.</p>",
+            "size": "text-small",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_muted": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Secondary text color, used for prices, captions and notes.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": true
+          }
+        },
+        "label_buttons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Buttons and links</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "buttons": {
+          "type": "group",
+          "settings": {
+            "layout_direction": "group--horizontal",
+            "alignment": "flex-start",
+            "gap": "space-4",
+            "padding": "none"
+          },
+          "blocks": {
+            "primary": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "primary"
+              }
+            },
+            "secondary": {
+              "type": "button",
+              "settings": {
+                "label": "Learn more",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "secondary"
+              }
+            },
+            "link": {
+              "type": "button",
+              "settings": {
+                "label": "Read our story",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "link"
+              }
+            }
+          },
+          "block_order": ["primary", "secondary", "link"]
+        },
+        "label_controls": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Form controls</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "controls": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "controls",
+            "products": []
+          }
+        },
+        "label_icons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Icons</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "icons": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "icons",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "display",
+        "heading_1",
+        "heading_2",
+        "heading_3",
+        "heading_4",
+        "text_large",
+        "text_body",
+        "text_small",
+        "text_muted",
+        "label_buttons",
+        "buttons",
+        "label_controls",
+        "controls",
+        "label_icons",
+        "icons"
+      ],
+      "settings": {
+        "color_scheme": "scheme-inverse",
+        "content_width": "wide",
+        "alignment": "flex-start",
+        "padding": "space-6"
+      }
+    },
+    "scheme_accent": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Color scheme</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "display": {
+          "type": "heading",
+          "settings": {
+            "heading": "Accent",
+            "tag": "h2",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 1: thrown, trimmed and glazed",
+            "tag": "h3",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "heading_2": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 2: made in small batches",
+            "tag": "h3",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 3: three quiet glazes",
+            "tag": "h3",
+            "size": "h3",
+            "alignment": "left"
+          }
+        },
+        "heading_4": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heading 4: care and use",
+            "tag": "h3",
+            "size": "h4",
+            "alignment": "left"
+          }
+        },
+        "text_large": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Large text. Stoneware thrown in small batches, glazed in three quiet colours and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body text with a <a href=\"/collections/all\" title=\"All products\">text link</a>. Every piece is fired twice, the second time to 1,240 °C, which makes it dense, durable and safe for the dishwasher.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_small": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Small text. Sizes and weights vary slightly from piece to piece.</p>",
+            "size": "text-small",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "text_muted": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Secondary text color, used for prices, captions and notes.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": true
+          }
+        },
+        "label_buttons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Buttons and links</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "buttons": {
+          "type": "group",
+          "settings": {
+            "layout_direction": "group--horizontal",
+            "alignment": "flex-start",
+            "gap": "space-4",
+            "padding": "none"
+          },
+          "blocks": {
+            "primary": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "primary"
+              }
+            },
+            "secondary": {
+              "type": "button",
+              "settings": {
+                "label": "Learn more",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "secondary"
+              }
+            },
+            "link": {
+              "type": "button",
+              "settings": {
+                "label": "Read our story",
+                "link": "shopify://collections/all",
+                "new_tab": false,
+                "style": "link"
+              }
+            }
+          },
+          "block_order": ["primary", "secondary", "link"]
+        },
+        "label_controls": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Form controls</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "controls": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "controls",
+            "products": []
+          }
+        },
+        "label_icons": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Icons</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "icons": {
+          "type": "_styleguide-specimen",
+          "settings": {
+            "kind": "icons",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "display",
+        "heading_1",
+        "heading_2",
+        "heading_3",
+        "heading_4",
+        "text_large",
+        "text_body",
+        "text_small",
+        "text_muted",
+        "label_buttons",
+        "buttons",
+        "label_controls",
+        "controls",
+        "label_icons",
+        "icons"
+      ],
+      "settings": {
+        "color_scheme": "scheme-accent",
+        "content_width": "wide",
+        "alignment": "flex-start",
+        "padding": "space-6"
+      }
+    }
+  },
+  "order": ["main", "scheme_base", "scheme_surface", "scheme_inverse", "scheme_accent"]
+}

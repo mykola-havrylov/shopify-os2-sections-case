@@ -23,7 +23,8 @@
     "remove": "Remove"
   },
   "collections": {
-    "title": "Collections"
+    "title": "Collections",
+    "sort_by": "Sort by"
   },
   "customers": {
     "login": {
@@ -32,6 +33,9 @@
       "submit": "Sign in",
       "title": "Login"
     }
+  },
+  "general": {
+    "email": "Email"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
@@ -45,11 +49,21 @@
     "password": "Password",
     "enter": "Enter"
   },
+  "products": {
+    "sold_out": "Sold out",
+    "price_from": "From {{ price }}",
+    "quantity": "Quantity",
+    "decrease_quantity": "Decrease quantity",
+    "increase_quantity": "Increase quantity"
+  },
   "search": {
     "title": "Search",
     "placeholder": "Search articles, pages, or products",
     "submit": "Search",
     "no_results_html": "No results found for {{ terms }}",
     "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "styleguide": {
+    "product_title": "Product title"
   }
 }

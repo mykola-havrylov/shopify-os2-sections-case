@@ -52,6 +52,9 @@
     "text": {
       "name": "Text",
       "default": "<p>Stoneware thrown in small batches, glazed in three quiet colours and made to be used.</p>"
+    },
+    "styleguide_specimen": {
+      "name": "Style guide specimen"
     }
   },
   "labels": {
@@ -64,7 +67,10 @@
     "button": "Button",
     "button_label": "Button label",
     "button_text": "Label",
+    "color_scheme": "Color scheme",
+    "content_width": "Content width",
     "corner_radius": "Corner radius",
+    "customer_account_menu": "Customer account menu",
     "foreground": "Text",
     "gap": "Gap",
     "grid_gap": "Grid spacing",
@@ -77,26 +83,33 @@
     "link": "Link",
     "max_width": "Maximum width",
     "menu": "Menu",
-    "customer_account_menu": "Customer account menu",
     "muted": "Secondary text",
     "muted_text": "Use secondary text color",
     "new_tab": "Open link in a new tab",
     "padding": "Padding",
     "page_margin": "Page margin",
     "page_width": "Page width",
+    "products": "Products",
     "secondary_button_label": "Secondary button",
     "section_spacing": "Section spacing",
     "show_payment_icons": "Show payment icons",
     "size": "Size",
+    "specimen": "Specimen",
     "style": "Style",
-    "text": "Text"
+    "surface": "Surface",
+    "text": "Text",
+    "vertical_padding": "Vertical padding"
   },
   "info": {
     "animations": "Animations are always turned off for visitors who ask for reduced motion.",
     "corner_radius": "Applies to buttons, inputs and cards.",
     "heading_level": "Use one H1 per page. The level is for screen readers and search engines; the size setting controls the look.",
     "muted": "Used for prices, captions and other secondary text. Keep a contrast of at least 4.5:1 with the background.",
-    "section_spacing": "Vertical space between sections."
+    "muted_text": "Eyebrow text always uses the secondary text color.",
+    "section_alignment": "Positions the content column and the blocks in it. Text alignment inside heading and text blocks is set on each block.",
+    "section_spacing": "Vertical space between sections.",
+    "surface": "Background behind images and image placeholders.",
+    "vertical_padding": "Section spacing matches the space other sections use. Use a larger step when the section has its own background color."
   },
   "options": {
     "alignment": {
@@ -106,7 +119,13 @@
     },
     "button_style": {
       "primary": "Primary",
-      "secondary": "Secondary"
+      "secondary": "Secondary",
+      "link": "Link with arrow"
+    },
+    "content_width": {
+      "narrow": "Narrow",
+      "normal": "Normal",
+      "wide": "Wide"
     },
     "direction": {
       "horizontal": "Horizontal",
@@ -132,10 +151,34 @@
       "large": "Large",
       "small": "Small"
     },
+    "spacing": {
+      "none": "None",
+      "space_1": "4 px",
+      "space_2": "8 px",
+      "space_3": "16 px",
+      "space_4": "24 px",
+      "space_5": "40 px",
+      "space_6": "64 px",
+      "space_7": "96 px"
+    },
+    "specimen": {
+      "product_cards": "Product cards",
+      "controls": "Form controls",
+      "icons": "Icons"
+    },
     "text_size": {
+      "eyebrow": "Eyebrow",
       "small": "Small",
       "body": "Body",
       "large": "Large"
+    },
+    "vertical_padding": {
+      "section": "Section spacing"
+    }
+  },
+  "sections": {
+    "rich_text": {
+      "name": "Rich text"
     }
   }
 }

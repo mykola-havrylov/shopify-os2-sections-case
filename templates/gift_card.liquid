@@ -1,15 +1,15 @@
+{%- comment -%}
+  Gift card page, rendered without a layout: card image, code, balance, expiry and Apple Wallet link.
+{%- endcomment -%}
 {% layout none %}
 
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
 
-    {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
 
-    {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
     {% style %}

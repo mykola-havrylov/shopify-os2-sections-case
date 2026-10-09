@@ -51,7 +51,9 @@
       --color-foreground: {{ scheme.settings.foreground }};
       --color-muted: {{ scheme.settings.muted }};
       --color-border: {{ scheme.settings.border }};
+      --color-surface: {{ scheme.settings.surface }};
       --color-button: {{ scheme.settings.button }};
+      --color-button-hover: {{ scheme.settings.button | color_darken: 8 }};
       --color-button-label: {{ scheme.settings.button_label }};
       --color-secondary-button-label: {{ scheme.settings.secondary_button_label }};
     }

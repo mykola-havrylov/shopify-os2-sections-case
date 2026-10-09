@@ -2,54 +2,36 @@
 
 ## Skeleton theme
 
-|             |                                                                                |
-| ----------- | ------------------------------------------------------------------------------ |
-| Source      | https://github.com/Shopify/skeleton-theme                                      |
-| Commit      | `a4f32d3` ("Merge pull request #77 from Shopify/jb-add-customer-account-menu") |
-| Commit date | 2026-02-26                                                                     |
-| Imported    | 2026-10-08                                                                     |
-| Licence     | Shopify theme licence, [LICENSE.md](../LICENSE.md) (kept verbatim)             |
+|         |                                                    |
+| ------- | -------------------------------------------------- |
+| Source  | https://github.com/Shopify/skeleton-theme          |
+| Commit  | `a4f32d3` (2026-02-26)                             |
+| Licence | Shopify theme licence, [LICENSE.md](../LICENSE.md) |
 
-The licence in `LICENSE.md` is an MIT-style grant limited to developing themes that integrate or interoperate with
-Shopify. Skeleton's README shows an "MIT" badge, but `LICENSE.md` is the document that governs. Skeleton-derived files,
-including modified ones, stay under `LICENSE.md`; the plain MIT [LICENSE](../LICENSE) covers only original work.
+The licence is an MIT-style grant limited to themes that integrate or interoperate with Shopify. The files below are
+derived from Skeleton, most of them modified, and stay under `LICENSE.md`. Everything else in the repository is
+original work under [LICENSE](../LICENSE).
 
-### Changes to Skeleton files
-
-| File                             | Change                                                                                                           |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `.github/workflows/cla.yml`      | Removed (Skeleton's contributor licence agreement workflow).                                                     |
-| `.github/workflows/ci.yml`       | Replaced with this project's CI.                                                                                 |
-| `CODE_OF_CONDUCT.md`             | Removed.                                                                                                         |
-| `CONTRIBUTING.md`                | Removed.                                                                                                         |
-| `.shopifyignore`                 | Removed.                                                                                                         |
-| `README.md`                      | Replaced.                                                                                                        |
-| `.gitignore`                     | Replaced.                                                                                                        |
-| `assets/shoppy-x-ray.svg`        | Removed.                                                                                                         |
-| `sections/hello-world.liquid`    | Removed.                                                                                                         |
-| `sections/custom-section.liquid` | Removed.                                                                                                         |
-| `templates/index.json`           | Demo section reference removed; template has no sections.                                                        |
-| `config/settings_schema.json`    | Rewritten: theme info, two fonts, color schemes with surface, spacing, radius, animations.                       |
-| `config/settings_data.json`      | Four color schemes added, each with a surface color.                                                             |
-| `snippets/css-variables.liquid`  | Rewritten for the new settings, color scheme classes and derived button hover.                                   |
-| `snippets/image.liquid`          | Extended: `srcset` widths, `sizes`, loading, fetch priority, alt, ratio tokens, placeholder, surface background. |
-| `layout/theme.liquid`            | Font preloading uses the body and heading font settings; loads `components.css`.                                 |
-| `assets/critical.css`            | Design tokens, base typography, buttons, focus ring, reduced motion and section spacing added.                   |
-| `blocks/text.liquid`             | Rewritten as a rich text block with size (including eyebrow), width, alignment and muted options.                |
-| `blocks/group.liquid`            | Rewritten: gap and padding from the spacing scale, wrapping rows, specific child block types, new presets.       |
-| `locales/en.default.json`        | Strings for accessibility, product, collection and style guide UI added.                                         |
-| `locales/en.default.schema.json` | Labels for the new settings and blocks; unused keys removed.                                                     |
-| All other imported theme files   | Reformatted with Prettier; no functional change.                                                                 |
+| Folder       | Files derived from Skeleton                                                                                                                                                      |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `assets/`    | `critical.css`, `icon-account.svg`, `icon-cart.svg`                                                                                                                              |
+| `blocks/`    | `group.liquid`, `text.liquid`                                                                                                                                                    |
+| `config/`    | `settings_schema.json`, `settings_data.json`                                                                                                                                     |
+| `layout/`    | `theme.liquid`, `password.liquid`                                                                                                                                                |
+| `locales/`   | `en.default.json`, `en.default.schema.json`                                                                                                                                      |
+| `sections/`  | `404`, `article`, `blog`, `cart`, `collection`, `collections`, `footer`, `header`, `page`, `password`, `product`, `search` (`.liquid`); `footer-group.json`, `header-group.json` |
+| `snippets/`  | `css-variables.liquid`, `image.liquid`, `meta-tags.liquid`                                                                                                                       |
+| `templates/` | All `.json` templates except `page.styleguide.json`; `gift_card.liquid`                                                                                                          |
+| Root         | `.gitattributes`, `.theme-check.yml`                                                                                                                                             |
 
 ## Lucide icons
 
-|          |                                                                       |
-| -------- | --------------------------------------------------------------------- |
-| Source   | https://lucide.dev, package `lucide-static`                           |
-| Version  | 1.54.0                                                                |
-| Imported | 2026-10-09                                                            |
-| Licence  | ISC (Lucide); MIT (Feather) for the icons Lucide derives from Feather |
-| Used in  | `snippets/icon.liquid`                                                |
+|         |                                                                       |
+| ------- | --------------------------------------------------------------------- |
+| Source  | https://lucide.dev, package `lucide-static`                           |
+| Version | 1.54.0                                                                |
+| Licence | ISC (Lucide); MIT (Feather) for the icons Lucide derives from Feather |
+| Used in | `snippets/icon.liquid`                                                |
 
 | Theme name     | Lucide icon    | Licence      |
 | -------------- | -------------- | ------------ |
@@ -65,9 +47,6 @@ including modified ones, stay under `LICENSE.md`; the plain MIT [LICENSE](../LIC
 | `leaf`         | `leaf`         | ISC          |
 | `package`      | `package`      | ISC          |
 | `refresh`      | `refresh-cw`   | ISC          |
-
-Changes: the path data is copied unchanged; the `svg` attributes are rewritten for the theme (`aria-hidden`,
-`focusable`, a class per icon) and the stroke width comes from `--icon-stroke-width` (1.5 instead of 2).
 
 ### ISC License (Lucide)
 

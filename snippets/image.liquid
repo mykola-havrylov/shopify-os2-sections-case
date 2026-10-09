@@ -1,16 +1,8 @@
 {% doc %}
-  Renders a responsive image, optionally wrapped in a link.
-
-  The image gets a `srcset` from `widths` and the browser picks a file using `sizes`, so `sizes` should describe
-  the rendered width of the image in the layout. `width` and `height` attributes are always output, so the
-  browser reserves space and the image causes no layout shift.
-
-  Only the real LCP image of a page gets `loading: 'eager'` and `fetchpriority: 'high'`.
-
-  The wrapper has the color scheme's surface color as its background and the global corner radius. With `ratio` or
-  `aspect_ratio` the image is cropped to that proportion with CSS (`aspect-ratio` + `object-fit: cover`); the crop
-  follows the focal point set in the admin, which `image_tag` outputs as `object-position`. Full-bleed images reset the
-  radius with their own class. When `image` is blank, a placeholder illustration is rendered in the same frame.
+  Renders a responsive image with `srcset`, `sizes` and `width`/`height` attributes, optionally wrapped in a link and
+  cropped to a ratio with CSS (the crop follows the admin focal point). The frame has the scheme's surface color and the
+  global radius; a blank image renders a placeholder. Only the page's LCP image gets `loading: 'eager'` and
+  `fetchpriority: 'high'`.
 
   @param {image} image - The image to render
   @param {string} [url] - Wraps the image in a link to this URL

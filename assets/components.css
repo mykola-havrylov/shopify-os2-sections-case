@@ -1,9 +1,5 @@
-/**
- * Shared component styles used by more than one section: link with arrow, divider, form controls, badge and product
- * card. Values come from the tokens in critical.css and snippets/css-variables.liquid.
- */
+/* Shared component styles: link with arrow, divider, form controls, badge, product card. */
 
-/** Link with arrow */
 .link-arrow {
   display: inline-flex;
   align-items: center;
@@ -25,7 +21,6 @@
   opacity: 0.5;
 }
 
-/** Divider */
 .divider {
   width: 100%;
   height: 0;
@@ -33,7 +28,6 @@
   border-block-start: 1px solid var(--color-border);
 }
 
-/** Form controls: the boundary uses the secondary text color, so it keeps a 3:1 contrast in every scheme. */
 .field {
   display: flex;
   flex-direction: column;
@@ -118,7 +112,6 @@
   appearance: none;
 }
 
-/** Badge: only for "Sold out". */
 .badge {
   display: inline-block;
   padding: var(--space-1) var(--space-2);
@@ -131,10 +124,6 @@
   text-transform: uppercase;
 }
 
-/**
- * Product card: 4:5 image on the surface color, title and price under it. The title link covers the whole card; on
- * hover the image zooms inside its frame and the title is underlined, so nothing moves the layout.
- */
 .product-card {
   position: relative;
   display: flex;
@@ -162,7 +151,6 @@
   gap: var(--space-1);
 }
 
-/* Card titles are small, so they use the body font (see the h4 rule in critical.css). */
 .product-card__title {
   font-family: var(--font-body--family);
   font-style: var(--font-body--style);

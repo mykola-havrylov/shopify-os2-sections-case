@@ -1,3 +1,7 @@
+{% comment %}
+  Store header: shop name, main menu, customer account and cart links.
+{% endcomment %}
+
 <header>
   <h2 class="header__title">
     {{ shop.name | link_to: routes.root_url }}

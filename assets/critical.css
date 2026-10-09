@@ -1,6 +1,5 @@
-/** Critical CSS for the theme. This file is included on every page. */
+/* Base styles, design tokens, typography, buttons and section layout; loaded on every page. */
 
-/* Reset styles inspired by https://www.joshwcomeau.com/css/custom-css-reset/ */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -71,15 +70,7 @@ p:empty {
   margin-block-end: 0;
 }
 
-/** Theme styles below */
-
-/**
- * Design tokens that are not theme settings. Settings-driven tokens (fonts, colors, page width, section spacing,
- * radius, motion) come from snippets/css-variables.liquid. Breakpoint: 750px (custom properties can't be used in
- * media queries, so it is repeated where needed).
- */
 :root {
-  /* Spacing scale: gaps, paddings and section padding choose a step instead of a free value. */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
@@ -88,11 +79,9 @@ p:empty {
   --space-6: 4rem;
   --space-7: 6rem;
 
-  /* Line length for running text. */
   --text-measure: 65ch;
   --text-measure-narrow: 45ch;
 
-  /* Gap between columns and rows of card grids. */
   --grid-gutter: var(--space-3);
 
   --line-height-tight: 1.15;
@@ -101,12 +90,10 @@ p:empty {
   --letter-spacing-tight: -0.01em;
   --letter-spacing-caps: 0.08em;
 
-  /* Media proportions. The hero follows its images: 4:5 on mobile, 16:9 from 750px. */
   --ratio-product: 4 / 5;
   --ratio-tile: 4 / 5;
   --ratio-hero: 4 / 5;
 
-  /* Minimum height of buttons and form controls (44px touch target). */
   --control-height: 2.75rem;
 
   --icon-stroke-width: 1.5;
@@ -127,7 +114,6 @@ body {
   line-height: var(--line-height-body);
 }
 
-/* Color schemes: the variables come from snippets/css-variables.liquid. */
 body,
 [class^='color-scheme-'],
 [class*=' color-scheme-'] {
@@ -135,7 +121,6 @@ body,
   color: var(--color-foreground);
 }
 
-/** Typography */
 h1,
 h2,
 h3,
@@ -172,7 +157,6 @@ h3,
   font-size: calc(clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem) * var(--font-heading--scale));
 }
 
-/* Below h3 the heading font's small x-height reads poorly, so the smallest heading uses the body font. */
 h4,
 .h4 {
   font-family: var(--font-body--family);
@@ -195,7 +179,6 @@ h4,
   color: var(--color-muted);
 }
 
-/* Small uppercase label above a heading. */
 .text-eyebrow {
   color: var(--color-muted);
   font-size: 0.8125em;
@@ -210,7 +193,6 @@ a {
   text-underline-offset: 0.2em;
 }
 
-/** Buttons */
 .button {
   display: inline-flex;
   align-items: center;
@@ -255,7 +237,6 @@ a {
   cursor: not-allowed;
 }
 
-/** Accessibility */
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--color-foreground);
   outline-offset: var(--focus-ring-offset);
@@ -288,42 +269,25 @@ a {
   }
 }
 
-/** Section layout utilities */
-
-/**
- * Setup a grid that enables both full-width and constrained layouts
- * depending on the class of the child elements.
- *
- * By default, a minimum content margin is set on the left and right
- * sides of the section and the content is centered in the viewport to
- * not exceed the maximum page width.
- *
- * When a child element is given the `full-width` class, it will span
- * the entire viewport.
- */
 .shopify-section {
   --content-width: min(calc(var(--page-width) - var(--page-margin) * 2), calc(100% - var(--page-margin) * 2));
   --content-margin: minmax(var(--page-margin), 1fr);
   --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
 
-  /* This is required to make <img> elements work as background images */
   position: relative;
   grid-template-columns: var(--content-grid);
   display: grid;
   width: 100%;
 }
 
-/* Child elements, by default, are constrained to the central column of the grid. */
 .shopify-section > * {
   grid-column: 2;
 }
 
-/* Child elements that use the full-width utility class span the entire viewport. */
 .shopify-section > .full-width {
   grid-column: 1 / -1;
 }
 
-/* Vertical rhythm between sections, set by the "Section spacing" theme setting. */
 .section-spacing {
   padding-block: calc(var(--section-spacing) / 2);
 }

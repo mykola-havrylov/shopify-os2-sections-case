@@ -1,14 +1,9 @@
 {% doc %}
-  Renders a line icon as inline SVG. Icons are decorative (`aria-hidden="true"`, `focusable="false"`): the control or
-  text next to the icon carries the accessible name. The stroke uses `currentColor`, so the icon takes the text color
-  of its parent; the size is `1.25em` by default and is set with CSS on `.icon` or `.icon--<name>`.
+  Renders a decorative line icon as inline SVG (`aria-hidden`, `currentColor` stroke, 1.25em by default).
+  Names: cart, account, close, minus, plus, arrow-right, chevron-down, hand, flame, leaf, package, refresh.
 
-  Names: `cart`, `account`, `close`, `minus`, `plus`, `arrow-right`, `chevron-down`, `hand`, `flame`, `leaf`,
-  `package`, `refresh`. An unknown name renders nothing.
-
-  Paths from Lucide v1.54.0 (ISC, Copyright (c) 2026 Lucide Icons and Contributors); `cart`, `close`, `minus`, `plus`,
-  `arrow-right` and `chevron-down` are derived from Feather (MIT, Copyright (c) 2013-present Cole Bemis). Full notices
-  in docs/third-party-assets.md.
+  Lucide v1.54.0, ISC, Copyright (c) 2026 Lucide Icons and Contributors; cart, close, minus, plus, arrow-right and
+  chevron-down derived from Feather, MIT, Copyright (c) 2013-present Cole Bemis. See docs/third-party-assets.md.
 
   @param {string} name - Icon name
   @param {string} [class] - Extra class for the `svg` element

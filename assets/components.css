@@ -1,4 +1,4 @@
-/* Shared component styles: link with arrow, divider, form controls, badge, product card. */
+/* Shared component styles: link with arrow, divider, form controls, badge, price, product card. */
 
 .link-arrow {
   display: inline-flex;
@@ -112,6 +112,16 @@
   appearance: none;
 }
 
+@media (scripting: none) {
+  .quantity__button {
+    display: none;
+  }
+
+  .quantity__input {
+    width: 8ch;
+  }
+}
+
 .badge {
   display: inline-block;
   padding: var(--space-1) var(--space-2);
@@ -122,6 +132,11 @@
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-caps);
   text-transform: uppercase;
+}
+
+.price__compare {
+  margin-inline-start: var(--space-2);
+  color: var(--color-muted);
 }
 
 .product-card {

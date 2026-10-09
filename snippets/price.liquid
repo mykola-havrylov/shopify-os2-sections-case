@@ -1,39 +1,45 @@
 {% doc %}
-  Renders a product price: "From" the lowest price when variant prices differ, and the compare-at price struck through
-  when it is higher than the price. Screen readers get "Sale price" and "Regular price" labels.
+  Renders a price. For a product: "From" the lowest price when variant prices differ. For a variant, or a product with
+  one price: the price, and the compare-at price struck through when it is higher. Screen readers get "Sale price" and
+  "Regular price" labels.
 
-  @param {product} product - The product
+  @param {product} [product] - The product; used when `variant` is not set
+  @param {variant} [variant] - The variant, for the product page
   @param {string} [class] - Extra class for the wrapper
 
   @example
   {% render 'price', product: product, class: 'product-card__price' %}
+  {% render 'price', variant: product.selected_or_first_available_variant %}
 {% enddoc %}
 
 {%- liquid
-  assign price = product.price | money
+  if variant
+    assign price_amount = variant.price
+    assign compare_amount = variant.compare_at_price
+    assign varies = false
+  else
+    assign price_amount = product.price
+    assign compare_amount = product.compare_at_price
+    assign varies = product.price_varies
+  endif
+
+  assign price = price_amount | money
   assign on_sale = false
-  if product.compare_at_price > product.price
+  if compare_amount > price_amount
     assign on_sale = true
   endif
 -%}
 
 <p class="price {{ class }}">
-  {%- if product.price_varies -%}
+  {%- if varies -%}
     {%- assign price_min = product.price_min | money -%}
     {{ 'products.price_from' | t: price: price_min }}
   {%- elsif on_sale -%}
     <span class="visually-hidden">{{ 'products.sale_price' | t }}</span>
     {{ price }}
     <span class="visually-hidden">{{ 'products.regular_price' | t }}</span>
-    <s class="price__compare">{{ product.compare_at_price | money }}</s>
+    <s class="price__compare">{{ compare_amount | money }}</s>
   {%- else -%}
     {{ price }}
   {%- endif -%}
 </p>
-
-{% stylesheet %}
-  .price__compare {
-    margin-inline-start: var(--space-2);
-    color: var(--color-muted);
-  }
-{% endstylesheet %}

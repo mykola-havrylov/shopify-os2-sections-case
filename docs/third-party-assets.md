@@ -12,17 +12,17 @@ The licence is an MIT-style grant limited to themes that integrate or interopera
 derived from Skeleton, most of them modified, and stay under `LICENSE.md`. Everything else in the repository is
 original work under [LICENSE](../LICENSE).
 
-| Folder       | Files derived from Skeleton                                                                                                                    |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assets/`    | `critical.css`                                                                                                                                 |
-| `blocks/`    | `group.liquid`, `text.liquid`                                                                                                                  |
-| `config/`    | `settings_schema.json`, `settings_data.json`                                                                                                   |
-| `layout/`    | `theme.liquid`, `password.liquid`                                                                                                              |
-| `locales/`   | `en.default.json`, `en.default.schema.json`                                                                                                    |
-| `sections/`  | `404`, `article`, `blog`, `cart`, `collections`, `page`, `password`, `product`, `search` (`.liquid`); `footer-group.json`, `header-group.json` |
-| `snippets/`  | `css-variables.liquid`, `image.liquid`, `meta-tags.liquid`                                                                                     |
-| `templates/` | All `.json` templates except `page.styleguide.json`; `gift_card.liquid`                                                                        |
-| Root         | `.gitattributes`, `.theme-check.yml`                                                                                                           |
+| Folder       | Files derived from Skeleton                                                                                                 |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `assets/`    | `critical.css`                                                                                                              |
+| `blocks/`    | `group.liquid`, `text.liquid`                                                                                               |
+| `config/`    | `settings_schema.json`, `settings_data.json`                                                                                |
+| `layout/`    | `theme.liquid`, `password.liquid`                                                                                           |
+| `locales/`   | `en.default.json`, `en.default.schema.json`                                                                                 |
+| `sections/`  | `404`, `article`, `blog`, `collections`, `page`, `password`, `search` (`.liquid`); `footer-group.json`, `header-group.json` |
+| `snippets/`  | `css-variables.liquid`, `image.liquid`, `meta-tags.liquid`                                                                  |
+| `templates/` | All `.json` templates except `page.styleguide.json`; `gift_card.liquid`                                                     |
+| Root         | `.gitattributes`, `.theme-check.yml`                                                                                        |
 
 ## Lucide icons
 

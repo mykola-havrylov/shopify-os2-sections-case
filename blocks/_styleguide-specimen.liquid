@@ -44,18 +44,11 @@
           </div>
         </div>
 
-        <div class="field">
-          <label class="field__label" for="Quantity-{{ block.id }}">{{ 'products.quantity' | t }}</label>
-          <div class="quantity">
-            <button type="button" class="quantity__button" aria-label="{{ 'products.decrease_quantity' | t }}" disabled>
-              {% render 'icon', name: 'minus' %}
-            </button>
-            <input class="quantity__input" type="number" id="Quantity-{{ block.id }}" name="quantity" value="1" min="1">
-            <button type="button" class="quantity__button" aria-label="{{ 'products.increase_quantity' | t }}">
-              {% render 'icon', name: 'plus' %}
-            </button>
-          </div>
-        </div>
+        {%- liquid
+          assign quantity_id = 'Quantity-' | append: block.id
+          assign quantity_label = 'products.quantity' | t
+        -%}
+        {% render 'quantity-input', id: quantity_id, name: 'quantity', label: quantity_label %}
 
         <hr class="divider">
 

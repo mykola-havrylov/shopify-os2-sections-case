@@ -1,0 +1,312 @@
+{% comment %}
+  Product page: 4:5 media gallery, title, price, variant picker, quantity and the add-to-cart form, then the
+  description. Without JavaScript the variant is a <select name="id">; with variant-picker.js the options are named
+  buttons that update price, availability, the gallery order and the ?variant= URL.
+{% endcomment %}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+
+<div class="main-product section-spacing" id="MainProduct-{{ section.id }}">
+  <div class="main-product__gallery">
+    <ul
+      class="main-product__media-list"
+      role="list"
+      tabindex="0"
+      aria-label="{{ 'products.gallery' | t }}"
+      data-media-list
+    >
+      {%- if featured_media -%}
+        <li data-media-id="{{ featured_media.id }}">
+          {% render 'image',
+            image: featured_media.preview_image,
+            alt: featured_media.alt,
+            ratio: 'product',
+            sizes: '(min-width: 750px) 58vw, 88vw',
+            loading: 'eager',
+            fetchpriority: 'high'
+          %}
+        </li>
+      {%- endif -%}
+      {%- for media in product.media -%}
+        {%- unless media.id == featured_media.id -%}
+          <li data-media-id="{{ media.id }}">
+            {% render 'image',
+              image: media.preview_image,
+              alt: media.alt,
+              ratio: 'product',
+              sizes: '(min-width: 750px) 58vw, 88vw'
+            %}
+          </li>
+        {%- endunless -%}
+      {%- else -%}
+        <li>{% render 'image', image: blank, ratio: 'product', placeholder: 'product-1' %}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+
+  <div class="main-product__info">
+    <h1 class="h2">{{ product.title | escape }}</h1>
+
+    <div data-price aria-live="polite">
+      {% render 'price', variant: current_variant, class: 'main-product__price' %}
+    </div>
+
+    {%- unless product.has_only_default_variant -%}
+      <variant-picker class="variant-picker" data-section="{{ section.id }}">
+        <div class="field variant-picker__select">
+          <label class="field__label" for="Variant-{{ section.id }}">{{ 'products.options' | t }}</label>
+          <div class="select">
+            <select id="Variant-{{ section.id }}" name="id" form="{{ form_id }}">
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant.id == current_variant.id %}
+                    selected
+                  {% endif %}
+                  {% unless variant.available %}
+                    disabled
+                  {% endunless %}
+                >
+                  {{ variant.title | escape }}
+                  {%- unless variant.available %} — {{ 'products.sold_out' | t }}{% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon', name: 'chevron-down' %}
+          </div>
+        </div>
+
+        {%- for option in product.options_with_values -%}
+          <fieldset class="variant-picker__option">
+            <legend class="field__label">
+              {{ option.name | escape }}: <span data-option-label>{{ option.selected_value | escape }}</span>
+            </legend>
+            <div class="variant-picker__values">
+              {%- for value in option.values -%}
+                {%- assign input_id = 'Option-'
+                  | append: section.id
+                  | append: '-'
+                  | append: option.position
+                  | append: '-'
+                  | append: forloop.index
+                -%}
+                <input
+                  class="visually-hidden"
+                  type="radio"
+                  id="{{ input_id }}"
+                  name="Option-{{ section.id }}-{{ option.position }}"
+                  value="{{ value | escape }}"
+                  {% if value.selected %}
+                    checked
+                  {% endif %}
+                >
+                <label
+                  class="variant-picker__value{% unless value.available %} variant-picker__value--unavailable{% endunless %}"
+                  for="{{ input_id }}"
+                >
+                  {{- value | escape -}}
+                  {%- unless value.available -%}
+                    <span class="visually-hidden">, {{ 'products.sold_out' | t }}</span>
+                  {%- endunless -%}
+                </label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endfor -%}
+
+        <script type="application/json" data-variants>
+          [
+            {%- for variant in product.variants -%}
+              {%- capture price_html -%}{% render 'price', variant: variant, class: 'main-product__price' %}{%- endcapture -%}
+              {
+                "id": {{ variant.id }},
+                "options": {{ variant.options | json }},
+                "available": {{ variant.available | json }},
+                "media": {{ variant.featured_media.id | json }},
+                "price": {{ price_html | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        </script>
+      </variant-picker>
+    {%- endunless -%}
+
+    {%- form 'product', product, id: form_id, class: 'main-product__form' -%}
+      {%- if product.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {%- endif -%}
+
+      {%- liquid
+        assign quantity_id = 'Quantity-' | append: section.id
+        assign quantity_label = 'products.quantity' | t
+      -%}
+      {% render 'quantity-input', id: quantity_id, name: 'quantity', label: quantity_label %}
+
+      <button
+        type="submit"
+        name="add"
+        class="button main-product__add"
+        data-add-label="{{ 'products.add_to_cart' | t }}"
+        data-sold-out-label="{{ 'products.sold_out' | t }}"
+        data-unavailable-label="{{ 'products.unavailable' | t }}"
+        {% unless current_variant.available %}
+          disabled
+        {% endunless %}
+      >
+        {%- if current_variant.available -%}
+          {{ 'products.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.sold_out' | t }}
+        {%- endif -%}
+      </button>
+    {%- endform -%}
+
+    {%- if product.description != blank -%}
+      <div class="main-product__description">{{ product.description }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script src="{{ 'variant-picker.js' | asset_url }}" type="module"></script>
+
+{% stylesheet %}
+  .main-product {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .main-product__media-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    gap: var(--space-2);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .main-product__media-list > li {
+    scroll-snap-align: start;
+  }
+
+  .main-product__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .main-product__price {
+    font-size: 1.125em;
+  }
+
+  .main-product__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .main-product__add {
+    width: 100%;
+  }
+
+  .main-product__description {
+    max-width: var(--text-measure);
+  }
+
+  .main-product__description > * + * {
+    margin-block-start: 0.75em;
+  }
+
+  .variant-picker__option {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .variant-picker__option .field__label {
+    margin-block-end: var(--space-2);
+    padding: 0;
+  }
+
+  .variant-picker__values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .variant-picker__value {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-height);
+    padding-inline: var(--space-4);
+    border: 1px solid var(--color-muted);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition:
+      background-color var(--motion-duration) var(--motion-easing),
+      color var(--motion-duration) var(--motion-easing);
+  }
+
+  .variant-picker__value--unavailable {
+    color: var(--color-muted);
+    text-decoration: line-through;
+  }
+
+  input:checked + .variant-picker__value {
+    border-color: var(--color-foreground);
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  input:focus-visible + .variant-picker__value {
+    outline: var(--focus-ring-width) solid var(--color-foreground);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (scripting: none) {
+    .variant-picker__option {
+      display: none;
+    }
+  }
+
+  @media (scripting: enabled) {
+    .variant-picker__select {
+      display: none;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .main-product {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: start;
+      gap: var(--space-6);
+    }
+
+    .main-product__media-list {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      gap: var(--space-3);
+      overflow: visible;
+    }
+
+    .main-product__info {
+      position: sticky;
+      inset-block-start: var(--space-5);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.main_product.name",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

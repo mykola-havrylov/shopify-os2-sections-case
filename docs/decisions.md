@@ -1,8 +1,10 @@
 # Decisions
 
-## 1. Skeleton at a pinned commit, not Dawn and not Skeleton `main`
+Each entry records a decision that is in force, the reason for it and what follows from it.
 
-Date: 2026-10-08.
+## Foundation
+
+### 1. Skeleton at a pinned commit, not Dawn and not Skeleton `main`
 
 **Decision.** The theme is based on [Shopify/skeleton-theme](https://github.com/Shopify/skeleton-theme) at commit
 `a4f32d3` (2026-02-26), copied into the repository without Skeleton's git history.
@@ -10,17 +12,16 @@ Date: 2026-10-08.
 **Why not Dawn.** Skeleton is the reference theme that Shopify's own tooling starts new themes from
 ([Create a theme](https://shopify.dev/docs/storefronts/themes/getting-started/create): `shopify theme init` clones
 Skeleton). It is minimal, so header, footer, collection, product and cart are written for this project instead of
-replacing existing Dawn components. Its licence terms are the same kind of grant as Dawn's (see
+replacing existing Dawn components. Its licence is the same kind of grant as Dawn's (see
 [third-party-assets.md](third-party-assets.md)).
 
-**Why not Skeleton `main`.** On 2026-10-01 Skeleton `main` moved to a block-first model (commit `a7a655e`, "Port
-rc-v2.0.0 with updated block composition syntax"). That branch has no `sections/` folder and no JSON templates, uses
-`templates/*.liquid` composed with the `{% block %}` tag, and its `AGENTS.md` forbids sections, `{% stylesheet %}` and
-schema presets. `{% block %}` and `{% partial %}` belong to the Liquid July '26 developer preview
-([changelog](https://shopify.dev/changelog/developer-preview-liquid-block-and-partial-tags),
+**Why not Skeleton `main`.** From commit `a7a655e` (2026-10-01) Skeleton `main` is block-first: no `sections/` folder,
+no JSON templates, `templates/*.liquid` composed with the `{% block %}` tag, and an `AGENTS.md` that forbids sections,
+`{% stylesheet %}` and schema presets. `{% block %}` and `{% partial %}` belong to the Liquid July '26 developer
+preview ([changelog](https://shopify.dev/changelog/developer-preview-liquid-block-and-partial-tags),
 [developer preview](https://shopify.dev/docs/storefronts/themes/getting-started/developer-preview)); they are not
-generally available and need a preview-enabled store. This project is about Online Store 2.0: sections, JSON templates,
-theme blocks and Theme Editor control, so the last commit of Skeleton that has them is used.
+generally available and need a preview-enabled store. This project is about Online Store 2.0 — sections, JSON
+templates, theme blocks and Theme Editor control — so it uses the last Skeleton commit that has them.
 
 **Consequences.**
 
@@ -29,26 +30,29 @@ theme blocks and Theme Editor control, so the last commit of Skeleton that has t
   [third-party-assets.md](third-party-assets.md).
 - Liquid preview tags are not used anywhere in the theme.
 
-## 2. Theme Check configuration
+### 2. Theme Check and CI
 
-`.theme-check.yml` is kept as shipped by Skeleton (`extends: theme-check:recommended`). No checks are disabled.
+- `.theme-check.yml` extends `theme-check:recommended` with no checks disabled.
+- CI runs `shopify/theme-check-action@v2` without its optional `token` input. With the token the action also posts a
+  GitHub check run, which in this repository fails with `HttpError: Not Found` before any result is reported. Without
+  it the action runs `shopify theme check` and fails the job on errors; only the check annotations are missing
+  ([action configuration](https://github.com/Shopify/theme-check-action#configuration)).
+- `.shopifyignore` excludes extension-less files and common temporary extensions (`*~`, `*.swp`, `*.tmp`, `*.bak`)
+  from every Shopify CLI command
+  ([Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli#excluding-files-from-shopify-cli)).
+  Editors and tools write such files next to the file they change, and `shopify theme dev` would try to upload them.
+  Every real theme file has an extension.
 
-## 3. Theme Check in CI without the GitHub Checks token
+## Demo catalog
 
-The `shopify/theme-check-action@v2` step runs without its optional `token` input. With `token` set (and
-`checks: write` granted), the action created a check run and then failed with `HttpError: Not Found` while updating it,
-before reporting any Theme Check result. Without `token` the action only runs `shopify theme check` and fails the job on
-errors; the only difference is that no GitHub check annotations are posted. See the action's
-[configuration](https://github.com/Shopify/theme-check-action#configuration).
-
-## 4. Demo catalog without inventory tracking
+### 3. No inventory tracking
 
 `data/products.csv` leaves `Inventory tracker` blank, which means inventory isn't tracked
 ([product CSV reference](https://help.shopify.com/en/manual/products/import-export/using-csv)), and the seed script
 writes the same as `inventoryItem.tracked: false`. Every variant stays purchasable, which the cart states in the
 storefront rely on.
 
-## 5. Catalog loaded through the Admin API
+### 4. Catalog loaded through the Admin API
 
 The demo catalog is created by `scripts/seed-catalog.js` instead of a manual CSV import, so the store can be rebuilt
 from the repository in one command and checked with `npm run catalog:verify`.
@@ -67,125 +71,123 @@ from the repository in one command and checked with `npm run catalog:verify`.
 - Collections: `collectionCreate` with a conditions source (product type or tag), because the `ruleSet` input is
   deprecated in favour of
   [sources](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections/use-new-collections-model).
-- Menus stay manual: the app has no `write_online_store_navigation` scope, and two menus are quicker to make by hand.
+- Menus are created by hand: the app has no `write_online_store_navigation` scope, and two menus are quicker to make in
+  the admin.
 
-## 6. Design tokens
+## Design system
+
+### 5. Design tokens
 
 Global decisions live in theme settings and reach the CSS as custom properties in `snippets/css-variables.liquid`;
-component-specific values stay inside each block's or section's `{% stylesheet %}`.
+values that do not depend on settings live in `assets/critical.css`; component-specific values stay inside each
+block's or section's `{% stylesheet %}`. A value becomes a token only when at least two components use it.
 
-- Colors: a [`color_scheme_group`](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings#color_scheme_group)
-  with four schemes (Base, Surface, Inverse, Accent). Each scheme becomes a `.color-<id>` class, and the first one is
-  also applied to `:root`, so sections only need to add the class of the scheme they use. Every text and button pair in
-  every scheme meets WCAG 2.1 AA (4.5:1 for text, 3:1 for the button against its background); the secondary text color
-  was darkened from `#8A7F73` (3.5:1) to `#6E655C` (5.1:1) to get there.
-- Fonts: two `font_picker` settings from the
-  [Shopify font library](https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts),
-  Cormorant (`cormorant_n6`) for headings and Work Sans (`work_sans_n4`) for text, loaded with `font_face` and
-  `font-display: swap`; only the body font is preloaded. No external font requests.
 - Heading level and heading size are separate settings, so the document outline does not depend on the look.
 - Focus ring and reduced motion are not settings: the ring is always visible on keyboard focus, and
   `prefers-reduced-motion` always turns animations off, whatever the "Animations" setting says.
 
-## 7. Spacing scale instead of free pixel values
+### 6. Color schemes
 
-Date: 2026-10-09.
+- A [`color_scheme_group`](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings#color_scheme_group)
+  with four schemes (Base, Surface, Inverse, Accent). Each scheme becomes a `.color-<id>` class, and the first one also
+  applies to `:root`, so a section only adds the class of the scheme it uses.
+- Every text and button pair in every scheme meets WCAG 2.1 AA (4.5:1 for text, 3:1 for the button fill and control
+  boundaries); the computed table is in [design.md](design.md#contrast). For that reason the secondary text color is
+  `#6E655C` (5.1:1 on Base), not the art direction's lighter `#8A7F73` (3.5:1).
+- Each scheme has a `surface` color, the background behind images and image placeholders. It is per scheme because the
+  Surface scheme's background equals the Base scheme's surface, and a placeholder in its own section's color would be
+  invisible.
+- The primary button hover is `--color-button-hover`, the button color darkened by 8% with the
+  [`color_darken`](https://shopify.dev/docs/api/liquid/filters/color_darken) filter. Mixing the button with the
+  foreground color would give no visible hover in Inverse and Accent, where the two are the same color.
+
+### 7. Typography
+
+- Two `font_picker` settings from the
+  [Shopify font library](https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts):
+  Cormorant (`cormorant_n6`) for headings and Work Sans (`work_sans_n4`) for text, loaded with `font_face` and
+  `font-display: swap`; only the body font is preloaded. No external font requests.
+- `h0`–`h3` use Cormorant. `h4` (18px, bold) and product card titles use Work Sans: Cormorant's small x-height makes
+  text at those sizes look smaller and lighter than the Work Sans next to it (a 16px card title reads no larger than
+  the 14px price under it), and a heavier weight such as `cormorant_n7` does not change the x-height.
+
+### 8. Spacing scale
 
 Spacing is a seven-step rem scale (`--space-1` … `--space-7`: 4, 8, 16, 24, 40, 64, 96px) in `assets/critical.css`.
 The `group` block's gap and padding and the `rich-text` section's vertical padding are `select` settings of these
-steps instead of `range` settings in pixels, so every layout lines up on the same rhythm and a merchant can't pick an
-off-scale value. The scale is not a theme setting: changing it would change every component at once, which is a
-design decision, not a merchant one. The global "Section spacing" setting stays as it was. Only values used by at least
-two components became tokens (spacing, line length, grid gutter, control height, line heights, letter spacings, media
-ratios); everything else stays inside the component's own stylesheet.
+steps, not pixel ranges, so every layout follows the same rhythm and a merchant can't pick an off-scale value. The scale
+is not a theme setting: changing it would change every component at once, which is a design decision, not a merchant
+one. Breakpoints are 750px for layout and 1024px for the header menu.
 
-## 8. Small headings use the body font
+### 9. Line icons from Lucide
 
-Date: 2026-10-09.
+`snippets/icon.liquid` renders the theme's icons as inline SVG, with paths from [Lucide](https://lucide.dev)
+`lucide-static` v1.54.0 (ISC; some icons derive from Feather, MIT). One open set gives a consistent stroke for UI icons
+and themed feature icons; inline SVG with `currentColor` needs no extra request and follows the color scheme. The stroke
+width is 1.5 instead of Lucide's 2, to match the light typography. Licence texts are in
+[third-party-assets.md](third-party-assets.md).
 
-Cormorant was checked in the browser at the sizes used for `h4` (20px) and product card titles (16px). Its small
-x-height makes those sizes look smaller and lighter than the Work Sans text next to them (a 16px card title looked no
-larger than the 14px price under it). A heavier weight from the font library (`cormorant_n7`; the family has
-`n3`–`n7`, see [available fonts](https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts))
-does not change the x-height, so it was not used. Instead `h4`/`.h4` (now 18px) and card titles use the body font:
-`h4` in bold, card titles in regular. `h0`–`h3` keep Cormorant, where it reads well.
+## Sections and pages
 
-## 9. Line icons from Lucide
+### 10. `rich-text` utility section and the style guide
 
-Date: 2026-10-09.
+- `sections/rich-text.liquid` holds headings, text, buttons and groups in one column, in any color scheme. It serves
+  text pages (About) and the style guide and is not one of the showcase sections. It accepts `group`, `heading`,
+  `text` and `button` by explicit type.
+- A text link with an arrow is a style of the `button` block, not a separate block, because a link and a button share
+  every setting.
+- The style guide (`templates/page.styleguide.json`) shows product cards, form controls and icons through one private
+  block, `_styleguide-specimen`, with no presets: a theme block without presets is not offered in the block picker
+  ([theme blocks quick start](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/quick-start)),
+  so only the template places it. The block uses `"tag": null`
+  ([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)) so that its own
+  element, not Shopify's `shopify-block` wrapper, is the flex item of the section and can stretch to the full width.
 
-`snippets/icon.liquid` renders twelve icons as inline SVG, with paths copied from
-[Lucide](https://lucide.dev) `lucide-static` v1.54.0 (ISC; six of the icons are derived from Feather, MIT). One open
-set gives a consistent stroke style for both UI icons and the themed feature icons; inline SVG with `currentColor`
-needs no extra request and follows the color scheme. The stroke width is 1.5 instead of Lucide's 2, to match the light
-typography. Licence texts are in [third-party-assets.md](third-party-assets.md).
-
-The header still uses Skeleton's `icon-account.svg` and `icon-cart.svg`: the account icon carries
-`slot="signed-out-avatar"` for the `shopify-account` component, so the swap is not a clean one-line change. It is done
-when the header is rewritten.
-
-## 10. Surface color in every scheme and a derived button hover
-
-Date: 2026-10-09.
-
-The color schemes gained a `surface` color: the background behind images and image placeholders. A scheme needs its
-own surface, because the Surface scheme's background is the Base scheme's surface, and a placeholder of the same color
-as its section would be invisible. Values: Base `#EDE5DA`, Surface `#E3D9CC`, Inverse `#38312C`, Accent `#8A5034`.
-
-The primary button's hover color was `color-mix(button 85%, foreground)`. In the Inverse and Accent schemes the button
-and the foreground are the same color, so the hover changed nothing. The hover is now `--color-button-hover`, the
-button color darkened by 8% with the [`color_darken`](https://shopify.dev/docs/api/liquid/filters/color_darken) filter
-in `snippets/css-variables.liquid`; label contrast stays above 7:1 in every scheme (see [design.md](design.md#contrast)).
-
-## 11. `rich-text` as a utility section, and the style guide
-
-Date: 2026-10-09.
-
-`sections/rich-text.liquid` holds headings, text, buttons and groups in one column, in any color scheme. It is a
-utility for text pages (About) and the style guide, not one of the showcase sections. It accepts `group`, `heading`,
-`text` and `button` by explicit type. The "Link with arrow" style was added to the `button` block instead of a new
-link block, because a link and a button share every setting.
-
-The style guide (`templates/page.styleguide.json`) needs product cards, form controls and icons, which no
-merchant-facing block renders. They come from one private block, `_styleguide-specimen`, with no presets: a theme
-block without presets is not offered in the block picker
-([theme blocks quick start](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/quick-start)),
-so it can only be placed by the template. The block uses `"tag": null`
-([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)) so that its own
-element, not Shopify's `shopify-block` wrapper, is the flex item of the section and can stretch to the full width.
-
-## 12. Header, footer and collection page
-
-Date: 2026-10-09.
+### 11. Header and footer
 
 - **Mobile menu on `<details>`.** Below 1024px the main menu is a `<details>` drawer, so it opens and closes without
-  JavaScript. `assets/header-menu.js` (a `header-menu` custom element, loaded as a module) only adds closing with
-  Escape and returns focus to the toggle. From 1024px the same menu is an inline list; below that the six menu items and the icons don't fit one
-  line on tablets. One menu level is rendered;
-  the store's main menu has no nested links.
+  JavaScript; at tablet widths the menu items and icons don't fit one line. `assets/header-menu.js` (a `header-menu`
+  custom element, loaded as a module) adds closing with Escape and returns focus to the toggle. From 1024px the same
+  menu is an inline list. One menu level is rendered; the store's main menu has no nested links.
 - **Account.** The header uses the
   [`shopify-account`](https://shopify.dev/docs/storefronts/themes/customer-engagement/account-component) component,
-  visible on mobile and desktop. The signed-out avatar is the theme's `account` icon placed in the component's
-  `signed-out-avatar` slot; the component gives its button the accessible name. Skeleton's `icon-account.svg` and
-  `icon-cart.svg` were removed.
+  visible on mobile and desktop. The signed-out avatar is the theme's `account` icon in the component's
+  `signed-out-avatar` slot; the component gives its button the accessible name.
 - **Cart link for bundled section rendering.** `snippets/cart-icon-bubble.liquid` is rendered by the header inside
   `#cart-icon-bubble` and by `sections/cart-icon-bubble.liquid`. The section is not placed in any template; the
   [Section Rendering API](https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-section-rendering-api)
   renders a static section by its file name, so the Cart API can return `cart-icon-bubble` with every cart change
   while Liquid stays the only source of the markup.
-- **Collection page.** `sections/main-collection.liquid` replaces Skeleton's `collection` section: title, product
-  count, description, a 2-column (mobile) / 3- or 4-column grid of `product-card`, numbered pagination and an empty
-  state. Sorting and filtering are out of scope. The first row of images loads eagerly and only the first image gets
-  `fetchpriority="high"`, as the likely LCP element on mobile and desktop.
 - **Skip link and `<main>`.** The layout starts with a "Skip to content" link to `<main id="MainContent">`.
 
-## 13. `.shopifyignore` for temporary files
+### 12. Collection page
 
-Date: 2026-10-09.
+`sections/main-collection.liquid`: title, product count, description, a 2-column (mobile) / 3- or 4-column grid of
+`product-card`, numbered pagination and an empty state. Sorting and filtering are out of scope. The first row of images
+loads eagerly and only the first image gets `fetchpriority="high"`, as the likely LCP element on mobile and desktop.
 
-Tools such as `sed -i` and editors write temporary files next to the file they change (`sections/sedAbC123`, `*.swp`,
-`*~`). `shopify theme dev` watches the theme folders, tries to upload such a file and fails ("Must have a .liquid file
-extension"), after which the dev server shows an upload error page. `.shopifyignore` excludes extension-less files and
-common temporary extensions from every Shopify CLI command
-([Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli#excluding-files-from-shopify-cli)).
-Every real theme file has an extension, so nothing the theme needs is excluded.
+### 13. Product page
+
+- **Variant picker with progressive enhancement.** The variant is a `<select name="id">` that belongs to the product
+  form, so the form adds the chosen variant without JavaScript. With JavaScript the options are radio buttons styled as
+  named buttons; `assets/variant-picker.js` (`variant-picker` custom element) maps the chosen values to a variant,
+  sets the select, and updates price, button state, gallery order and the `?variant=` URL. CSS decides which control
+  shows with the `scripting` media feature ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/scripting)),
+  so nothing jumps after load. The price HTML for each variant comes from `snippets/price.liquid` inside a JSON script,
+  so Liquid stays the only source of price markup. Products with only the default variant render a hidden `id` input
+  instead of the picker.
+- **Quantity.** `snippets/quantity-input.liquid` is a labelled number input that works without JavaScript; the minus
+  and plus buttons (`assets/quantity-input.js`) are hidden when scripting is off. The product page and the cart use
+  the same snippet.
+- **Gallery.** All product media in a 4:5 frame: a vertical stack beside the sticky product info from 750px, a
+  horizontal scroll-snap row below. The selected variant's image comes first and is the only `fetchpriority="high"`
+  image.
+- **Scope.** No dynamic checkout buttons, no tabs and no materials or care block; the catalog has no data for the
+  latter.
+
+### 14. Cart page
+
+One form posted to `/cart` ([cart template](https://shopify.dev/docs/storefronts/themes/architecture/templates/cart))
+that works without JavaScript and is the fallback for the cart drawer: `updates[<line key>]` quantity fields, the order
+note, an Update button (first in the form, so Enter updates) and a Check out button. Remove links use
+`item.url_to_remove`. Line and cart-level discounts are listed when present.

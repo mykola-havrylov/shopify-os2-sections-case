@@ -68,3 +68,21 @@ from the repository in one command and checked with `npm run catalog:verify`.
   deprecated in favour of
   [sources](https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections/use-new-collections-model).
 - Menus stay manual: the app has no `write_online_store_navigation` scope, and two menus are quicker to make by hand.
+
+## 6. Design tokens
+
+Global decisions live in theme settings and reach the CSS as custom properties in `snippets/css-variables.liquid`;
+component-specific values stay inside each block's or section's `{% stylesheet %}`.
+
+- Colors: a [`color_scheme_group`](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings#color_scheme_group)
+  with four schemes (Base, Surface, Inverse, Accent). Each scheme becomes a `.color-<id>` class, and the first one is
+  also applied to `:root`, so sections only need to add the class of the scheme they use. Every text and button pair in
+  every scheme meets WCAG 2.1 AA (4.5:1 for text, 3:1 for the button against its background); the secondary text color
+  was darkened from `#8A7F73` (3.5:1) to `#6E655C` (5.1:1) to get there.
+- Fonts: two `font_picker` settings from the
+  [Shopify font library](https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts),
+  Cormorant (`cormorant_n6`) for headings and Work Sans (`work_sans_n4`) for text, loaded with `font_face` and
+  `font-display: swap`; only the body font is preloaded. No external font requests.
+- Heading level and heading size are separate settings, so the document outline does not depend on the look.
+- Focus ring and reduced motion are not settings: the ring is always visible on keyboard focus, and
+  `prefers-reduced-motion` always turns animations off, whatever the "Animations" setting says.

@@ -1,0 +1,77 @@
+{% doc %}
+  Renders a link styled as a button. Nothing is rendered on the storefront until both the label and the link are
+  set; in the theme editor an incomplete button shows as disabled so the merchant can still select it.
+
+  @example
+  {% content_for 'block', type: 'button', id: 'button' %}
+{% enddoc %}
+
+{% liquid
+  assign label = block.settings.label | strip
+  assign link = block.settings.link
+  assign style_class = ''
+  if block.settings.style == 'secondary'
+    assign style_class = ' button--secondary'
+  endif
+%}
+
+{% if label != blank and link != blank %}
+  <a
+    class="button{{ style_class }}"
+    href="{{ link }}"
+    {% if block.settings.new_tab %}
+      target="_blank" rel="noopener"
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {{- label -}}
+    {%- if block.settings.new_tab -%}
+      <span class="visually-hidden"> {{ 'accessibility.opens_in_new_tab' | t }}</span>
+    {%- endif -%}
+  </a>
+{% elsif request.design_mode %}
+  <span class="button{{ style_class }}" aria-disabled="true" {{ block.shopify_attributes }}>
+    {{- label | default: block.settings.label -}}
+  </span>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:blocks.button.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:labels.button_text",
+      "default": "t:blocks.button.default"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "checkbox",
+      "id": "new_tab",
+      "label": "t:labels.new_tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:labels.style",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "t:options.button_style.primary" },
+        { "value": "secondary", "label": "t:options.button_style.secondary" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.button.name",
+      "settings": { "link": "shopify://collections/all" }
+    }
+  ]
+}
+{% endschema %}

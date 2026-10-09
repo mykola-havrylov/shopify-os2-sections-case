@@ -1,0 +1,70 @@
+{% doc %}
+  Renders a heading. The HTML level (`h1`-`h4`) and the visual size are separate settings, so the document outline
+  stays correct whatever size the merchant picks.
+
+  @example
+  {% content_for 'block', type: 'heading', id: 'heading' %}
+{% enddoc %}
+
+{% if block.settings.heading != blank %}
+  <{{ block.settings.tag }}
+    class="heading {{ block.settings.size }}"
+    style="--heading-align: {{ block.settings.alignment }};"
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.heading }}
+  </{{ block.settings.tag }}>
+{% endif %}
+
+{% stylesheet %}
+  .heading {
+    text-align: var(--heading-align);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:blocks.heading.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "t:blocks.heading.default"
+    },
+    {
+      "type": "select",
+      "id": "tag",
+      "label": "t:labels.heading_level",
+      "info": "t:info.heading_level",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "t:labels.size",
+      "default": "h2",
+      "options": [
+        { "value": "h0", "label": "t:options.heading_size.display" },
+        { "value": "h1", "label": "t:options.heading_size.large" },
+        { "value": "h2", "label": "t:options.heading_size.medium" },
+        { "value": "h3", "label": "t:options.heading_size.small" },
+        { "value": "h4", "label": "t:options.heading_size.extra_small" }
+      ]
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:labels.alignment",
+      "default": "left"
+    }
+  ],
+  "presets": [{ "name": "t:blocks.heading.name" }]
+}
+{% endschema %}

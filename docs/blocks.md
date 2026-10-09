@@ -12,6 +12,8 @@ hardcodes a color.
 | `text`                 | Rich text, size (eyebrow, small, body, large), maximum width, alignment, muted color                | Text is empty        | `group`, `rich-text` |
 | `button`               | Label, link, new tab, style (primary, secondary, link with arrow)                                   | Label or link empty¹ | `group`, `rich-text` |
 | `group`                | Row or column, alignment, gap and padding from the spacing scale; holds `heading`, `text`, `button` | —                    | `rich-text`          |
+| `list`                 | Holds `_list-item` blocks; renders a `<ul>`                                                         | —                    | `feature-banner`     |
+| `_list-item`           | Icon (none or one of the theme icons), title, text                                                  | Title and text empty | `list`               |
 | `_collection-card`     | Collection, image (optional), label (optional)                                                      | No collection³       | `collection-grid`    |
 | `_styleguide-specimen` | Specimen (product cards, form controls, icons), products                                            | —                    | `rich-text`²         |
 
@@ -23,13 +25,14 @@ hardcodes a color.
 
 ## Presets
 
-| Block     | Preset  | Content                                             |
-| --------- | ------- | --------------------------------------------------- |
-| `heading` | Heading | "Made by hand, for every day", H2, medium           |
-| `text`    | Text    | One sentence about the studio                       |
-| `button`  | Button  | "Shop now", links to all products                   |
-| `group`   | Column  | Heading and text, 16px gap                          |
-| `group`   | Buttons | A primary and a secondary button in a row, 16px gap |
+| Block     | Preset  | Content                                                               |
+| --------- | ------- | --------------------------------------------------------------------- |
+| `heading` | Heading | "Made by hand, for every day", H2, medium                             |
+| `text`    | Text    | One sentence about the studio                                         |
+| `button`  | Button  | "Shop now", links to all products                                     |
+| `group`   | Column  | Heading and text, 16px gap                                            |
+| `group`   | Buttons | A primary and a secondary button in a row, 16px gap                   |
+| `list`    | List    | Three items: hand, flame and leaf icons with a title and a short text |
 
 ## Heading sizes
 
@@ -49,11 +52,12 @@ starts at 8px.
 
 ## Sections that accept theme blocks
 
-| Section           | Accepts                                                           | Settings                                                                                        |
-| ----------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `rich-text`       | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding                 |
-| `hero-banner`     | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme       |
-| `collection-grid` | `_collection-card` (max 8)                                        | Heading, columns (2–4), image ratio, label position, product count, mobile layout, color scheme |
+| Section           | Accepts                                                           | Settings                                                                                            |
+| ----------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `rich-text`       | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding                     |
+| `hero-banner`     | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme           |
+| `collection-grid` | `_collection-card` (max 8)                                        | Heading, columns (2–4), image ratio, label position, product count, mobile layout, color scheme     |
+| `feature-banner`  | `heading`, `text`, `button`, `group`, `list`, `@app` (max 6)      | Image, image side, image ratio, layout (page width or full width), vertical alignment, color scheme |
 
 `rich-text` is a utility section for text content such as an About page or a short statement between other sections.
 Its preset holds a heading, a text and a button. Vertical padding defaults to "Section spacing", the same space other

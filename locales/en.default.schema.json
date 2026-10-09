@@ -54,6 +54,18 @@
       "name": "Heading",
       "default": "Made by hand, for every day"
     },
+    "list": {
+      "name": "List"
+    },
+    "list_item": {
+      "name": "List item",
+      "preset_1_title": "Thrown by hand",
+      "preset_1_text": "Shaped on the wheel and trimmed by hand, one piece at a time.",
+      "preset_2_title": "Fired twice",
+      "preset_2_text": "A bisque firing, then a glaze firing that makes the stoneware dense and strong.",
+      "preset_3_title": "Small batches",
+      "preset_3_text": "Glazes are mixed and fired in small batches, so no two pieces are quite the same."
+    },
     "styleguide_specimen": {
       "name": "Style guide specimen"
     },
@@ -88,11 +100,14 @@
     "heading_level": "Heading level",
     "heading_scale": "Heading size",
     "height": "Height",
+    "icon": "Icon",
     "image": "Image",
     "image_mobile": "Mobile image",
     "image_ratio": "Image ratio",
+    "image_side": "Image side",
     "label": "Label",
     "label_position": "Label position",
+    "layout": "Layout",
     "layout_direction": "Layout direction",
     "link": "Link",
     "logo": "Logo",
@@ -118,6 +133,8 @@
     "style": "Style",
     "surface": "Surface",
     "text": "Text",
+    "title": "Title",
+    "vertical_alignment": "Vertical alignment",
     "vertical_padding": "Vertical padding"
   },
   "info": {
@@ -142,6 +159,10 @@
       "left": "Left",
       "center": "Center",
       "right": "Right"
+    },
+    "banner_layout": {
+      "container": "Page width",
+      "full": "Full width"
     },
     "button_style": {
       "primary": "Primary",
@@ -168,6 +189,15 @@
       "adapt": "Adapt to image",
       "full": "Full screen",
       "medium": "Medium"
+    },
+    "icon": {
+      "none": "None",
+      "hand": "Hand",
+      "flame": "Flame",
+      "leaf": "Leaf",
+      "package": "Package",
+      "refresh": "Refresh",
+      "arrow": "Arrow"
     },
     "image_ratio": {
       "portrait": "Portrait (4:5)",
@@ -227,6 +257,11 @@
       "body": "Body",
       "large": "Large"
     },
+    "vertical_alignment": {
+      "top": "Top",
+      "center": "Center",
+      "bottom": "Bottom"
+    },
     "vertical_padding": {
       "section": "Section spacing"
     }
@@ -238,6 +273,15 @@
     "collection_grid": {
       "name": "Collection grid",
       "heading": "Shop by category"
+    },
+    "feature_banner": {
+      "name": "Feature banner",
+      "preset_image_left": "Image left",
+      "preset_image_right": "Image right",
+      "eyebrow": "<p>Our studio</p>",
+      "heading": "Made slowly, <em>used every day</em>",
+      "text": "<p>Every piece starts as a lump of clay on the wheel in our studio and ends on someone’s table. We keep the batches small, so we can look at each one before it leaves.</p>",
+      "link": "Shop the collection"
     },
     "hero_banner": {
       "name": "Hero banner",

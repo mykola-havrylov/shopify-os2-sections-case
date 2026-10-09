@@ -13,6 +13,7 @@
   assign body_font_italic = body_font | font_modify: 'style', 'italic'
   assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
   assign heading_font = settings.type_heading_font
+  assign heading_font_italic = heading_font | font_modify: 'style', 'italic'
 %}
 
 {% style %}
@@ -21,6 +22,7 @@
   {{ body_font_italic | font_face: font_display: 'swap' }}
   {{ body_font_bold_italic | font_face: font_display: 'swap' }}
   {{ heading_font | font_face: font_display: 'swap' }}
+  {{ heading_font_italic | font_face: font_display: 'swap' }}
 
   :root {
     --font-body--family: {{ body_font.family }}, {{ body_font.fallback_families }};

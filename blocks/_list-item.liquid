@@ -1,0 +1,93 @@
+{% doc %}
+  Renders one item of the `list` block as an `<li>`: an optional line icon from `snippets/icon.liquid`, a title and a
+  short text in the secondary color. Renders nothing on the storefront when both title and text are empty.
+
+  @example
+  {% content_for 'block', type: '_list-item', id: 'item' %}
+{% enddoc %}
+
+{%- liquid
+  assign title = block.settings.title | strip
+  assign text = block.settings.text | strip
+-%}
+
+{%- if title != blank or text != blank or request.design_mode -%}
+  <li class="list-item" {{ block.shopify_attributes }}>
+    {%- if block.settings.icon != 'none' -%}
+      {% render 'icon', name: block.settings.icon, class: 'list-item__icon' %}
+    {%- endif -%}
+    <div class="list-item__body">
+      {%- if title != blank -%}
+        <p class="list-item__title">{{ title }}</p>
+      {%- endif -%}
+      {%- if text != blank -%}
+        <p class="list-item__text text-small">{{ text }}</p>
+      {%- endif -%}
+    </div>
+  </li>
+{%- endif -%}
+
+{% stylesheet %}
+  .list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .list-item__icon {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .list-item__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .list-item__title {
+    font-weight: var(--font-body--weight-bold);
+    line-height: var(--line-height-snug);
+  }
+
+  .list-item__text {
+    color: var(--color-muted);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:blocks.list_item.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "t:labels.icon",
+      "default": "hand",
+      "options": [
+        { "value": "none", "label": "t:options.icon.none" },
+        { "value": "hand", "label": "t:options.icon.hand" },
+        { "value": "flame", "label": "t:options.icon.flame" },
+        { "value": "leaf", "label": "t:options.icon.leaf" },
+        { "value": "package", "label": "t:options.icon.package" },
+        { "value": "refresh", "label": "t:options.icon.refresh" },
+        { "value": "arrow-right", "label": "t:options.icon.arrow" }
+      ]
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "t:blocks.list_item.preset_1_title"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "t:labels.text",
+      "default": "t:blocks.list_item.preset_1_text"
+    }
+  ],
+  "presets": [{ "name": "t:blocks.list_item.name" }]
+}
+{% endschema %}

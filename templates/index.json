@@ -34,7 +34,7 @@
         "button_primary": {
           "type": "button",
           "settings": {
-            "label": "Shop all",
+            "text": "Shop all",
             "link": "shopify://collections/all",
             "new_tab": false,
             "style": "primary"
@@ -43,7 +43,7 @@
         "button_secondary": {
           "type": "button",
           "settings": {
-            "label": "New arrivals",
+            "text": "New arrivals",
             "link": "shopify://collections/new-arrivals",
             "new_tab": false,
             "style": "secondary"
@@ -103,7 +103,90 @@
         "mobile_layout": "grid",
         "color_scheme": "scheme-base"
       }
+    },
+    "feature_banner": {
+      "type": "feature-banner",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our studio</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made slowly, <em>used every day</em>",
+            "tag": "h2",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every piece starts as a lump of clay on the wheel in our studio and ends on someone’s table. We keep the batches small, so we can look at each one before it leaves.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "features": {
+          "type": "list",
+          "blocks": {
+            "hand": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "hand",
+                "title": "Thrown by hand",
+                "text": "Shaped on the wheel and trimmed by hand, one piece at a time."
+              }
+            },
+            "flame": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "flame",
+                "title": "Fired twice",
+                "text": "A bisque firing, then a glaze firing that makes the stoneware dense and strong."
+              }
+            },
+            "leaf": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "leaf",
+                "title": "Small batches",
+                "text": "Glazes are mixed and fired in small batches, so no two pieces are quite the same."
+              }
+            }
+          },
+          "block_order": ["hand", "flame", "leaf"],
+          "settings": {}
+        },
+        "link": {
+          "type": "button",
+          "settings": {
+            "text": "Shop the collection",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "link"
+          }
+        }
+      },
+      "block_order": ["eyebrow", "heading", "text", "features", "link"],
+      "settings": {
+        "image": "shopify://shop_images/hero-mobile.jpg",
+        "image_side": "left",
+        "image_ratio": "portrait",
+        "layout": "container",
+        "vertical_alignment": "center",
+        "color_scheme": "scheme-surface"
+      }
     }
   },
-  "order": ["hero", "collection_grid"]
+  "order": ["hero", "collection_grid", "feature_banner"]
 }

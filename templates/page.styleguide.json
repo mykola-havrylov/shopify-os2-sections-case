@@ -133,7 +133,7 @@
             "primary": {
               "type": "button",
               "settings": {
-                "label": "Shop now",
+                "text": "Shop now",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "primary"
@@ -142,7 +142,7 @@
             "secondary": {
               "type": "button",
               "settings": {
-                "label": "Learn more",
+                "text": "Learn more",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "secondary"
@@ -151,7 +151,7 @@
             "link": {
               "type": "button",
               "settings": {
-                "label": "Read our story",
+                "text": "Read our story",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "link"
@@ -359,7 +359,7 @@
             "primary": {
               "type": "button",
               "settings": {
-                "label": "Shop now",
+                "text": "Shop now",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "primary"
@@ -368,7 +368,7 @@
             "secondary": {
               "type": "button",
               "settings": {
-                "label": "Learn more",
+                "text": "Learn more",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "secondary"
@@ -377,7 +377,7 @@
             "link": {
               "type": "button",
               "settings": {
-                "label": "Read our story",
+                "text": "Read our story",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "link"
@@ -585,7 +585,7 @@
             "primary": {
               "type": "button",
               "settings": {
-                "label": "Shop now",
+                "text": "Shop now",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "primary"
@@ -594,7 +594,7 @@
             "secondary": {
               "type": "button",
               "settings": {
-                "label": "Learn more",
+                "text": "Learn more",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "secondary"
@@ -603,7 +603,7 @@
             "link": {
               "type": "button",
               "settings": {
-                "label": "Read our story",
+                "text": "Read our story",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "link"
@@ -792,7 +792,7 @@
             "primary": {
               "type": "button",
               "settings": {
-                "label": "Shop now",
+                "text": "Shop now",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "primary"
@@ -801,7 +801,7 @@
             "secondary": {
               "type": "button",
               "settings": {
-                "label": "Learn more",
+                "text": "Learn more",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "secondary"
@@ -810,7 +810,7 @@
             "link": {
               "type": "button",
               "settings": {
-                "label": "Read our story",
+                "text": "Read our story",
                 "link": "shopify://collections/all",
                 "new_tab": false,
                 "style": "link"

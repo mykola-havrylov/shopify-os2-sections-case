@@ -1,29 +1,33 @@
 {% doc %}
-  Renders a responsive image that might be wrapped in a link.
+  Renders a responsive image, optionally wrapped in a link.
 
-  When `width`, `height` and `crop` are provided, the image will be rendered
-  with a fixed aspect ratio.
+  The image gets a `srcset` from `widths` and the browser picks a file using `sizes`, so `sizes` should describe
+  the rendered width of the image in the layout. `width` and `height` attributes are always output, so the
+  browser reserves space and the image causes no layout shift.
 
-  Serves as an example of how to use the `image_url` filter and `image_tag` filter
-  as well as how you can use LiquidDoc to document your code.
+  Only the real LCP image of a page gets `loading: 'eager'` and `fetchpriority: 'high'`.
 
-  @param {image} image - The image to be rendered
-  @param {string} [url] - An optional destination URL for the image
-  @param {string} [class] - Optional class to be added to the image wrapper
-  @param {number} [width] - The highest resolution width of the image to be rendered
-  @param {number} [height] - The highest resolution height of the image to be rendered
-  @param {string} [crop] - The crop position of the image
+  @param {image} image - The image to render
+  @param {string} [url] - Wraps the image in a link to this URL
+  @param {string} [class] - Extra class for the wrapper
+  @param {string} [alt] - Alt text; defaults to the image's alt text. Pass an empty string for a decorative image
+  @param {string} [sizes] - The `sizes` attribute; defaults to `100vw`
+  @param {string} [widths] - Comma-separated `srcset` widths; defaults to `360, 540, 720, 900, 1080, 1440, 1800`
+  @param {string} [loading] - `lazy` (default) or `eager`
+  @param {string} [fetchpriority] - `high` for the LCP image, otherwise leave empty
+  @param {string} [aspect_ratio] - CSS aspect ratio such as `4 / 5`; the image is cropped to fill it
+  @param {number} [width] - Maximum width of the largest file; defaults to the image width
+  @param {number} [height] - Maximum height of the largest file
+  @param {string} [crop] - Crop position when both width and height are set
 
   @example
-  {% render 'image', image: product.featured_image %}
-  {% render 'image', image: product.featured_image, url: product.url %}
+  {% render 'image', image: product.featured_image, url: product.url, sizes: '(min-width: 750px) 25vw, 50vw' %}
   {% render 'image',
-    class: 'product__image',
-    image: product.featured_image,
-    url: product.url,
-    width: 1200,
-    height: 800,
-    crop: 'center',
+    image: section.settings.image,
+    sizes: '100vw',
+    loading: 'eager',
+    fetchpriority: 'high',
+    aspect_ratio: '16 / 9',
   %}
 {% enddoc %}
 
@@ -31,6 +35,16 @@
   unless height
     assign width = width | default: image.width
   endunless
+
+  assign image_sizes = sizes | default: '100vw'
+  assign image_widths = widths | default: '360, 540, 720, 900, 1080, 1440, 1800'
+  assign image_loading = loading | default: 'lazy'
+
+  if alt == null
+    assign image_alt = image.alt
+  else
+    assign image_alt = alt
+  endif
 
   if url
     assign wrapper = 'a'
@@ -40,12 +54,32 @@
 %}
 
 <{{ wrapper }}
-  class="image {{ class }}"
+  class="image{% if aspect_ratio %} image--cropped{% endif %} {{ class }}"
+  {% if aspect_ratio %}
+    style="--image-aspect-ratio: {{ aspect_ratio }};"
+  {% endif %}
   {% if url %}
     href="{{ url }}"
   {% endif %}
 >
-  {{ image | image_url: width: width, height: height, crop: crop | image_tag }}
+  {%- if fetchpriority == 'high' -%}
+    {{
+      image
+      | image_url: width: width, height: height, crop: crop
+      | image_tag:
+        widths: image_widths,
+        sizes: image_sizes,
+        loading: image_loading,
+        fetchpriority: 'high',
+        alt: image_alt
+    }}
+  {%- else -%}
+    {{
+      image
+      | image_url: width: width, height: height, crop: crop
+      | image_tag: widths: image_widths, sizes: image_sizes, loading: image_loading, alt: image_alt
+    }}
+  {%- endif -%}
 </{{ wrapper }}>
 
 {% stylesheet %}
@@ -60,5 +94,14 @@
   .image > img {
     width: 100%;
     height: auto;
+  }
+
+  .image--cropped {
+    aspect-ratio: var(--image-aspect-ratio);
+  }
+
+  .image--cropped > img {
+    height: 100%;
+    object-fit: cover;
   }
 {% endstylesheet %}

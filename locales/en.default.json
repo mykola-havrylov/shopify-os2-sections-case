@@ -4,6 +4,9 @@
     "not_found": "Page not found.",
     "back_to_shopping": "Back to shopping"
   },
+  "accessibility": {
+    "opens_in_new_tab": "(opens in a new tab)"
+  },
   "blog": {
     "article_comments": "Comments",
     "article_metadata_html": "{{ date }} by {{ author }}",
@@ -19,6 +22,9 @@
     "update": "Update",
     "remove": "Remove"
   },
+  "collections": {
+    "title": "Collections"
+  },
   "customers": {
     "login": {
       "email": "Email",
@@ -26,9 +32,6 @@
       "submit": "Sign in",
       "title": "Login"
     }
-  },
-  "collections": {
-    "title": "Collections"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",

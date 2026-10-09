@@ -1,11 +1,6 @@
 {% doc %}
-  Renders a group of blocks with configurable layout direction, gap and
-  alignment.
-
-  All settings apply to only one dimension to reduce configuration complexity.
-
-  This component is a wrapper concerned only with rendering its children in
-  the specified layout direction with appropriate padding and alignment.
+  Renders a group of blocks in a row or a column, with configurable gap, alignment and padding.
+  Rows wrap on narrow screens, so their children never overflow the viewport.
 
   @example
   {% content_for 'block', type: 'group', id: 'group' %}
@@ -14,8 +9,9 @@
 <div
   class="group {{ block.settings.layout_direction }}"
   style="
-    --padding: {{ block.settings.padding }}px;
-    --alignment: {{ block.settings.alignment }};
+    --group-gap: {{ block.settings.gap }}px;
+    --group-padding: {{ block.settings.padding }}px;
+    --group-alignment: {{ block.settings.alignment }};
   "
   {{ block.shopify_attributes }}
 >
@@ -25,29 +21,28 @@
 {% stylesheet %}
   .group {
     display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
+    gap: var(--group-gap);
     width: 100%;
+    padding: var(--group-padding);
   }
 
   .group--horizontal {
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    padding: 0 var(--padding);
+    justify-content: var(--group-alignment);
   }
 
   .group--vertical {
     flex-direction: column;
-    align-items: var(--alignment);
-    padding: var(--padding) 0;
+    align-items: var(--group-alignment);
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.group",
-  "blocks": [{ "type": "@theme" }],
+  "name": "t:blocks.group.name",
+  "blocks": [{ "type": "heading" }, { "type": "text" }, { "type": "button" }],
   "settings": [
     {
       "type": "select",
@@ -60,7 +55,6 @@
       ]
     },
     {
-      "visible_if": "{{ block.settings.layout_direction == 'group--vertical' }}",
       "type": "select",
       "id": "alignment",
       "label": "t:labels.alignment",
@@ -73,12 +67,22 @@
     },
     {
       "type": "range",
+      "id": "gap",
+      "label": "t:labels.gap",
+      "default": 16,
+      "min": 0,
+      "max": 64,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
       "id": "padding",
       "label": "t:labels.padding",
       "default": 0,
       "min": 0,
-      "max": 200,
-      "step": 2,
+      "max": 64,
+      "step": 4,
       "unit": "px"
     }
   ],
@@ -86,19 +90,24 @@
     {
       "name": "t:general.column",
       "category": "t:general.layout",
-      "settings": {
-        "layout_direction": "group--vertical",
-        "alignment": "flex-start",
-        "padding": 0
-      }
+      "settings": { "layout_direction": "group--vertical", "alignment": "flex-start" },
+      "blocks": [{ "type": "heading" }, { "type": "text" }]
     },
     {
-      "name": "t:general.row",
+      "name": "t:general.buttons_row",
       "category": "t:general.layout",
-      "settings": {
-        "layout_direction": "group--horizontal",
-        "padding": 0
-      }
+      "settings": { "layout_direction": "group--horizontal", "alignment": "flex-start", "gap": 12 },
+      "blocks": [
+        { "type": "button", "settings": { "link": "shopify://collections/all" } },
+        {
+          "type": "button",
+          "settings": {
+            "style": "secondary",
+            "label": "t:blocks.button.secondary_default",
+            "link": "shopify://collections/all"
+          }
+        }
+      ]
     }
   ]
 }

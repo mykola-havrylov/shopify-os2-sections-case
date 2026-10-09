@@ -8,7 +8,7 @@
 {% enddoc %}
 
 {% liquid
-  assign label = block.settings.label | strip
+  assign label = block.settings.text | strip
   assign link = block.settings.link
   case block.settings.style
     when 'secondary'
@@ -39,7 +39,7 @@
   </a>
 {% elsif request.design_mode %}
   <span class="{{ style_class }}" aria-disabled="true" {{ block.shopify_attributes }}>
-    {{- label | default: block.settings.label -}}
+    {{- label | default: block.settings.text -}}
   </span>
 {% endif %}
 
@@ -49,7 +49,7 @@
   "settings": [
     {
       "type": "text",
-      "id": "label",
+      "id": "text",
       "label": "t:labels.button_text",
       "default": "t:blocks.button.default"
     },

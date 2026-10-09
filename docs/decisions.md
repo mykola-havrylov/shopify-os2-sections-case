@@ -229,3 +229,29 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
   item where it is. The row only scrolls sideways, so a vertical swipe that starts on it scrolls the page.
 - **Whole card as one link.** The title link's `::after` covers the card, so each card is one tab stop with the focus
   ring drawn around the whole card.
+
+### 17. Feature banner and feature list
+
+- **Content blocks and apps.** `feature-banner` accepts `heading`, `text`, `button`, `group`, `list` and `@app`, at
+  most six. It is the theme's one section that hosts
+  [app blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks/app-blocks); `content_for 'blocks'`
+  renders app blocks in the same flow as theme blocks.
+- **Feature list as blocks.** `list` renders a `<ul>` and accepts only the private `_list-item` (icon from
+  `snippets/icon.liquid`, title, short text). Both blocks use `"tag": null`, so the list item's `<li>` is a direct
+  child of the `<ul>` instead of being wrapped in Shopify's `div`. Items are reordered in the editor like any block,
+  and a three-item list takes one of the section's six block slots instead of three.
+- **Layouts.** "Page width" keeps the image and the content in the page column. "Full width" lays the section on a
+  four-track grid built from the same `--content-margin` and `--content-width` as the page column: the image runs
+  from the window edge to the middle, and the content sits in the page column's other half. The content is limited to
+  `--text-measure` and starts next to the image, so its outer edge follows the text length, not the header edge.
+  Below 750px the image is on top.
+- **Emphasis in headings.** The heading font's italic face is loaded with `font_modify`, so `<em>` in a heading renders
+  in real Cormorant italic, not a slanted regular face.
+
+### 18. Block titles in the theme editor
+
+The setting that names a block uses the id `heading`, `title` or `text`, because the theme editor shows the value of
+the first of these ids as the block's title in the sidebar
+([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)). The `button`
+block's label is therefore `text`, so several buttons in one section read "Button – Shop all", "Button – New arrivals"
+instead of a row of identical "Button" entries.

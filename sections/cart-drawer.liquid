@@ -1,0 +1,177 @@
+{% comment %}
+  Cart drawer: a modal <dialog> on the right with the cart lines, subtotal, checkout and a link to the cart page, or
+  an empty state. It is rendered once in the layout and re-rendered by the Cart API's bundled section rendering after
+  every cart change; cart-drawer.js swaps the content and keeps the dialog and its live region in place. Without
+  JavaScript the drawer is never opened and the cart icon links to /cart.
+{% endcomment %}
+
+<cart-drawer
+  class="cart-drawer"
+  data-cart-url="{{ routes.cart_url }}"
+  data-add-url="{{ routes.cart_add_url }}"
+  data-change-url="{{ routes.cart_change_url }}"
+  data-update-url="{{ routes.cart_update_url }}"
+>
+  <dialog class="cart-drawer__dialog" aria-labelledby="CartDrawerTitle" scroll-lock>
+    <div class="cart-drawer__panel">
+      <div class="cart-drawer__header">
+        <h2 class="h3" id="CartDrawerTitle">{{ 'cart.title' | t }}</h2>
+        <button type="button" class="cart-drawer__close" aria-label="{{ 'cart.close' | t }}" data-cart-drawer-close>
+          {% render 'icon', name: 'close' %}
+        </button>
+      </div>
+
+      <p class="visually-hidden" role="status" aria-live="polite" data-cart-live-region></p>
+
+      <div class="cart-drawer__content" data-cart-drawer-content>
+        {%- if cart.item_count > 0 -%}
+          <ul class="cart-drawer__lines cart-lines" role="list">
+            {%- for item in cart.items -%}
+              {% render 'cart-line', item: item, id_prefix: 'Drawer' %}
+            {%- endfor -%}
+          </ul>
+
+          <div class="cart-drawer__footer">
+            <p class="cart-drawer__subtotal">
+              <span>{{ 'cart.subtotal' | t }}</span>
+              <span>{{ cart.total_price | money_with_currency }}</span>
+            </p>
+            <p class="text-small text-muted">
+              {%- if cart.taxes_included -%}
+                {{ 'cart.taxes_included' | t }}
+              {%- else -%}
+                {{ 'cart.taxes_excluded' | t }}
+              {%- endif -%}
+            </p>
+            <form action="{{ routes.cart_url }}" method="post">
+              <button type="submit" name="checkout" class="button cart-drawer__checkout">
+                {{- 'cart.checkout' | t -}}
+              </button>
+            </form>
+            <a class="link-arrow" href="{{ routes.cart_url }}">
+              {{- 'cart.view' | t -}}
+              {% render 'icon', name: 'arrow-right' %}
+            </a>
+          </div>
+        {%- else -%}
+          <div class="cart-drawer__empty">
+            <p>{{ 'cart.empty' | t }}</p>
+            <a class="link-arrow" href="{{ routes.all_products_collection_url }}">
+              {{- 'cart.continue_shopping' | t -}}
+              {% render 'icon', name: 'arrow-right' %}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </dialog>
+</cart-drawer>
+
+<script src="{{ 'quantity-input.js' | asset_url }}" type="module"></script>
+<script src="{{ 'cart-drawer.js' | asset_url }}" type="module"></script>
+
+{% stylesheet %}
+  .cart-drawer__dialog {
+    inset: 0 0 0 auto;
+    width: min(28rem, 100vw);
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+  }
+
+  .cart-drawer__dialog[open] {
+    animation: cart-drawer-in var(--motion-duration) var(--motion-easing);
+  }
+
+  .cart-drawer__dialog::backdrop {
+    background-color: color-mix(in srgb, var(--color-foreground) 40%, transparent);
+  }
+
+  .cart-drawer__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-4);
+  }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .cart-drawer__close {
+    display: grid;
+    place-items: center;
+    min-width: var(--control-height);
+    min-height: var(--control-height);
+    margin-inline-end: calc(var(--space-3) * -1);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .cart-drawer__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-height: 0;
+  }
+
+  .cart-drawer__lines {
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .cart-drawer__footer,
+  .cart-drawer__empty {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cart-drawer__empty {
+    align-items: flex-start;
+  }
+
+  .cart-drawer__subtotal {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-weight: var(--font-body--weight-bold);
+  }
+
+  .cart-drawer__checkout {
+    width: 100%;
+  }
+
+  @media (min-width: 750px) {
+    .cart-drawer__panel {
+      padding: var(--space-4) var(--space-5) var(--space-5);
+    }
+  }
+
+  @keyframes cart-drawer-in {
+    from {
+      translate: 100% 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.cart_drawer.name",
+  "settings": []
+}
+{% endschema %}

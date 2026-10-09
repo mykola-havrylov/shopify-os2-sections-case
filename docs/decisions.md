@@ -271,3 +271,28 @@ instead of a row of identical "Button" entries.
   ([static blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/static-blocks)): it can
   be edited or hidden but not removed or duplicated, and `heading` is not in the section's block list, so no second
   heading can be added.
+
+## Cart
+
+### 20. Cart drawer with bundled section rendering
+
+- **One request per change.** Adding, changing and removing go through `/cart/add.js`, `/cart/change.js` and
+  `/cart/update.js` with `sections` (`cart-drawer`, `cart-icon-bubble`, `cart-live-region-text`; the limit is
+  five) and `sections_url`. The response already carries the re-rendered sections, so no second request is made
+  ([bundled section rendering](https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-section-rendering-api)).
+- **Liquid is the only source of cart HTML.** `snippets/cart-line.liquid` renders a line for both the cart page and
+  the drawer; `assets/cart-drawer.js` swaps the drawer content and the cart icon with the returned HTML and never
+  builds markup itself. If a returned section is `null` or a request fails, the browser goes to `/cart`, which
+  always shows the server's state.
+- **Line keys from the latest render.** `change.js` addresses a line by its key, read from `data-line-key` in the
+  markup that the last response rendered; keys change when a line's properties or discounts change, so they are never
+  cached.
+- **Native modal dialog.** The drawer is a `<dialog>` opened with `showModal()`: the browser makes the rest of the
+  page inert, closes it on Escape and returns focus to the element that opened it. The script adds closing on the
+  backdrop and the close button, and keeps focus on the same control after the content is swapped.
+- **Announcements.** A polite live region inside the dialog is never replaced; its text comes from the
+  `cart-live-region-text` section ("2 items in your cart, subtotal …"), so screen readers hear each change once.
+- **Without JavaScript.** The drawer never opens, the cart icon is a link to `/cart`, and the product form posts to
+  `/cart/add` as before.
+- **Two cart layouts from one snippet.** The cart lines switch to the wide layout from 36rem of the list's own width (a
+  container query), so the same markup is compact in the 28rem drawer and wide on the cart page.

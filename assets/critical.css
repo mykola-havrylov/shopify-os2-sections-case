@@ -243,6 +243,10 @@ a {
   color: var(--color-background);
 }
 
+.button[aria-busy='true'] {
+  cursor: progress;
+}
+
 .button[aria-disabled='true'],
 .button:disabled {
   opacity: 0.5;

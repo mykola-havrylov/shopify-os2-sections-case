@@ -135,35 +135,43 @@
       </variant-picker>
     {%- endunless -%}
 
-    {%- form 'product', product, id: form_id, class: 'main-product__form' -%}
-      {%- if product.has_only_default_variant -%}
-        <input type="hidden" name="id" value="{{ current_variant.id }}">
-      {%- endif -%}
-
-      {%- liquid
-        assign quantity_id = 'Quantity-' | append: section.id
-        assign quantity_label = 'products.quantity' | t
-      -%}
-      {% render 'quantity-input', id: quantity_id, name: 'quantity', label: quantity_label %}
-
-      <button
-        type="submit"
-        name="add"
-        class="button main-product__add"
-        data-add-label="{{ 'products.add_to_cart' | t }}"
-        data-sold-out-label="{{ 'products.sold_out' | t }}"
-        data-unavailable-label="{{ 'products.unavailable' | t }}"
-        {% unless current_variant.available %}
-          disabled
-        {% endunless %}
-      >
-        {%- if current_variant.available -%}
-          {{ 'products.add_to_cart' | t }}
-        {%- else -%}
-          {{ 'products.sold_out' | t }}
+    <product-form class="main-product__form-wrapper">
+      {%- form 'product', product, id: form_id, class: 'main-product__form' -%}
+        {%- if product.has_only_default_variant -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
         {%- endif -%}
-      </button>
-    {%- endform -%}
+
+        {%- liquid
+          assign quantity_id = 'Quantity-' | append: section.id
+          assign quantity_label = 'products.quantity' | t
+        -%}
+        {% render 'quantity-input', id: quantity_id, name: 'quantity', label: quantity_label %}
+
+        <button
+          type="submit"
+          name="add"
+          class="button main-product__add"
+          data-add-label="{{ 'products.add_to_cart' | t }}"
+          data-sold-out-label="{{ 'products.sold_out' | t }}"
+          data-unavailable-label="{{ 'products.unavailable' | t }}"
+          {% unless current_variant.available %}
+            disabled
+          {% endunless %}
+        >
+          {%- if current_variant.available -%}
+            {{ 'products.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+      <p
+        class="main-product__error"
+        role="alert"
+        data-product-form-error
+        data-fallback="{{ 'products.add_error' | t }}"
+      ></p>
+    </product-form>
 
     {%- if product.description != blank -%}
       <div class="main-product__description">{{ product.description }}</div>
@@ -172,6 +180,7 @@
 </div>
 
 <script src="{{ 'variant-picker.js' | asset_url }}" type="module"></script>
+<script src="{{ 'product-form.js' | asset_url }}" type="module"></script>
 
 {% stylesheet %}
   .main-product {
@@ -202,6 +211,17 @@
 
   .main-product__price {
     font-size: 1.125em;
+  }
+
+  .main-product__form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .main-product__error {
+    color: var(--color-foreground);
+    font-weight: var(--font-body--weight-bold);
   }
 
   .main-product__form {

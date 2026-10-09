@@ -1,0 +1,14 @@
+{% comment %}
+  Short cart status ("2 items in your cart, subtotal …") requested with every cart change through bundled section
+  rendering; cart-drawer.js copies its text into the drawer's polite live region. Not placed in templates.
+{% endcomment %}
+
+{%- assign subtotal = cart.total_price | money -%}
+<p>{{ 'cart.live_region' | t: count: cart.item_count, subtotal: subtotal }}</p>
+
+{% schema %}
+{
+  "name": "t:sections.cart_live_region_text.name",
+  "settings": []
+}
+{% endschema %}

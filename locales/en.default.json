@@ -35,14 +35,15 @@
     "update": "Update cart"
   },
   "collections": {
-    "title": "Collections",
-    "sort_by": "Sort by",
+    "browse_all": "Browse all products",
+    "empty": "There are no products in this collection yet.",
+    "placeholder_title": "Collection",
     "product_count": {
       "one": "{{ count }} product",
       "other": "{{ count }} products"
     },
-    "empty": "There are no products in this collection yet.",
-    "browse_all": "Browse all products"
+    "sort_by": "Sort by",
+    "title": "Collections"
   },
   "customers": {
     "login": {

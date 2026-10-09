@@ -12,11 +12,14 @@ hardcodes a color.
 | `text`                 | Rich text, size (eyebrow, small, body, large), maximum width, alignment, muted color                | Text is empty        | `group`, `rich-text` |
 | `button`               | Label, link, new tab, style (primary, secondary, link with arrow)                                   | Label or link empty¹ | `group`, `rich-text` |
 | `group`                | Row or column, alignment, gap and padding from the spacing scale; holds `heading`, `text`, `button` | —                    | `rich-text`          |
+| `_collection-card`     | Collection, image (optional), label (optional)                                                      | No collection³       | `collection-grid`    |
 | `_styleguide-specimen` | Specimen (product cards, form controls, icons), products                                            | —                    | `rich-text`²         |
 
 ¹ In the theme editor an incomplete button is shown as disabled, so it can still be selected and fixed.
 
 ² Private and without presets, so it never appears in the block picker; only the style guide template places it.
+
+³ In the theme editor a card without a collection shows a placeholder, so it can still be selected.
 
 ## Presets
 
@@ -46,10 +49,11 @@ starts at 8px.
 
 ## Sections that accept theme blocks
 
-| Section       | Accepts                                                           | Settings                                                                                  |
-| ------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `rich-text`   | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding           |
-| `hero-banner` | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme |
+| Section           | Accepts                                                           | Settings                                                                                        |
+| ----------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `rich-text`       | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding                 |
+| `hero-banner`     | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme       |
+| `collection-grid` | `_collection-card` (max 8)                                        | Heading, columns (2–4), image ratio, label position, product count, mobile layout, color scheme |
 
 `rich-text` is a utility section for text content such as an About page or a short statement between other sections.
 Its preset holds a heading, a text and a button. Vertical padding defaults to "Section spacing", the same space other

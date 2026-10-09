@@ -44,6 +44,9 @@
       "default": "Shop now",
       "secondary_default": "Learn more"
     },
+    "collection_card": {
+      "name": "Collection card"
+    },
     "group": {
       "name": "Group"
     },
@@ -51,12 +54,12 @@
       "name": "Heading",
       "default": "Made by hand, for every day"
     },
+    "styleguide_specimen": {
+      "name": "Style guide specimen"
+    },
     "text": {
       "name": "Text",
       "default": "<p>Stoneware thrown in small batches, glazed in three quiet colours and made to be used.</p>"
-    },
-    "styleguide_specimen": {
-      "name": "Style guide specimen"
     }
   },
   "labels": {
@@ -69,6 +72,7 @@
     "button": "Button",
     "button_label": "Button label",
     "button_text": "Label",
+    "collection": "Collection",
     "color_scheme": "Color scheme",
     "columns_desktop": "Columns on desktop",
     "content_position": "Content position",
@@ -86,12 +90,16 @@
     "height": "Height",
     "image": "Image",
     "image_mobile": "Mobile image",
+    "image_ratio": "Image ratio",
+    "label": "Label",
+    "label_position": "Label position",
     "layout_direction": "Layout direction",
     "link": "Link",
     "logo": "Logo",
     "logo_width": "Logo width",
     "max_width": "Maximum width",
     "menu": "Menu",
+    "mobile_layout": "Mobile layout",
     "muted": "Secondary text",
     "muted_text": "Use secondary text color",
     "new_tab": "Open link in a new tab",
@@ -103,6 +111,7 @@
     "products_per_page": "Products per page",
     "secondary_button_label": "Secondary button",
     "section_spacing": "Section spacing",
+    "show_count": "Show product count",
     "show_payment_icons": "Show payment icons",
     "size": "Size",
     "specimen": "Specimen",
@@ -113,6 +122,8 @@
   },
   "info": {
     "animations": "Animations are always turned off for visitors who ask for reduced motion.",
+    "collection_card_image": "Optional. Uses the collection image, or its first product's image.",
+    "collection_card_label": "Optional. Uses the collection title.",
     "corner_radius": "Applies to buttons, inputs and cards.",
     "heading_level": "Use one H1 per page. The level is for screen readers and search engines; the size setting controls the look.",
     "hero_color_scheme": "Sets the text colors and the overlay color.",
@@ -158,10 +169,23 @@
       "full": "Full screen",
       "medium": "Medium"
     },
+    "image_ratio": {
+      "portrait": "Portrait (4:5)",
+      "square": "Square",
+      "landscape": "Landscape (3:2)"
+    },
+    "label_position": {
+      "overlay": "On image",
+      "below": "Below image"
+    },
     "max_width": {
       "narrow": "Narrow",
       "normal": "Normal",
       "none": "Full width"
+    },
+    "mobile_layout": {
+      "grid": "Grid, 2 columns",
+      "scroll": "Horizontal scroll"
     },
     "page_width": {
       "narrow": "Narrow",
@@ -210,6 +234,10 @@
   "sections": {
     "cart_icon_bubble": {
       "name": "Cart icon"
+    },
+    "collection_grid": {
+      "name": "Collection grid",
+      "heading": "Shop by category"
     },
     "hero_banner": {
       "name": "Hero banner",

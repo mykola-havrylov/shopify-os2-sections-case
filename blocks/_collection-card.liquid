@@ -1,0 +1,223 @@
+{% doc %}
+  Collection card for the `collection-grid` section: an image cropped to the section's ratio and a label with the
+  optional product count, either on the image (in a compact chip whose background is the darker of the color scheme's
+  background and text colors, so it stands out on light photos and its contrast never depends on the photo) or under
+  it. The image is the block image, then the collection image, then the image of the
+  collection's first product. The title link covers the whole card.
+
+  @example
+  {% content_for 'block', type: '_collection-card', id: 'card' %}
+{% enddoc %}
+
+{%- liquid
+  assign collection = block.settings.collection
+  assign label = block.settings.label | strip | default: collection.title
+  assign image = block.settings.image | default: collection.featured_image | default: collection.products.first.featured_image
+
+  case section.settings.image_ratio
+    when 'square'
+      assign aspect_ratio = '1 / 1'
+    when 'landscape'
+      assign aspect_ratio = '3 / 2'
+    else
+      assign aspect_ratio = 'var(--ratio-tile)'
+  endcase
+
+  assign columns = section.settings.columns_desktop
+  if section.settings.mobile_layout == 'scroll'
+    assign sizes = '(min-width: 750px) calc(100vw / ' | append: columns | append: '), 75vw'
+  else
+    assign sizes = '(min-width: 750px) calc(100vw / ' | append: columns | append: '), 50vw'
+  endif
+
+  assign scheme = section.settings.color_scheme
+  assign foreground_brightness = scheme.settings.foreground | color_brightness
+  assign background_brightness = scheme.settings.background | color_brightness
+  assign chip_class = ''
+  if foreground_brightness < background_brightness
+    assign chip_class = ' collection-card--chip-inverted'
+  endif
+
+  assign loading = 'eager'
+  if section.index > 1
+    assign loading = 'lazy'
+  endif
+-%}
+
+{%- if collection != blank or request.design_mode -%}
+  <div
+    class="collection-card collection-card--{{ section.settings.label_position }}{{ chip_class }}"
+    {{ block.shopify_attributes }}
+  >
+    {% render 'image',
+      image: image,
+      aspect_ratio: aspect_ratio,
+      class: 'collection-card__media',
+      alt: '',
+      placeholder: 'collection-1',
+      sizes: sizes,
+      loading: loading
+    %}
+    <div class="collection-card__info">
+      <div class="collection-card__text">
+        <h3 class="collection-card__title">
+          {%- if collection != blank -%}
+            <a class="collection-card__link" href="{{ collection.url }}">{{ label | escape }}</a>
+          {%- elsif label != blank -%}
+            {{ label | escape }}
+          {%- else -%}
+            {{ 'collections.placeholder_title' | t }}
+          {%- endif -%}
+        </h3>
+        {%- if section.settings.show_count and collection != blank -%}
+          <p class="collection-card__count">
+            {{- 'collections.product_count' | t: count: collection.products_count -}}
+          </p>
+        {%- endif -%}
+      </div>
+      {% render 'icon', name: 'arrow-right', class: 'collection-card__arrow' %}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .collection-card {
+    position: relative;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .collection-card__media img {
+    transition: transform var(--motion-duration) var(--motion-easing);
+  }
+
+  .collection-card:hover .collection-card__media img {
+    transform: scale(1.03);
+  }
+
+  .collection-card__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .collection-card--overlay {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .collection-card--overlay > * {
+    grid-area: 1 / 1;
+  }
+
+  .collection-card--overlay .collection-card__info {
+    z-index: 1;
+    align-self: end;
+    justify-self: start;
+    max-width: calc(100% - var(--space-3) * 2);
+    margin: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .collection-card--chip-inverted .collection-card__info {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .collection-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .collection-card__title {
+    font-family: var(--font-body--family);
+    font-style: var(--font-body--style);
+    font-weight: var(--font-body--weight-bold);
+    font-size: 1em;
+    line-height: var(--line-height-snug);
+    letter-spacing: normal;
+  }
+
+  .collection-card__link {
+    text-decoration: none;
+  }
+
+  .collection-card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .collection-card:hover .collection-card__link {
+    text-decoration: underline;
+  }
+
+  .collection-card__link:focus-visible {
+    outline: none;
+  }
+
+  .collection-card:has(.collection-card__link:focus-visible) {
+    outline: var(--focus-ring-width) solid var(--color-foreground);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .collection-card__count {
+    font-size: 0.875em;
+  }
+
+  .collection-card--below .collection-card__count {
+    color: var(--color-muted);
+  }
+
+  .collection-card__arrow {
+    transition: transform var(--motion-duration) var(--motion-easing);
+  }
+
+  .collection-card:hover .collection-card__arrow {
+    transform: translateX(var(--space-1));
+  }
+
+  @container (max-width: 14rem) {
+    .collection-card--overlay .collection-card__info {
+      max-width: calc(100% - var(--space-2) * 2);
+      margin: var(--space-2);
+    }
+
+    .collection-card__arrow {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:blocks.collection_card.name",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:labels.collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:labels.image",
+      "info": "t:info.collection_card_image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:labels.label",
+      "info": "t:info.collection_card_label"
+    }
+  ],
+  "presets": [{ "name": "t:blocks.collection_card.name" }]
+}
+{% endschema %}

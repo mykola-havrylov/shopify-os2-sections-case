@@ -1,0 +1,158 @@
+{% comment %}
+  Collection grid: an optional heading and up to eight collection cards in 2, 3 or 4 columns from 750px. Below 750px
+  the cards are a two-column grid or a horizontal scroll-snap row; the row scrolls only sideways, so vertical page
+  scrolling keeps working on touch.
+{% endcomment %}
+
+{%- liquid
+  assign list_tag = 'div'
+  if section.settings.mobile_layout == 'scroll'
+    assign list_tag = 'scroll-row'
+  endif
+-%}
+
+<div
+  class="collection-grid full-bleed section-spacing color-{{ section.settings.color_scheme }}"
+  style="--collection-grid-columns: {{ section.settings.columns_desktop }};"
+>
+  <div class="collection-grid__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="collection-grid__heading h2">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <{{ list_tag }} class="collection-grid__list collection-grid__list--{{ section.settings.mobile_layout }}">
+      {% content_for 'blocks' %}
+    </{{ list_tag }}>
+  </div>
+</div>
+
+{%- if section.settings.mobile_layout == 'scroll' -%}
+  <script src="{{ 'scroll-row.js' | asset_url }}" type="module"></script>
+{%- endif -%}
+
+{% stylesheet %}
+  .collection-grid__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-width: 0;
+  }
+
+  .collection-grid__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4) var(--grid-gutter);
+  }
+
+  .collection-grid__list--scroll {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 75%;
+    margin-inline: calc(var(--page-margin) * -1);
+    padding-inline: var(--page-margin);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: var(--page-margin);
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .collection-grid__list--scroll > * {
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 750px) {
+    .collection-grid__list,
+    .collection-grid__list--scroll {
+      grid-template-columns: repeat(var(--collection-grid-columns), minmax(0, 1fr));
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      margin-inline: 0;
+      padding-inline: 0;
+      overflow: visible;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.collection_grid.name",
+  "tag": "section",
+  "class": "collection-grid-section",
+  "max_blocks": 8,
+  "blocks": [{ "type": "_collection-card" }],
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "t:sections.collection_grid.heading"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "t:labels.columns_desktop",
+      "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:labels.image_ratio",
+      "default": "portrait",
+      "options": [
+        { "value": "portrait", "label": "t:options.image_ratio.portrait" },
+        { "value": "square", "label": "t:options.image_ratio.square" },
+        { "value": "landscape", "label": "t:options.image_ratio.landscape" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "label_position",
+      "label": "t:labels.label_position",
+      "default": "overlay",
+      "options": [
+        { "value": "overlay", "label": "t:options.label_position.overlay" },
+        { "value": "below", "label": "t:options.label_position.below" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "t:labels.show_count",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "t:labels.mobile_layout",
+      "default": "grid",
+      "options": [
+        { "value": "grid", "label": "t:options.mobile_layout.grid" },
+        { "value": "scroll", "label": "t:options.mobile_layout.scroll" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-base"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.collection_grid.name",
+      "category": "t:general.collections",
+      "blocks": [
+        { "type": "_collection-card" },
+        { "type": "_collection-card" },
+        { "type": "_collection-card" },
+        { "type": "_collection-card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

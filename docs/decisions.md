@@ -16,7 +16,7 @@ replacing existing Dawn components. Its licence is the same kind of grant as Daw
 [third-party-assets.md](third-party-assets.md)).
 
 **Why not Skeleton `main`.** From commit `a7a655e` (2026-10-01) Skeleton `main` is block-first: no `sections/` folder,
-no JSON templates, `templates/*.liquid` composed with the `{% block %}` tag, and an `AGENTS.md` that forbids sections,
+no JSON templates, `templates/*.liquid` composed with the `{% block %}` tag, and its own contributor guidelines forbid sections,
 `{% stylesheet %}` and schema presets. `{% block %}` and `{% partial %}` belong to the Liquid July '26 developer
 preview ([changelog](https://shopify.dev/changelog/developer-preview-liquid-block-and-partial-tags),
 [developer preview](https://shopify.dev/docs/storefronts/themes/getting-started/developer-preview)); they are not
@@ -209,3 +209,23 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
   left or right, vertically on mobile and in the centre column, and uniform when the content is centred both ways. Over the light demo photos a uniform overlay needs about 55% to give paragraph text 4.5:1, which dulls the whole image; the faded overlay gives the text area 5.9:1 (desktop) and 6.5:1 (mobile) on average, and at least 4.5:1 for 90% of the area behind the text while the products stay bright.
 - **Blocks.** `heading`, `text` and `button`, at most six. Buttons sit in one row; headings and text take a full
   line.
+
+### 16. Collection grid
+
+- **Private card block.** `_collection-card` (collection, optional image, optional label) is accepted only by
+  `collection-grid`, at most eight per section. The image falls back to the collection image and then to the image of
+  the collection's first product, because the demo collections have no images of their own.
+- **Label on the image.** A compact chip, sized to its content, whose background is the darker of the color scheme's
+  background and text colors (chosen in Liquid with the
+  [`color_brightness`](https://shopify.dev/docs/api/liquid/filters/color_brightness) filter) and whose text is the other one. The demo
+  product photos have a light background close to the Base scheme, so a chip in a light color would have no visible
+  edge; a dark chip stands out in every scheme and keeps the scheme's own text contrast (5.3:1 or more). No overlay
+  darkens the image, and no border or shadow is added. The label can also sit under the image.
+- **Narrow cards.** Each card is a size container; below 14rem the chip tightens and drops the arrow, so the label
+  stays inside the image on two-column phones and four-column tablets.
+- **Mobile layout.** A two-column grid, or a horizontal row that bleeds to the screen edges. The row uses
+  `scroll-snap-type: x proximity` and is a `scroll-row` custom element (`assets/scroll-row.js`, loaded only in
+  that mode) that scrolls a keyboard-focused card fully into view, because browsers leave a partly visible focused
+  item where it is. The row only scrolls sideways, so a vertical swipe that starts on it scrolls the page.
+- **Whole card as one link.** The title link's `::after` covers the card, so each card is one tab stop with the focus
+  ring drawn around the whole card.

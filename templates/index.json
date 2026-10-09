@@ -60,7 +60,50 @@
         "content_width": "narrow",
         "color_scheme": "scheme-inverse"
       }
+    },
+    "collection_grid": {
+      "type": "collection-grid",
+      "blocks": {
+        "mugs": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "mugs",
+            "label": ""
+          }
+        },
+        "bowls": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "bowls",
+            "label": ""
+          }
+        },
+        "plates": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "plates",
+            "label": ""
+          }
+        },
+        "vases": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "vases",
+            "label": ""
+          }
+        }
+      },
+      "block_order": ["mugs", "bowls", "plates", "vases"],
+      "settings": {
+        "heading": "Shop by category",
+        "columns_desktop": "4",
+        "image_ratio": "portrait",
+        "label_position": "overlay",
+        "show_count": true,
+        "mobile_layout": "grid",
+        "color_scheme": "scheme-base"
+      }
     }
   },
-  "order": ["hero"]
+  "order": ["hero", "collection_grid"]
 }

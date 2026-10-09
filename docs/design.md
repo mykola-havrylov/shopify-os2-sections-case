@@ -21,22 +21,23 @@ Settings-driven tokens are output by `snippets/css-variables.liquid`; the rest l
 
 ### Spacing and layout
 
-| Token                   | Value                                | Used for                                                 |
-| ----------------------- | ------------------------------------ | -------------------------------------------------------- |
-| `--space-1`             | 0.25rem (4px)                        | Tight gaps: title to price, arrow nudge, badge           |
-| `--space-2`             | 0.5rem (8px)                         | Label to control, icon to text, control padding          |
-| `--space-3`             | 1rem (16px)                          | Default block gap, image to text in a card               |
-| `--space-4`             | 1.5rem (24px)                        | Gap between blocks in a section                          |
-| `--space-5`             | 2.5rem (40px)                        | Grid gutter on desktop, small section padding            |
-| `--space-6`             | 4rem (64px)                          | Section padding                                          |
-| `--space-7`             | 6rem (96px)                          | Large section padding                                    |
-| `--grid-gutter`         | `--space-3` / `--space-5` from 750px | Gap in card grids                                        |
-| `--text-measure`        | 65ch                                 | Running text, narrow content columns, forms              |
-| `--text-measure-narrow` | 45ch                                 | Short text blocks                                        |
-| `--control-height`      | 2.75rem (44px)                       | Minimum height of buttons and form controls              |
-| `--page-width`          | Theme setting                        | Maximum content width                                    |
-| `--page-margin`         | Theme setting                        | Minimum side margin                                      |
-| `--section-spacing`     | Theme setting                        | Vertical space between sections (half above, half below) |
+| Token                   | Value                                | Used for                                                                    |
+| ----------------------- | ------------------------------------ | --------------------------------------------------------------------------- |
+| `--space-1`             | 0.25rem (4px)                        | Tight gaps: title to price, arrow nudge, badge                              |
+| `--space-2`             | 0.5rem (8px)                         | Label to control, icon to text, control padding                             |
+| `--space-3`             | 1rem (16px)                          | Default block gap, image to text in a card                                  |
+| `--space-4`             | 1.5rem (24px)                        | Gap between blocks in a section                                             |
+| `--space-5`             | 2.5rem (40px)                        | Grid gutter on desktop, small section padding                               |
+| `--space-6`             | 4rem (64px)                          | Section padding                                                             |
+| `--space-7`             | 6rem (96px)                          | Large section padding                                                       |
+| `--grid-gutter`         | `--space-3` / `--space-5` from 750px | Gap in card grids                                                           |
+| `--text-measure`        | 65ch                                 | Running text, narrow content columns, forms                                 |
+| `--text-measure-narrow` | 45ch                                 | Short text blocks                                                           |
+| `--control-height`      | 2.75rem (44px)                       | Minimum height of buttons and form controls                                 |
+| `--header-height`       | 4.5rem (72px)                        | Header row height; the full-screen hero subtracts it from the window height |
+| `--page-width`          | Theme setting                        | Maximum content width                                                       |
+| `--page-margin`         | Theme setting                        | Minimum side margin                                                         |
+| `--section-spacing`     | Theme setting                        | Vertical space between sections (half above, half below)                    |
 
 The `group` block's gap and padding and the `rich-text` section's vertical padding are selects of these steps, not free
 pixel values. Breakpoints: 750px for layout (grids, gutters, media ratios) and 1024px for the header, where the
@@ -114,7 +115,7 @@ Icons: `cart`, `account`, `close`, `menu`, `minus`, `plus`, `arrow-right`, `chev
 | ------- | ---------- | ------------------------------------------------------------------------- |
 | Base    | `#F6F1EA`  | Default for pages, header, product grids, cart drawer.                    |
 | Surface | `#EDE5DA`  | A calm band that separates a section from the ones around it.             |
-| Inverse | `#2B2622`  | Footer and one strong statement per page at most.                         |
+| Inverse | `#2B2622`  | Footer, text over hero images, and one strong statement per page at most. |
 | Accent  | `#9A5B3C`  | Rarely: one short promotional band. Never next to another Accent section. |
 
 ## Contrast
@@ -137,7 +138,7 @@ fill against the section background and form control boundaries need 3:1. Hover 
 | Control boundary against background (3:1)   | 5.08  | 4.57    | 8.26    | 4.75   |
 | Focus ring against background (3:1)         | 13.32 | 11.99   | 13.32   | 5.34   |
 
-Text is never placed on the surface color directly; the surface sits behind images and the badge frame. The border
+Text over a photo (the hero) sits on an overlay in the scheme's background color that fades out away from the content; with the default strength the text area measures above 4.5:1 on the demo images. Text is never placed on the surface color directly; the surface sits behind images and the badge frame. The border
 color is used only for decorative dividers, which need no minimum contrast.
 
 ## Rejected patterns

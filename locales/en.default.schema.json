@@ -2,14 +2,15 @@
   "general": {
     "404": "Not found",
     "article": "Article",
+    "banners": "Banners",
     "block": "Block",
     "blog": "Blog",
     "buttons": "Buttons",
     "buttons_row": "Buttons",
     "cart": "Cart",
     "collection": "Collection",
-    "collections": "Collections",
     "collection_card": "Collection card",
+    "collections": "Collections",
     "collections_grid": "Collections grid",
     "colors": "Colors",
     "column": "Column",
@@ -19,6 +20,7 @@
     "footer": "Footer",
     "group": "Group",
     "header": "Header",
+    "image": "Image",
     "layout": "Layout",
     "main": "Main",
     "page": "Page",
@@ -69,6 +71,7 @@
     "button_text": "Label",
     "color_scheme": "Color scheme",
     "columns_desktop": "Columns on desktop",
+    "content_position": "Content position",
     "content_width": "Content width",
     "corner_radius": "Corner radius",
     "customer_account_menu": "Customer account menu",
@@ -80,6 +83,9 @@
     "heading_font": "Heading font",
     "heading_level": "Heading level",
     "heading_scale": "Heading size",
+    "height": "Height",
+    "image": "Image",
+    "image_mobile": "Mobile image",
     "layout_direction": "Layout direction",
     "link": "Link",
     "logo": "Logo",
@@ -89,6 +95,7 @@
     "muted": "Secondary text",
     "muted_text": "Use secondary text color",
     "new_tab": "Open link in a new tab",
+    "overlay": "Overlay opacity",
     "padding": "Padding",
     "page_margin": "Page margin",
     "page_width": "Page width",
@@ -108,8 +115,12 @@
     "animations": "Animations are always turned off for visitors who ask for reduced motion.",
     "corner_radius": "Applies to buttons, inputs and cards.",
     "heading_level": "Use one H1 per page. The level is for screen readers and search engines; the size setting controls the look.",
+    "hero_color_scheme": "Sets the text colors and the overlay color.",
+    "hero_height": "Full screen fills the window below the header.",
+    "image_mobile": "Shown below 750px. The main image is used when this is empty.",
     "muted": "Used for prices, captions and other secondary text. Keep a contrast of at least 4.5:1 with the background.",
     "muted_text": "Eyebrow text always uses the secondary text color.",
+    "overlay": "Strength of the shade behind the content. It fades out towards the opposite side of the image.",
     "section_alignment": "Positions the content column and the blocks in it. Text alignment inside heading and text blocks is set on each block.",
     "section_spacing": "Vertical space between sections.",
     "surface": "Background behind images and image placeholders.",
@@ -142,6 +153,11 @@
       "small": "Small",
       "extra_small": "Extra small"
     },
+    "hero_height": {
+      "adapt": "Adapt to image",
+      "full": "Full screen",
+      "medium": "Medium"
+    },
     "max_width": {
       "narrow": "Narrow",
       "normal": "Normal",
@@ -150,6 +166,17 @@
     "page_width": {
       "narrow": "Narrow",
       "wide": "Wide"
+    },
+    "position": {
+      "top_left": "Top left",
+      "top_center": "Top center",
+      "top_right": "Top right",
+      "middle_left": "Middle left",
+      "middle_center": "Middle center",
+      "middle_right": "Middle right",
+      "bottom_left": "Bottom left",
+      "bottom_center": "Bottom center",
+      "bottom_right": "Bottom right"
     },
     "size": {
       "large": "Large",
@@ -183,6 +210,11 @@
   "sections": {
     "cart_icon_bubble": {
       "name": "Cart icon"
+    },
+    "hero_banner": {
+      "name": "Hero banner",
+      "heading": "Stoneware for slow mornings",
+      "text": "<p>Thrown, trimmed and glazed by hand in small batches, and made to be used every day.</p>"
     },
     "main_cart": {
       "name": "Cart"

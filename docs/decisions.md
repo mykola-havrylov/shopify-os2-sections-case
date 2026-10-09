@@ -191,3 +191,21 @@ One form posted to `/cart` ([cart template](https://shopify.dev/docs/storefronts
 that works without JavaScript and is the fallback for the cart drawer: `updates[<line key>]` quantity fields, the order
 note, an Update button (first in the form, so Enter updates) and a Check out button. Remove links use
 `item.url_to_remove`. Line and cart-level discounts are listed when present.
+
+### 15. Hero banner
+
+- **Art-directed image.** Desktop and mobile images are separate settings. `snippets/image.liquid` renders them as one
+  `<picture>` whose `<source>` below 750px is the mobile image, so the browser downloads only one file; the hero
+  frame reserves its size in CSS, so the image causes no layout shift.
+- **Height.** "Full screen" (the default) is the window height minus `--header-height`, so the first screen is the
+  header plus the hero and nothing else; the hero grows only when its content is taller, as on a landscape phone.
+  "Medium" (70% of the window) and "Adapt to image" (`--ratio-hero`: 4:5, 16:9 from 750px) are the alternatives.
+- **LCP.** The image gets `loading="eager"` and `fetchpriority="high"` unless the section is not first in its
+  template (`section.index > 1`). The comparison is written so that a `nil` index (theme editor, Section Rendering
+  API) falls on the eager side
+  ([section.index](https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-section-index)).
+- **Readable text over a photo.** The overlay is the color scheme's background color at the chosen strength (default
+  60%), full strength behind the content and fading out towards the opposite side: horizontally when the content sits
+  left or right, vertically on mobile and in the centre column, and uniform when the content is centred both ways. Over the light demo photos a uniform overlay needs about 55% to give paragraph text 4.5:1, which dulls the whole image; the faded overlay gives the text area 5.9:1 (desktop) and 6.5:1 (mobile) on average, and at least 4.5:1 for 90% of the area behind the text while the products stay bright.
+- **Blocks.** `heading`, `text` and `button`, at most six. Buttons sit in one row; headings and text take a full
+  line.

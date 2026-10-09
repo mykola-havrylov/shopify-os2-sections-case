@@ -68,6 +68,7 @@
     "button_label": "Button label",
     "button_text": "Label",
     "color_scheme": "Color scheme",
+    "columns_desktop": "Columns on desktop",
     "content_width": "Content width",
     "corner_radius": "Corner radius",
     "customer_account_menu": "Customer account menu",
@@ -81,6 +82,8 @@
     "heading_scale": "Heading size",
     "layout_direction": "Layout direction",
     "link": "Link",
+    "logo": "Logo",
+    "logo_width": "Logo width",
     "max_width": "Maximum width",
     "menu": "Menu",
     "muted": "Secondary text",
@@ -90,6 +93,7 @@
     "page_margin": "Page margin",
     "page_width": "Page width",
     "products": "Products",
+    "products_per_page": "Products per page",
     "secondary_button_label": "Secondary button",
     "section_spacing": "Section spacing",
     "show_payment_icons": "Show payment icons",
@@ -177,6 +181,12 @@
     }
   },
   "sections": {
+    "cart_icon_bubble": {
+      "name": "Cart icon"
+    },
+    "main_collection": {
+      "name": "Collection"
+    },
     "rich_text": {
       "name": "Rich text"
     }

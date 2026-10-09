@@ -39,7 +39,8 @@ Settings-driven tokens are output by `snippets/css-variables.liquid`; the rest l
 | `--section-spacing`     | Theme setting                        | Vertical space between sections (half above, half below) |
 
 The `group` block's gap and padding and the `rich-text` section's vertical padding are selects of these steps, not free
-pixel values. The only breakpoint is 750px.
+pixel values. Breakpoints: 750px for layout (grids, gutters, media ratios) and 1024px for the header, where the
+mobile menu drawer gives way to the inline menu.
 
 ### Typography
 
@@ -89,18 +90,21 @@ badges and images. The focus ring is `--focus-ring-width` of the foreground colo
 
 ## Components
 
-| Class                            | Where                   | Notes                                                                                                                                                                   |
-| -------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.button`, `.button--secondary`  | `assets/critical.css`   | Primary is the scheme's button color; secondary is outlined.                                                                                                            |
-| `.link-arrow`                    | `assets/components.css` | Underlined bold link with a trailing arrow icon.                                                                                                                        |
-| `.divider`                       | `assets/components.css` | `hr` with a 1px line in the border color.                                                                                                                               |
-| `.field`, `.input`, `.select`    | `assets/components.css` | Label above the control; boundary in the secondary color.                                                                                                               |
-| `.quantity`                      | `assets/components.css` | Minus button, number input, plus button.                                                                                                                                |
-| `.badge`                         | `assets/components.css` | Only for "Sold out".                                                                                                                                                    |
-| `.product-card`                  | `assets/components.css` | 4:5 image on surface, title and price under it; the whole card is the link; hover zooms the image inside its frame and underlines the title, without moving the layout. |
-| `.icon` (`snippets/icon.liquid`) | Snippet stylesheet      | Inline SVG, `currentColor`, 1.25em by default.                                                                                                                          |
+| Class                              | Where                   | Notes                                                                                                                                                                   |
+| ---------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.button`, `.button--secondary`    | `assets/critical.css`   | Primary is the scheme's button color; secondary is outlined.                                                                                                            |
+| `.link-arrow`                      | `assets/components.css` | Underlined bold link with a trailing arrow icon.                                                                                                                        |
+| `.divider`                         | `assets/components.css` | `hr` with a 1px line in the border color.                                                                                                                               |
+| `.field`, `.input`, `.select`      | `assets/components.css` | Label above the control; boundary in the secondary color.                                                                                                               |
+| `.quantity`                        | `assets/components.css` | Minus button, number input, plus button.                                                                                                                                |
+| `.badge`                           | `assets/components.css` | Only for "Sold out".                                                                                                                                                    |
+| `.product-card`                    | `assets/components.css` | 4:5 image on surface, title and price under it; the whole card is the link; hover zooms the image inside its frame and underlines the title, without moving the layout. |
+| `.icon` (`snippets/icon.liquid`)   | Snippet stylesheet      | Inline SVG, `currentColor`, 1.25em by default.                                                                                                                          |
+| `snippets/product-card.liquid`     | Uses `.product-card`    | Card markup for collection grids and product rows.                                                                                                                      |
+| `snippets/price.liquid`            | Snippet stylesheet      | Price; "From" for varying prices; compare-at price struck through.                                                                                                      |
+| `snippets/cart-icon-bubble.liquid` | Snippet stylesheet      | Cart link with item count; also rendered as a section for the Cart API.                                                                                                 |
 
-Icons: `cart`, `account`, `close`, `minus`, `plus`, `arrow-right`, `chevron-down`, `hand`, `flame`, `leaf`,
+Icons: `cart`, `account`, `close`, `menu`, `minus`, `plus`, `arrow-right`, `chevron-down`, `hand`, `flame`, `leaf`,
 `package`, `refresh`.
 
 ## Color schemes

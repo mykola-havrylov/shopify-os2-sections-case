@@ -1,54 +1,130 @@
 {% comment %}
-  Store footer: copyright, footer menu and payment icons.
+  Store footer: shop name, footer menu, copyright and payment icons, in its own color scheme.
 {% endcomment %}
 
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
-  </div>
+{%- assign menu = section.settings.menu -%}
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+<div class="footer full-bleed color-{{ section.settings.color_scheme }}">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <a class="footer__shop h3" href="{{ routes.root_url }}">{{ shop.name | escape }}</a>
 
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+      {%- if menu.links.size > 0 -%}
+        <nav aria-label="{{ 'footer.navigation' | t }}">
+          <ul class="footer__menu" role="list">
+            {%- for link in menu.links -%}
+              <li>
+                <a
+                  class="footer__link"
+                  href="{{ link.url }}"
+                  {% if link.current %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+
+    <hr class="divider">
+
+    <div class="footer__bottom text-small">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }}
+        {{ shop.name | escape }}. {{ powered_by_link }}
+      </p>
+
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <ul class="footer__payment" role="list" aria-label="{{ 'footer.payment_methods' | t }}">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
   </div>
-</footer>
+</div>
 
 {% stylesheet %}
-  footer {
+  .footer {
+    padding-block: var(--space-6) var(--space-5);
+  }
+
+  .footer__inner {
     display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .footer__top,
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 2rem;
+    align-items: center;
+    gap: var(--space-4);
   }
-  footer a {
+
+  .footer__top {
+    align-items: flex-start;
+  }
+
+  .footer__shop {
     text-decoration: none;
-    color: var(--color-foreground);
   }
-  footer .footer__links,
-  footer .footer__payment {
+
+  .footer__menu {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+  }
+
+  .footer__link {
+    text-decoration: none;
+  }
+
+  .footer__link:hover,
+  .footer__link[aria-current='page'] {
+    text-decoration: underline;
+  }
+
+  .footer__copyright {
+    color: var(--color-muted);
+  }
+
+  .footer__payment {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .footer__payment svg {
+    width: 2.375rem;
+    height: auto;
   }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "t:general.footer",
+  "tag": "footer",
+  "class": "footer-section",
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-inverse"
+    },
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "t:labels.menu",
+      "default": "footer"
     },
     {
       "type": "checkbox",

@@ -1,0 +1,7 @@
+# Temporary files that editors and tools write next to theme files; Shopify CLI must not upload them.
+/\/[^\/.]+$/
+*~
+*.swp
+*.swo
+*.tmp
+*.bak

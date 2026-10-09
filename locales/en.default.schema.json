@@ -47,6 +47,11 @@
     "collection_card": {
       "name": "Collection card"
     },
+    "faq_item": {
+      "name": "Question",
+      "default_question": "How do I care for stoneware?",
+      "default_answer": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>"
+    },
     "group": {
       "name": "Group"
     },
@@ -77,6 +82,7 @@
   "labels": {
     "alignment": "Alignment",
     "animations": "Animations",
+    "answer": "Answer",
     "background": "Background",
     "body_font": "Body font",
     "body_size": "Body text size",
@@ -91,6 +97,7 @@
     "content_width": "Content width",
     "corner_radius": "Corner radius",
     "customer_account_menu": "Customer account menu",
+    "first_open": "Open the first question",
     "foreground": "Text",
     "gap": "Gap",
     "grid_gap": "Grid spacing",
@@ -124,10 +131,12 @@
     "page_width": "Page width",
     "products": "Products",
     "products_per_page": "Products per page",
+    "question": "Question",
     "secondary_button_label": "Secondary button",
     "section_spacing": "Section spacing",
     "show_count": "Show product count",
     "show_payment_icons": "Show payment icons",
+    "single_open": "One open at a time",
     "size": "Size",
     "specimen": "Specimen",
     "style": "Style",
@@ -150,7 +159,8 @@
     "muted_text": "Eyebrow text always uses the secondary text color.",
     "overlay": "Strength of the shade behind the content. It fades out towards the opposite side of the image.",
     "section_alignment": "Positions the content column and the blocks in it. Text alignment inside heading and text blocks is set on each block.",
-    "section_spacing": "Vertical space between sections.",
+    "section_spacing": "Space above and below each section from 750px wide; half of it on smaller screens.",
+    "single_open": "Opening a question closes the others, in browsers that support it.",
     "surface": "Background behind images and image placeholders.",
     "vertical_padding": "Section spacing matches the space other sections use. Use a larger step when the section has its own background color."
   },
@@ -273,6 +283,16 @@
     "collection_grid": {
       "name": "Collection grid",
       "heading": "Shop by category"
+    },
+    "faq_accordion": {
+      "name": "FAQ",
+      "heading": "Questions",
+      "q1": "How do I care for stoneware?",
+      "a1": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>",
+      "q2": "How long does shipping take?",
+      "a2": "<p>Orders leave the studio within three working days. You get an email with tracking as soon as yours is on its way.</p>",
+      "q3": "Can I return an item?",
+      "a3": "<p>Unused pieces can be returned within 30 days of delivery. Write to us with your order number and we send the return details.</p>"
     },
     "feature_banner": {
       "name": "Feature banner",

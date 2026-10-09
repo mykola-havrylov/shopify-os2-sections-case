@@ -21,23 +21,24 @@ Settings-driven tokens are output by `snippets/css-variables.liquid`; the rest l
 
 ### Spacing and layout
 
-| Token                   | Value                                | Used for                                                                    |
-| ----------------------- | ------------------------------------ | --------------------------------------------------------------------------- |
-| `--space-1`             | 0.25rem (4px)                        | Tight gaps: title to price, arrow nudge, badge                              |
-| `--space-2`             | 0.5rem (8px)                         | Label to control, icon to text, control padding                             |
-| `--space-3`             | 1rem (16px)                          | Default block gap, image to text in a card                                  |
-| `--space-4`             | 1.5rem (24px)                        | Gap between blocks in a section                                             |
-| `--space-5`             | 2.5rem (40px)                        | Grid gutter on desktop, small section padding                               |
-| `--space-6`             | 4rem (64px)                          | Section padding                                                             |
-| `--space-7`             | 6rem (96px)                          | Large section padding                                                       |
-| `--grid-gutter`         | `--space-3` / `--space-5` from 750px | Gap in card grids                                                           |
-| `--text-measure`        | 65ch                                 | Running text, narrow content columns, forms                                 |
-| `--text-measure-narrow` | 45ch                                 | Short text blocks                                                           |
-| `--control-height`      | 2.75rem (44px)                       | Minimum height of buttons and form controls                                 |
-| `--header-height`       | 4.5rem (72px)                        | Header row height; the full-screen hero subtracts it from the window height |
-| `--page-width`          | Theme setting                        | Maximum content width                                                       |
-| `--page-margin`         | Theme setting                        | Minimum side margin                                                         |
-| `--section-spacing`     | Theme setting                        | Vertical space between sections (half above, half below)                    |
+| Token                   | Value                                                  | Used for                                                                    |
+| ----------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `--space-1`             | 0.25rem (4px)                                          | Tight gaps: title to price, arrow nudge, badge                              |
+| `--space-2`             | 0.5rem (8px)                                           | Label to control, icon to text, control padding                             |
+| `--space-3`             | 1rem (16px)                                            | Default block gap, image to text in a card                                  |
+| `--space-4`             | 1.5rem (24px)                                          | Gap between blocks in a section                                             |
+| `--space-5`             | 2.5rem (40px)                                          | Grid gutter on desktop, small section padding                               |
+| `--space-6`             | 4rem (64px)                                            | Section padding                                                             |
+| `--space-7`             | 6rem (96px)                                            | Large section padding                                                       |
+| `--grid-gutter`         | `--space-3` / `--space-5` from 750px                   | Gap in card grids                                                           |
+| `--text-measure`        | 65ch                                                   | Running text, narrow content columns, forms                                 |
+| `--text-measure-narrow` | 45ch                                                   | Short text blocks                                                           |
+| `--control-height`      | 2.75rem (44px)                                         | Minimum height of buttons and form controls                                 |
+| `--header-height`       | 4.5rem (72px)                                          | Header row height; the full-screen hero subtracts it from the window height |
+| `--page-width`          | Theme setting                                          | Maximum content width                                                       |
+| `--page-margin`         | Theme setting                                          | Minimum side margin                                                         |
+| `--section-spacing`     | Theme setting (default 64px)                           | Base value for the vertical space of sections                               |
+| `--section-padding`     | Half of `--section-spacing`, the full value from 750px | Padding above and below each section (`.section-spacing`)                   |
 
 The `group` block's gap and padding and the `rich-text` section's vertical padding are selects of these steps, not free
 pixel values. Breakpoints: 750px for layout (grids, gutters, media ratios) and 1024px for the header, where the

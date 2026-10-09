@@ -1,0 +1,103 @@
+{% comment %}
+  FAQ accordion: a heading that is a static block (it can be edited or hidden, not removed) and up to sixteen questions
+  as native <details> elements, separated by thin dividers. Everything works without JavaScript; when "One open at a
+  time" is on, the items share a `name`, and browsers that support exclusive accordions close the other items.
+{% endcomment %}
+
+<div class="faq-accordion full-bleed section-spacing color-{{ section.settings.color_scheme }}">
+  <div class="faq-accordion__inner faq-accordion__inner--{{ section.settings.content_width }}">
+    {% content_for 'block', type: 'heading', id: 'heading' %}
+    <div class="faq-accordion__items">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .faq-accordion__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    width: 100%;
+  }
+
+  .faq-accordion__inner--narrow {
+    max-width: var(--text-measure);
+  }
+
+  .faq-accordion__inner--normal {
+    max-width: 60rem;
+  }
+
+  .faq-accordion__items {
+    border-block-start: 1px solid var(--color-border);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.faq_accordion.name",
+  "tag": "section",
+  "class": "faq-accordion-section",
+  "max_blocks": 16,
+  "blocks": [{ "type": "_faq-item" }],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "first_open",
+      "label": "t:labels.first_open",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "single_open",
+      "label": "t:labels.single_open",
+      "info": "t:info.single_open",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:labels.content_width",
+      "default": "normal",
+      "options": [
+        { "value": "narrow", "label": "t:options.content_width.narrow" },
+        { "value": "normal", "label": "t:options.content_width.normal" },
+        { "value": "wide", "label": "t:options.content_width.wide" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-base"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq_accordion.name",
+      "category": "t:general.text",
+      "blocks": [
+        {
+          "type": "heading",
+          "id": "heading",
+          "static": true,
+          "settings": { "heading": "t:sections.faq_accordion.heading", "size": "h2" }
+        },
+        {
+          "type": "_faq-item",
+          "settings": { "title": "t:sections.faq_accordion.q1", "text": "t:sections.faq_accordion.a1" }
+        },
+        {
+          "type": "_faq-item",
+          "settings": { "title": "t:sections.faq_accordion.q2", "text": "t:sections.faq_accordion.a2" }
+        },
+        {
+          "type": "_faq-item",
+          "settings": { "title": "t:sections.faq_accordion.q3", "text": "t:sections.faq_accordion.a3" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

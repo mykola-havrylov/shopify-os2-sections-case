@@ -6,16 +6,17 @@ Shared theme blocks live in `blocks/`. Sections and blocks list the exact block 
 preset. Colors, fonts, radius and spacing come from the global design tokens ([design.md](design.md)); no block
 hardcodes a color.
 
-| Block                  | Settings                                                                                            | Renders nothing when | Accepted by          |
-| ---------------------- | --------------------------------------------------------------------------------------------------- | -------------------- | -------------------- |
-| `heading`              | Text (inline rich text), heading level H1–H4, size, alignment                                       | Text is empty        | `group`, `rich-text` |
-| `text`                 | Rich text, size (eyebrow, small, body, large), maximum width, alignment, muted color                | Text is empty        | `group`, `rich-text` |
-| `button`               | Label, link, new tab, style (primary, secondary, link with arrow)                                   | Label or link empty¹ | `group`, `rich-text` |
-| `group`                | Row or column, alignment, gap and padding from the spacing scale; holds `heading`, `text`, `button` | —                    | `rich-text`          |
-| `list`                 | Holds `_list-item` blocks; renders a `<ul>`                                                         | —                    | `feature-banner`     |
-| `_list-item`           | Icon (none or one of the theme icons), title, text                                                  | Title and text empty | `list`               |
-| `_collection-card`     | Collection, image (optional), label (optional)                                                      | No collection³       | `collection-grid`    |
-| `_styleguide-specimen` | Specimen (product cards, form controls, icons), products                                            | —                    | `rich-text`²         |
+| Block                  | Settings                                                                                            | Renders nothing when | Accepted by                                                                      |
+| ---------------------- | --------------------------------------------------------------------------------------------------- | -------------------- | -------------------------------------------------------------------------------- |
+| `heading`              | Text (inline rich text), heading level H1–H4, size, alignment                                       | Text is empty        | `group`, `rich-text`, `hero-banner`, `feature-banner`; static in `faq-accordion` |
+| `text`                 | Rich text, size (eyebrow, small, body, large), maximum width, alignment, muted color                | Text is empty        | `group`, `rich-text`, `hero-banner`, `feature-banner`                            |
+| `button`               | Label, link, new tab, style (primary, secondary, link with arrow)                                   | Label or link empty¹ | `group`, `rich-text`, `hero-banner`, `feature-banner`                            |
+| `group`                | Row or column, alignment, gap and padding from the spacing scale; holds `heading`, `text`, `button` | —                    | `rich-text`, `feature-banner`                                                    |
+| `list`                 | Holds `_list-item` blocks; renders a `<ul>`                                                         | —                    | `feature-banner`                                                                 |
+| `_list-item`           | Icon (none or one of the theme icons), title, text                                                  | Title and text empty | `list`                                                                           |
+| `_faq-item`            | Question, answer (rich text)                                                                        | —                    | `faq-accordion`                                                                  |
+| `_collection-card`     | Collection, image (optional), label (optional)                                                      | No collection³       | `collection-grid`                                                                |
+| `_styleguide-specimen` | Specimen (product cards, form controls, icons), products                                            | —                    | `rich-text`²                                                                     |
 
 ¹ In the theme editor an incomplete button is shown as disabled, so it can still be selected and fixed.
 
@@ -58,6 +59,7 @@ starts at 8px.
 | `hero-banner`     | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme           |
 | `collection-grid` | `_collection-card` (max 8)                                        | Heading, columns (2–4), image ratio, label position, product count, mobile layout, color scheme     |
 | `feature-banner`  | `heading`, `text`, `button`, `group`, `list`, `@app` (max 6)      | Image, image side, image ratio, layout (page width or full width), vertical alignment, color scheme |
+| `faq-accordion`   | `_faq-item` (max 16); static `heading`                            | First question open, one open at a time, content width, color scheme                                |
 
 `rich-text` is a utility section for text content such as an About page or a short statement between other sections.
 Its preset holds a heading, a text and a button. Vertical padding defaults to "Section spacing", the same space other

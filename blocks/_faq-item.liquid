@@ -1,0 +1,96 @@
+{% doc %}
+  Renders one question of the `faq-accordion` section as a native `<details>` element: the question is the
+  `<summary>`, the answer is rich text. It works without JavaScript. The section's settings decide whether the first
+  item starts open and whether items share a `name`, which makes the browser keep only one item open at a time.
+
+  @example
+  {% content_for 'block', type: '_faq-item', id: 'item' %}
+{% enddoc %}
+
+{%- liquid
+  assign is_open = false
+  if section.settings.first_open and section.blocks.first.id == block.id
+    assign is_open = true
+  endif
+-%}
+
+<details
+  class="faq-item"
+  {% if section.settings.single_open %}
+    name="faq-{{ section.id }}"
+  {% endif %}
+  {% if is_open %}
+    open
+  {% endif %}
+  {{ block.shopify_attributes }}
+>
+  <summary class="faq-item__question">
+    <span>{{ block.settings.title }}</span>
+    {% render 'icon', name: 'chevron-down', class: 'faq-item__icon' %}
+  </summary>
+  <div class="faq-item__answer">
+    {{ block.settings.text }}
+  </div>
+</details>
+
+{% stylesheet %}
+  .faq-item {
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .faq-item__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--control-height);
+    padding-block: var(--space-4);
+    font-weight: var(--font-body--weight-bold);
+    line-height: var(--line-height-snug);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    transition: transform var(--motion-duration) var(--motion-easing);
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-item__answer {
+    max-width: var(--text-measure);
+    padding-block-end: var(--space-4);
+  }
+
+  .faq-item__answer > * + * {
+    margin-block-start: 0.75em;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:blocks.faq_item.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "t:labels.question",
+      "default": "t:blocks.faq_item.default_question"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:labels.answer",
+      "default": "t:blocks.faq_item.default_answer"
+    }
+  ],
+  "presets": [{ "name": "t:blocks.faq_item.name" }]
+}
+{% endschema %}

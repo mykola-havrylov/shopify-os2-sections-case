@@ -186,7 +186,50 @@
         "vertical_alignment": "center",
         "color_scheme": "scheme-surface"
       }
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "static": true,
+          "settings": {
+            "heading": "Questions",
+            "tag": "h2",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "care": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "How do I care for stoneware?",
+            "text": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>"
+          }
+        },
+        "shipping": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "How long does shipping take?",
+            "text": "<p>Orders leave the studio within three working days. You get an email with tracking as soon as yours is on its way.</p>"
+          }
+        },
+        "returns": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "Can I return an item?",
+            "text": "<p>Unused pieces can be returned within 30 days of delivery. Write to us with your order number and we send the return details.</p>"
+          }
+        }
+      },
+      "block_order": ["care", "shipping", "returns"],
+      "settings": {
+        "first_open": true,
+        "single_open": true,
+        "content_width": "normal",
+        "color_scheme": "scheme-base"
+      }
     }
   },
-  "order": ["hero", "collection_grid", "feature_banner"]
+  "order": ["hero", "collection_grid", "feature_banner", "faq"]
 }

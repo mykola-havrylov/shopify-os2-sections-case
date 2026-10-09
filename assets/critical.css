@@ -105,6 +105,8 @@ p:empty {
 
   --header-height: 4.5rem;
 
+  --section-padding: calc(var(--section-spacing) / 2);
+
   --icon-stroke-width: 1.5;
 }
 
@@ -112,6 +114,7 @@ p:empty {
   :root {
     --grid-gutter: var(--space-5);
     --ratio-hero: 16 / 9;
+    --section-padding: var(--section-spacing);
   }
 }
 
@@ -298,7 +301,7 @@ a {
 }
 
 .section-spacing {
-  padding-block: calc(var(--section-spacing) / 2);
+  padding-block: var(--section-padding);
 }
 
 .shopify-section > .full-bleed {

@@ -117,7 +117,7 @@ Spacing is a seven-step rem scale (`--space-1` … `--space-7`: 4, 8, 16, 24, 40
 The `group` block's gap and padding and the `rich-text` section's vertical padding are `select` settings of these
 steps, not pixel ranges, so every layout follows the same rhythm and a merchant can't pick an off-scale value. The scale
 is not a theme setting: changing it would change every component at once, which is a design decision, not a merchant
-one. Breakpoints are 750px for layout and 1024px for the header menu.
+one. Sections are padded above and below by `--section-padding`: half of the "Section spacing" setting below 750px and the full value from 750px (64px by default), so desktop pages get generous air between sections while phones keep more content on screen. Breakpoints are 750px for layout and 1024px for the header menu.
 
 ### 9. Line icons from Lucide
 
@@ -255,3 +255,19 @@ the first of these ids as the block's title in the sidebar
 ([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)). The `button`
 block's label is therefore `text`, so several buttons in one section read "Button – Shop all", "Button – New arrivals"
 instead of a row of identical "Button" entries.
+
+### 19. FAQ accordion
+
+- **Native disclosure.** Each question is a `<details>` with the question as its `<summary>`, so opening, closing,
+  keyboard support and the expanded state for screen readers come from the browser and work without JavaScript.
+  `_faq-item` uses `"tag": null`, so the `<details>` is the block's own element.
+- **One open at a time.** With the setting on, the items share a `name`; browsers that support exclusive accordions
+  close the other items, and the others keep them independent. No script is involved.
+- **First question open.** `_faq-item` compares its id with `section.blocks.first.id`. The section accepts only
+  `_faq-item` as a dynamic block, and in `section.blocks` theme blocks report their type as `@theme`, so the id is
+  the reliable comparison; the static heading is not part of `section.blocks`.
+- **Heading as a static block.** The section renders the existing `heading` block with
+  `content_for 'block', type: 'heading', id: 'heading'`
+  ([static blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/static-blocks)): it can
+  be edited or hidden but not removed or duplicated, and `heading` is not in the section's block list, so no second
+  heading can be added.

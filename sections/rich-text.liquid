@@ -6,7 +6,7 @@
 {% liquid
   case section.settings.padding
     when 'section'
-      assign padding = 'calc(var(--section-spacing) / 2)'
+      assign padding = 'var(--section-padding)'
     when 'none'
       assign padding = '0'
     else

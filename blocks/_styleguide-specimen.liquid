@@ -12,31 +12,8 @@
     {%- when 'product_cards' -%}
       <ul class="specimen__cards" role="list">
         {%- for product in block.settings.products -%}
-          <li class="product-card">
-            {% render 'image',
-              image: product.featured_image,
-              ratio: 'product',
-              class: 'product-card__media',
-              alt: '',
-              placeholder: 'product-1',
-              sizes: '(min-width: 750px) 33vw, 50vw'
-            %}
-            {%- unless product.available -%}
-              <span class="badge product-card__badge">{{ 'products.sold_out' | t }}</span>
-            {%- endunless -%}
-            <div class="product-card__info">
-              <h3 class="product-card__title">
-                <a class="product-card__link" href="{{ product.url }}">{{ product.title }}</a>
-              </h3>
-              <p class="product-card__price">
-                {%- if product.price_varies -%}
-                  {%- assign price_min = product.price_min | money -%}
-                  {{ 'products.price_from' | t: price: price_min }}
-                {%- else -%}
-                  {{ product.price | money }}
-                {%- endif -%}
-              </p>
-            </div>
+          <li>
+            {% render 'product-card', product: product, sizes: '(min-width: 750px) 33vw, 50vw' %}
           </li>
         {%- else -%}
           <li class="product-card">
@@ -105,12 +82,6 @@
 {% stylesheet %}
   .specimen {
     align-self: stretch;
-  }
-
-  .specimen ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   .specimen__cards {

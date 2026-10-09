@@ -15,7 +15,7 @@
 %}
 
 <div
-  class="rich-text full-width color-{{ section.settings.color_scheme }}"
+  class="rich-text full-bleed color-{{ section.settings.color_scheme }}"
   style="
     --rich-text-padding: {{ padding }};
     --rich-text-alignment: {{ section.settings.alignment }};
@@ -28,13 +28,10 @@
 
 {% stylesheet %}
   .rich-text {
-    display: grid;
-    grid-template-columns: var(--content-grid);
     padding-block: var(--rich-text-padding);
   }
 
   .rich-text__content {
-    grid-column: 2;
     display: flex;
     flex-direction: column;
     align-items: var(--rich-text-alignment);

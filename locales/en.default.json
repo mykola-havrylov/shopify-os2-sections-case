@@ -5,7 +5,8 @@
     "back_to_shopping": "Back to shopping"
   },
   "accessibility": {
-    "opens_in_new_tab": "(opens in a new tab)"
+    "opens_in_new_tab": "(opens in a new tab)",
+    "skip_to_content": "Skip to content"
   },
   "blog": {
     "article_comments": "Comments",
@@ -20,11 +21,21 @@
     "checkout": "Checkout",
     "title": "Cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "icon_label": {
+      "one": "Cart, {{ count }} item",
+      "other": "Cart, {{ count }} items"
+    }
   },
   "collections": {
     "title": "Collections",
-    "sort_by": "Sort by"
+    "sort_by": "Sort by",
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty": "There are no products in this collection yet.",
+    "browse_all": "Browse all products"
   },
   "customers": {
     "login": {
@@ -33,6 +44,10 @@
       "submit": "Sign in",
       "title": "Login"
     }
+  },
+  "footer": {
+    "navigation": "Footer",
+    "payment_methods": "Payment methods"
   },
   "general": {
     "email": "Email"
@@ -44,6 +59,16 @@
     "expires_on": "Expires on {{ expires_on }}",
     "use_at_checkout": "Use this gift card at checkout"
   },
+  "header": {
+    "menu": "Menu",
+    "navigation": "Main"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {{ number }}"
+  },
   "password": {
     "title": "This shop is private",
     "password": "Password",
@@ -54,7 +79,9 @@
     "price_from": "From {{ price }}",
     "quantity": "Quantity",
     "decrease_quantity": "Decrease quantity",
-    "increase_quantity": "Increase quantity"
+    "increase_quantity": "Increase quantity",
+    "sale_price": "Sale price",
+    "regular_price": "Regular price"
   },
   "search": {
     "title": "Search",

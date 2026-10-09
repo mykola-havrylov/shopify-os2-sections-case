@@ -153,3 +153,39 @@ block without presets is not offered in the block picker
 so it can only be placed by the template. The block uses `"tag": null`
 ([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)) so that its own
 element, not Shopify's `shopify-block` wrapper, is the flex item of the section and can stretch to the full width.
+
+## 12. Header, footer and collection page
+
+Date: 2026-10-09.
+
+- **Mobile menu on `<details>`.** Below 1024px the main menu is a `<details>` drawer, so it opens and closes without
+  JavaScript. `assets/header-menu.js` (a `header-menu` custom element, loaded as a module) only adds closing with
+  Escape and returns focus to the toggle. From 1024px the same menu is an inline list; below that the six menu items and the icons don't fit one
+  line on tablets. One menu level is rendered;
+  the store's main menu has no nested links.
+- **Account.** The header uses the
+  [`shopify-account`](https://shopify.dev/docs/storefronts/themes/customer-engagement/account-component) component,
+  visible on mobile and desktop. The signed-out avatar is the theme's `account` icon placed in the component's
+  `signed-out-avatar` slot; the component gives its button the accessible name. Skeleton's `icon-account.svg` and
+  `icon-cart.svg` were removed.
+- **Cart link for bundled section rendering.** `snippets/cart-icon-bubble.liquid` is rendered by the header inside
+  `#cart-icon-bubble` and by `sections/cart-icon-bubble.liquid`. The section is not placed in any template; the
+  [Section Rendering API](https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-section-rendering-api)
+  renders a static section by its file name, so the Cart API can return `cart-icon-bubble` with every cart change
+  while Liquid stays the only source of the markup.
+- **Collection page.** `sections/main-collection.liquid` replaces Skeleton's `collection` section: title, product
+  count, description, a 2-column (mobile) / 3- or 4-column grid of `product-card`, numbered pagination and an empty
+  state. Sorting and filtering are out of scope. The first row of images loads eagerly and only the first image gets
+  `fetchpriority="high"`, as the likely LCP element on mobile and desktop.
+- **Skip link and `<main>`.** The layout starts with a "Skip to content" link to `<main id="MainContent">`.
+
+## 13. `.shopifyignore` for temporary files
+
+Date: 2026-10-09.
+
+Tools such as `sed -i` and editors write temporary files next to the file they change (`sections/sedAbC123`, `*.swp`,
+`*~`). `shopify theme dev` watches the theme folders, tries to upload such a file and fails ("Must have a .liquid file
+extension"), after which the dev server shows an upload error page. `.shopifyignore` excludes extension-less files and
+common temporary extensions from every Shopify CLI command
+([Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli#excluding-files-from-shopify-cli)).
+Every real theme file has an extension, so nothing the theme needs is excluded.

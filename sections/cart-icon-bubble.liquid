@@ -1,0 +1,13 @@
+{% comment %}
+  Cart link with the item count, rendered on its own so the Cart API can return it with bundled section rendering.
+  Not placed in templates; the header renders the same snippet.
+{% endcomment %}
+
+{% render 'cart-icon-bubble' %}
+
+{% schema %}
+{
+  "name": "t:sections.cart_icon_bubble.name",
+  "settings": []
+}
+{% endschema %}

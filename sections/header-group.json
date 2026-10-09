@@ -13,7 +13,12 @@
   "sections": {
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "color_scheme": "scheme-base",
+        "logo_width": 120,
+        "menu": "main-menu",
+        "customer_account_menu": "customer-account-main-menu"
+      }
     }
   },
   "order": ["header"]

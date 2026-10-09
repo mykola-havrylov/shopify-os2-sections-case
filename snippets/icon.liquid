@@ -1,6 +1,6 @@
 {% doc %}
   Renders a decorative line icon as inline SVG (`aria-hidden`, `currentColor` stroke, 1.25em by default).
-  Names: cart, account, close, minus, plus, arrow-right, chevron-down, hand, flame, leaf, package, refresh.
+  Names: cart, account, close, menu, minus, plus, arrow-right, chevron-down, hand, flame, leaf, package, refresh.
 
   Lucide v1.54.0, ISC, Copyright (c) 2026 Lucide Icons and Contributors; cart, close, minus, plus, arrow-right and
   chevron-down derived from Feather, MIT, Copyright (c) 2013-present Cole Bemis. See docs/third-party-assets.md.
@@ -26,6 +26,8 @@
       <path d="M5 12h14"/><path d="M12 5v14"/>
     {%- when 'arrow-right' -%}
       <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+    {%- when 'menu' -%}
+      <path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/>
     {%- when 'chevron-down' -%}
       <path d="m6 9 6 6 6-6"/>
     {%- when 'hand' -%}

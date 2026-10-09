@@ -184,8 +184,14 @@
     "cart_icon_bubble": {
       "name": "Cart icon"
     },
+    "main_cart": {
+      "name": "Cart"
+    },
     "main_collection": {
       "name": "Collection"
+    },
+    "main_product": {
+      "name": "Product"
     },
     "rich_text": {
       "name": "Rich text"

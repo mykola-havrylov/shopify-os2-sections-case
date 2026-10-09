@@ -19,13 +19,20 @@
   },
   "cart": {
     "checkout": "Checkout",
-    "title": "Cart",
-    "update": "Update",
-    "remove": "Remove",
+    "continue_shopping": "Continue shopping",
+    "empty": "Your cart is empty.",
     "icon_label": {
       "one": "Cart, {{ count }} item",
       "other": "Cart, {{ count }} items"
-    }
+    },
+    "note": "Order note",
+    "quantity_for": "Quantity for {{ title }}",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "taxes_excluded": "Taxes and shipping calculated at checkout.",
+    "taxes_included": "Taxes included. Shipping calculated at checkout.",
+    "title": "Cart",
+    "update": "Update cart"
   },
   "collections": {
     "title": "Collections",
@@ -75,13 +82,17 @@
     "enter": "Enter"
   },
   "products": {
-    "sold_out": "Sold out",
+    "add_to_cart": "Add to cart",
+    "decrease_quantity": "Decrease quantity",
+    "gallery": "Product images",
+    "increase_quantity": "Increase quantity",
+    "options": "Options",
     "price_from": "From {{ price }}",
     "quantity": "Quantity",
-    "decrease_quantity": "Decrease quantity",
-    "increase_quantity": "Increase quantity",
+    "regular_price": "Regular price",
     "sale_price": "Sale price",
-    "regular_price": "Regular price"
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable"
   },
   "search": {
     "title": "Search",

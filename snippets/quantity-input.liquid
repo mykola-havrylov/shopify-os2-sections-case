@@ -1,0 +1,54 @@
+{% doc %}
+  Renders a labelled quantity field: a number input with minus and plus buttons. The input works without JavaScript;
+  the buttons need `quantity-input.js` and are hidden when scripting is off.
+
+  @param {string} id - Input id
+  @param {string} name - Input name, such as `quantity` or `updates[<line key>]`
+  @param {string} label - Label text
+  @param {number} [value] - Current value; defaults to 1
+  @param {number} [min] - Minimum value; defaults to 1
+  @param {boolean} [label_hidden] - Keeps the label for screen readers only
+  @param {string} [form] - Id of the form the input belongs to, when it is outside that form
+
+  @example
+  {% render 'quantity-input', id: 'Quantity', name: 'quantity', label: 'Quantity' %}
+{% enddoc %}
+
+{%- liquid
+  assign quantity_value = value | default: 1
+  assign quantity_min = min | default: 1
+-%}
+
+<div class="field">
+  <label class="field__label{% if label_hidden %} visually-hidden{% endif %}" for="{{ id }}">{{ label }}</label>
+  <quantity-input class="quantity">
+    <button
+      type="button"
+      class="quantity__button"
+      data-step="down"
+      aria-label="{{ 'products.decrease_quantity' | t }}"
+      {% if quantity_value <= quantity_min %}
+        disabled
+      {% endif %}
+    >
+      {% render 'icon', name: 'minus' %}
+    </button>
+    <input
+      class="quantity__input"
+      type="number"
+      id="{{ id }}"
+      name="{{ name }}"
+      value="{{ quantity_value }}"
+      min="{{ quantity_min }}"
+      inputmode="numeric"
+      {% if form %}
+        form="{{ form }}"
+      {% endif %}
+    >
+    <button type="button" class="quantity__button" data-step="up" aria-label="{{ 'products.increase_quantity' | t }}">
+      {% render 'icon', name: 'plus' %}
+    </button>
+  </quantity-input>
+</div>
+
+<script src="{{ 'quantity-input.js' | asset_url }}" type="module"></script>

@@ -1,0 +1,327 @@
+{% comment %}
+  Hero banner: a full-width image (with an optional mobile image) and up to six heading, text and button blocks placed
+  on a 3×3 grid. An overlay in the scheme's background color is at full strength behind the content and fades out
+  towards the opposite side, so the text stays readable while the rest of the photo keeps its light. The image is the
+  LCP element when the section is first in the template.
+{% endcomment %}
+
+{%- liquid
+  assign position = section.settings.content_position | split: '-'
+  case position[0]
+    when 'top'
+      assign align = 'flex-start'
+      assign fade_mobile = 'to bottom'
+    when 'bottom'
+      assign align = 'flex-end'
+      assign fade_mobile = 'to top'
+    else
+      assign align = 'center'
+      assign fade_mobile = 'none'
+  endcase
+  case position[1]
+    when 'left'
+      assign justify = 'flex-start'
+      assign fade_desktop = 'to right'
+    when 'right'
+      assign justify = 'flex-end'
+      assign fade_desktop = 'to left'
+    else
+      assign justify = 'center'
+      assign fade_desktop = fade_mobile
+  endcase
+
+  case section.settings.content_width
+    when 'narrow'
+      assign content_width = 'var(--text-measure-narrow)'
+    when 'normal'
+      assign content_width = 'var(--text-measure)'
+    else
+      assign content_width = '100%'
+  endcase
+
+  assign loading = 'eager'
+  assign fetchpriority = 'high'
+  if section.index > 1
+    assign loading = 'lazy'
+    assign fetchpriority = null
+  endif
+-%}
+
+<div
+  class="hero hero--{{ section.settings.height }} hero--fade-mobile-{{ fade_mobile | replace: ' ', '-' }} hero--fade-desktop-{{ fade_desktop | replace: ' ', '-' }} full-bleed color-{{ section.settings.color_scheme }}"
+  style="
+    --hero-align: {{ align }};
+    --hero-justify: {{ justify }};
+    --hero-content-width: {{ content_width }};
+    --hero-overlay: {{ section.settings.overlay }}%;
+  "
+>
+  {% render 'image',
+    image: section.settings.image,
+    mobile_image: section.settings.image_mobile,
+    class: 'hero__media',
+    placeholder: 'lifestyle-2',
+    sizes: '100vw',
+    widths: '750, 1100, 1500, 1800, 2400',
+    loading: loading,
+    fetchpriority: fetchpriority
+  %}
+
+  <div class="hero__content">
+    <div class="hero__blocks">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .hero--adapt {
+    aspect-ratio: var(--ratio-hero);
+  }
+
+  .hero--full {
+    min-height: calc(100svh - var(--header-height));
+  }
+
+  .hero--medium {
+    min-height: 70svh;
+  }
+
+  .hero > .hero__media {
+    position: absolute;
+    inset: 0;
+    grid-column: 1 / -1;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .hero > .hero__media img,
+  .hero > .hero__media .image__placeholder {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero {
+    --hero-shade: color-mix(in srgb, var(--color-background) var(--hero-overlay), transparent);
+    --hero-fade-direction: to top;
+    --hero-solid: 100%;
+    --hero-fade-end: 100%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: linear-gradient(
+      var(--hero-fade-direction),
+      var(--hero-shade) var(--hero-solid),
+      transparent var(--hero-fade-end)
+    );
+    pointer-events: none;
+  }
+
+  .hero--fade-mobile-to-bottom,
+  .hero--fade-mobile-to-top {
+    --hero-solid: 65%;
+    --hero-fade-end: 100%;
+  }
+
+  .hero--fade-mobile-to-bottom {
+    --hero-fade-direction: to bottom;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: var(--hero-align);
+    justify-content: var(--hero-justify);
+    padding-block: var(--space-6);
+  }
+
+  .hero__blocks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: var(--hero-justify);
+    gap: var(--space-4);
+    max-width: var(--hero-content-width);
+  }
+
+  .hero__blocks > * {
+    flex-basis: 100%;
+  }
+
+  .hero__blocks > :has(> .button, > .link-arrow) {
+    flex-basis: auto;
+  }
+
+  @media (min-width: 750px) {
+    .hero--fade-desktop-none {
+      --hero-solid: 100%;
+      --hero-fade-end: 100%;
+    }
+
+    .hero--fade-desktop-to-right,
+    .hero--fade-desktop-to-left {
+      --hero-solid: 35%;
+      --hero-fade-end: 80%;
+    }
+
+    .hero--fade-desktop-to-bottom,
+    .hero--fade-desktop-to-top {
+      --hero-solid: 45%;
+      --hero-fade-end: 90%;
+    }
+
+    .hero--fade-desktop-to-right {
+      --hero-fade-direction: to right;
+    }
+
+    .hero--fade-desktop-to-left {
+      --hero-fade-direction: to left;
+    }
+
+    .hero--fade-desktop-to-bottom {
+      --hero-fade-direction: to bottom;
+    }
+
+    .hero--fade-desktop-to-top {
+      --hero-fade-direction: to top;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.hero_banner.name",
+  "tag": "section",
+  "class": "hero-section",
+  "max_blocks": 6,
+  "blocks": [{ "type": "heading" }, { "type": "text" }, { "type": "button" }],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:labels.image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:labels.image_mobile",
+      "info": "t:info.image_mobile"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "t:labels.height",
+      "info": "t:info.hero_height",
+      "default": "full",
+      "options": [
+        { "value": "full", "label": "t:options.hero_height.full" },
+        { "value": "medium", "label": "t:options.hero_height.medium" },
+        { "value": "adapt", "label": "t:options.hero_height.adapt" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "t:labels.overlay",
+      "info": "t:info.overlay",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:general.content"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "t:labels.content_position",
+      "default": "bottom-left",
+      "options": [
+        { "value": "top-left", "label": "t:options.position.top_left" },
+        { "value": "top-center", "label": "t:options.position.top_center" },
+        { "value": "top-right", "label": "t:options.position.top_right" },
+        { "value": "middle-left", "label": "t:options.position.middle_left" },
+        { "value": "middle-center", "label": "t:options.position.middle_center" },
+        { "value": "middle-right", "label": "t:options.position.middle_right" },
+        { "value": "bottom-left", "label": "t:options.position.bottom_left" },
+        { "value": "bottom-center", "label": "t:options.position.bottom_center" },
+        { "value": "bottom-right", "label": "t:options.position.bottom_right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:labels.content_width",
+      "default": "narrow",
+      "options": [
+        { "value": "narrow", "label": "t:options.content_width.narrow" },
+        { "value": "normal", "label": "t:options.content_width.normal" },
+        { "value": "wide", "label": "t:options.content_width.wide" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "info": "t:info.hero_color_scheme",
+      "default": "scheme-inverse"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero_banner.name",
+      "category": "t:general.banners",
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "t:sections.hero_banner.heading",
+            "tag": "h1",
+            "size": "h0"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "t:sections.hero_banner.text",
+            "size": "text-large"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "t:blocks.button.default",
+            "link": "shopify://collections/all"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "t:blocks.button.secondary_default",
+            "link": "shopify://collections/all",
+            "style": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

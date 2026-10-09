@@ -46,9 +46,10 @@ starts at 8px.
 
 ## Sections that accept theme blocks
 
-| Section     | Accepts                                                           | Settings                                                                        |
-| ----------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `rich-text` | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding |
+| Section       | Accepts                                                           | Settings                                                                                  |
+| ------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `rich-text`   | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding           |
+| `hero-banner` | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme |
 
 `rich-text` is a utility section for text content such as an About page or a short statement between other sections.
 Its preset holds a heading, a text and a button. Vertical padding defaults to "Section spacing", the same space other

@@ -8,6 +8,59 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Stoneware for slow mornings",
+            "tag": "h1",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Thrown, trimmed and glazed by hand in small batches, and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "button_primary": {
+          "type": "button",
+          "settings": {
+            "label": "Shop all",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "primary"
+          }
+        },
+        "button_secondary": {
+          "type": "button",
+          "settings": {
+            "label": "New arrivals",
+            "link": "shopify://collections/new-arrivals",
+            "new_tab": false,
+            "style": "secondary"
+          }
+        }
+      },
+      "block_order": ["heading", "text", "button_primary", "button_secondary"],
+      "settings": {
+        "image": "shopify://shop_images/hero-desktop.jpg",
+        "image_mobile": "shopify://shop_images/hero-mobile.jpg",
+        "height": "full",
+        "overlay": 60,
+        "content_position": "bottom-left",
+        "content_width": "narrow",
+        "color_scheme": "scheme-inverse"
+      }
+    }
+  },
+  "order": ["hero"]
 }

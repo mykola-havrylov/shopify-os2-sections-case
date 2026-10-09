@@ -1,10 +1,12 @@
 {% doc %}
   Renders a responsive image with `srcset`, `sizes` and `width`/`height` attributes, optionally wrapped in a link and
-  cropped to a ratio with CSS (the crop follows the admin focal point). The frame has the scheme's surface color and the
-  global radius; a blank image renders a placeholder. Only the page's LCP image gets `loading: 'eager'` and
-  `fetchpriority: 'high'`.
+  cropped to a ratio with CSS (the crop follows the admin focal point). With `mobile_image` it renders a `<picture>`
+  whose source below 750px is that image, so the browser downloads only one of the two files. The frame has the
+  scheme's surface color and the global radius; a blank image renders a placeholder. Only the page's LCP image gets
+  `loading: 'eager'` and `fetchpriority: 'high'`.
 
   @param {image} image - The image to render
+  @param {image} [mobile_image] - Art-directed image used below 750px
   @param {string} [url] - Wraps the image in a link to this URL
   @param {string} [class] - Extra class for the wrapper
   @param {string} [alt] - Alt text; defaults to the image's alt text. Pass an empty string for a decorative image
@@ -23,10 +25,10 @@
   {% render 'image', image: product.featured_image, ratio: 'product', sizes: '(min-width: 750px) 33vw, 50vw' %}
   {% render 'image',
     image: section.settings.image,
+    mobile_image: section.settings.image_mobile,
     sizes: '100vw',
     loading: 'eager',
     fetchpriority: 'high',
-    ratio: 'hero',
   %}
 {% enddoc %}
 
@@ -55,6 +57,21 @@
   else
     assign wrapper = 'div'
   endif
+
+  if image != blank and mobile_image != blank
+    assign mobile_srcset = ''
+    assign width_list = image_widths | split: ','
+    for width_item in width_list
+      assign mobile_width = width_item | strip | plus: 0
+      if mobile_width <= mobile_image.width
+        if mobile_srcset != ''
+          assign mobile_srcset = mobile_srcset | append: ', '
+        endif
+        assign mobile_url = mobile_image | image_url: width: mobile_width
+        assign mobile_srcset = mobile_srcset | append: mobile_url | append: ' ' | append: mobile_width | append: 'w'
+      endif
+    endfor
+  endif
 %}
 
 <{{ wrapper }}
@@ -68,23 +85,38 @@
 >
   {%- if image == blank -%}
     {{ placeholder | default: 'image' | placeholder_svg_tag: 'image__placeholder' }}
-  {%- elsif fetchpriority == 'high' -%}
-    {{
-      image
-      | image_url: width: width, height: height, crop: crop
-      | image_tag:
-        widths: image_widths,
-        sizes: image_sizes,
-        loading: image_loading,
-        fetchpriority: 'high',
-        alt: image_alt
-    }}
   {%- else -%}
-    {{
-      image
-      | image_url: width: width, height: height, crop: crop
-      | image_tag: widths: image_widths, sizes: image_sizes, loading: image_loading, alt: image_alt
-    }}
+    {%- if mobile_srcset != blank -%}
+      <picture>
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ mobile_srcset }}"
+          sizes="{{ image_sizes }}"
+          width="{{ mobile_image.width }}"
+          height="{{ mobile_image.height }}"
+        >
+    {%- endif -%}
+    {%- if fetchpriority == 'high' -%}
+      {{
+        image
+        | image_url: width: width, height: height, crop: crop
+        | image_tag:
+          widths: image_widths,
+          sizes: image_sizes,
+          loading: image_loading,
+          fetchpriority: 'high',
+          alt: image_alt
+      }}
+    {%- else -%}
+      {{
+        image
+        | image_url: width: width, height: height, crop: crop
+        | image_tag: widths: image_widths, sizes: image_sizes, loading: image_loading, alt: image_alt
+      }}
+    {%- endif -%}
+    {%- if mobile_srcset != blank -%}
+      </picture>
+    {%- endif -%}
   {%- endif -%}
 </{{ wrapper }}>
 
@@ -99,7 +131,11 @@
     background-color: var(--color-surface);
   }
 
-  .image > img {
+  .image picture {
+    display: contents;
+  }
+
+  .image img {
     width: 100%;
     height: auto;
   }
@@ -108,7 +144,7 @@
     aspect-ratio: var(--image-aspect-ratio);
   }
 
-  .image--cropped > img,
+  .image--cropped img,
   .image--cropped > .image__placeholder {
     height: 100%;
     object-fit: cover;

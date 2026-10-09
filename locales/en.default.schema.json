@@ -277,8 +277,14 @@
     }
   },
   "sections": {
+    "cart_drawer": {
+      "name": "Cart drawer"
+    },
     "cart_icon_bubble": {
       "name": "Cart icon"
+    },
+    "cart_live_region_text": {
+      "name": "Cart status"
     },
     "collection_grid": {
       "name": "Collection grid",

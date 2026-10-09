@@ -106,6 +106,7 @@ badges and images. The focus ring is `--focus-ring-width` of the foreground colo
 | `snippets/price.liquid`            | Snippet stylesheet      | Price; "From" for varying prices; compare-at price struck through.                                                                                                      |
 | `snippets/cart-icon-bubble.liquid` | Snippet stylesheet      | Cart link with item count; also rendered as a section for the Cart API.                                                                                                 |
 | `snippets/quantity-input.liquid`   | Uses `.quantity`        | Labelled number input; minus and plus buttons only with JavaScript.                                                                                                     |
+| `snippets/cart-line.liquid`        | Snippet stylesheet      | Cart line for the cart page and the drawer; compact below 36rem of the list width.                                                                                      |
 
 Icons: `cart`, `account`, `close`, `menu`, `minus`, `plus`, `arrow-right`, `chevron-down`, `hand`, `flame`, `leaf`,
 `package`, `refresh`.

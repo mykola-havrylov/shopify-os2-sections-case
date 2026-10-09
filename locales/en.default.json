@@ -19,11 +19,16 @@
   },
   "cart": {
     "checkout": "Checkout",
+    "close": "Close cart",
     "continue_shopping": "Continue shopping",
     "empty": "Your cart is empty.",
     "icon_label": {
       "one": "Cart, {{ count }} item",
       "other": "Cart, {{ count }} items"
+    },
+    "live_region": {
+      "one": "{{ count }} item in your cart, subtotal {{ subtotal }}.",
+      "other": "{{ count }} items in your cart, subtotal {{ subtotal }}."
     },
     "note": "Order note",
     "quantity_for": "Quantity for {{ title }}",
@@ -32,7 +37,8 @@
     "taxes_excluded": "Taxes and shipping calculated at checkout.",
     "taxes_included": "Taxes included. Shipping calculated at checkout.",
     "title": "Cart",
-    "update": "Update cart"
+    "update": "Update cart",
+    "view": "View cart"
   },
   "collections": {
     "browse_all": "Browse all products",
@@ -83,6 +89,7 @@
     "enter": "Enter"
   },
   "products": {
+    "add_error": "This item could not be added to your cart. Please try again.",
     "add_to_cart": "Add to cart",
     "decrease_quantity": "Decrease quantity",
     "gallery": "Product images",

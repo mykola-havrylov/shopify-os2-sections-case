@@ -22,9 +22,17 @@
     "close": "Close cart",
     "continue_shopping": "Continue shopping",
     "empty": "Your cart is empty.",
+    "errors": {
+      "network": "Your cart could not be updated. Check your connection and try again.",
+      "generic": "Your cart could not be updated. Please try again."
+    },
     "icon_label": {
       "one": "Cart, {{ count }} item",
       "other": "Cart, {{ count }} items"
+    },
+    "limited": {
+      "one": "Only {{ count }} is available, so your cart has {{ count }}.",
+      "other": "Only {{ count }} are available, so your cart has {{ count }}."
     },
     "live_region": {
       "one": "{{ count }} item in your cart, subtotal {{ subtotal }}.",
@@ -33,6 +41,7 @@
     "note": "Order note",
     "quantity_for": "Quantity for {{ title }}",
     "remove": "Remove",
+    "retry": "Try again",
     "subtotal": "Subtotal",
     "taxes_excluded": "Taxes and shipping calculated at checkout.",
     "taxes_included": "Taxes included. Shipping calculated at checkout.",

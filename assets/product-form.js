@@ -27,7 +27,8 @@ class ProductForm extends HTMLElement {
       await drawer.add({ id: Number(data.get('id')), quantity: Number(data.get('quantity')) || 1 });
       drawer.open();
     } catch (error) {
-      this.error.textContent = error.message || this.error.dataset.fallback;
+      this.error.textContent =
+        error.status === 0 ? this.error.dataset.network : error.message || this.error.dataset.fallback;
     } finally {
       button.removeAttribute('aria-busy');
     }

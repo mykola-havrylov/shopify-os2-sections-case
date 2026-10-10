@@ -296,3 +296,18 @@ instead of a row of identical "Button" entries.
   `/cart/add` as before.
 - **Two cart layouts from one snippet.** The cart lines switch to the wide layout from 36rem of the list's own width (a
   container query), so the same markup is compact in the 28rem drawer and wide on the cart page.
+
+### 21. Cart changes in one queue
+
+- **Order over speed.** `change.js` sets an absolute quantity, so two requests that reach the server out of order
+  leave the wrong quantity in the cart even if the UI ignores the older response. The drawer therefore sends one
+  request at a time through a promise queue and coalesces quick quantity changes per line key into the latest desired
+  value, instead of discarding stale responses after the fact.
+- **Render once per burst.** Responses that arrive while a newer change is waiting only update the last confirmed
+  snapshot; the HTML is replaced after the last one, so the quantity the customer is changing never jumps back.
+- **Rollback, not guesses.** The only optimistic changes are the quantity field the customer typed into and a
+  removal; on any error the drawer restores the last HTML the server confirmed. Network errors offer "Try again" with
+  the failed quantities; Cart API errors show Shopify's own localized `description`, which a retry would not change.
+- **Inventory limits.** Shopify keeps the available quantity when more is requested; the drawer compares the line's
+  quantity in the response with the request and says so. Reproduction steps for every state are in
+  [cart-drawer.md](cart-drawer.md).

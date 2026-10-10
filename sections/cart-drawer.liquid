@@ -11,6 +11,10 @@
   data-add-url="{{ routes.cart_add_url }}"
   data-change-url="{{ routes.cart_change_url }}"
   data-update-url="{{ routes.cart_update_url }}"
+  data-network-error="{{ 'cart.errors.network' | t }}"
+  data-generic-error="{{ 'cart.errors.generic' | t }}"
+  data-limited-one="{{ 'cart.limited.one' | t }}"
+  data-limited-other="{{ 'cart.limited.other' | t }}"
 >
   <dialog class="cart-drawer__dialog" aria-labelledby="CartDrawerTitle" scroll-lock>
     <div class="cart-drawer__panel">
@@ -22,6 +26,14 @@
       </div>
 
       <p class="visually-hidden" role="status" aria-live="polite" data-cart-live-region></p>
+
+      <div class="cart-drawer__message" data-cart-message hidden>
+        <p role="alert" data-cart-message-text></p>
+        <button type="button" class="link-arrow cart-drawer__retry" data-cart-retry hidden>
+          {{- 'cart.retry' | t -}}
+          {% render 'icon', name: 'refresh' %}
+        </button>
+      </div>
 
       <div class="cart-drawer__content" data-cart-drawer-content>
         {%- if cart.item_count > 0 -%}
@@ -117,6 +129,40 @@
     background: none;
     color: inherit;
     cursor: pointer;
+  }
+
+  .cart-drawer__message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+  }
+
+  .cart-drawer__message[hidden] {
+    display: none;
+  }
+
+  .cart-drawer__retry {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-weight: var(--font-body--weight-bold);
+    cursor: pointer;
+  }
+
+  .cart-line[aria-busy='true'] {
+    opacity: 0.6;
+    transition: opacity var(--motion-duration) var(--motion-easing);
+  }
+
+  cart-drawer[data-busy] .cart-drawer__checkout {
+    opacity: 0.5;
+    cursor: progress;
   }
 
   .cart-drawer__content {

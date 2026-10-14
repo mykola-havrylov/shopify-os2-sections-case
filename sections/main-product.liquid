@@ -13,10 +13,12 @@
 <div class="main-product section-spacing" id="MainProduct-{{ section.id }}">
   <div class="main-product__gallery">
     <ul
-      class="main-product__media-list"
+      class="main-product__media-list{% if product.media.size <= 1 %} main-product__media-list--single{% endif %}"
       role="list"
-      tabindex="0"
-      aria-label="{{ 'products.gallery' | t }}"
+      {% if product.media.size > 1 %}
+        tabindex="0"
+        aria-label="{{ 'products.gallery' | t }}"
+      {% endif %}
       data-media-list
     >
       {%- if featured_media -%}
@@ -202,6 +204,10 @@
 
   .main-product__media-list > li {
     scroll-snap-align: start;
+  }
+
+  .main-product__media-list--single {
+    grid-auto-columns: 100%;
   }
 
   .main-product__info {

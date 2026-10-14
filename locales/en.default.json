@@ -78,7 +78,9 @@
     "payment_methods": "Payment methods"
   },
   "general": {
-    "email": "Email"
+    "email": "Email",
+    "title_page": "Page {{ page }}",
+    "title_tagged": "tagged \"{{ tags }}\""
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",

@@ -50,16 +50,28 @@ templates, theme blocks and Theme Editor control — so it uses the last Skeleto
   Editors and tools write such files next to the file they change, and `shopify theme dev` would try to upload them.
   Every real theme file has an extension.
 
+### 3. Branches, themes and the theme editor
+
+- Two branches are connected to two themes through Shopify's
+  [GitHub integration](https://shopify.dev/docs/storefronts/themes/tools/github): `main` to the published theme and
+  `dev` to a draft theme. A save in the theme editor is committed to the connected branch, so neither branch is
+  protected.
+- Work happens on short branches from `dev`; a release is a pull request from `dev` to `main`. After the published
+  theme is edited in the theme editor, `main` is merged back into `dev`.
+- In one change a JSON template, a section group or `config/settings_data.json` is edited either in the theme editor
+  or in code, never both, so an editor commit and a code commit never touch the same file at the same time.
+  `templates/page.process.json` is built only in the theme editor.
+
 ## Demo catalog
 
-### 3. No inventory tracking
+### 4. No inventory tracking
 
 `data/products.csv` leaves `Inventory tracker` blank, which means inventory isn't tracked
 ([product CSV reference](https://help.shopify.com/en/manual/products/import-export/using-csv)), and the seed script
 writes the same as `inventoryItem.tracked: false`. Every variant stays purchasable, which the cart states in the
 storefront rely on.
 
-### 4. Catalog loaded through the Admin API
+### 5. Catalog loaded through the Admin API
 
 The demo catalog is created by `scripts/seed-catalog.js` instead of a manual CSV import, so the store can be rebuilt
 from the repository in one command and checked with `npm run catalog:verify`.
@@ -83,7 +95,7 @@ from the repository in one command and checked with `npm run catalog:verify`.
 
 ## Design system
 
-### 5. Design tokens
+### 6. Design tokens
 
 Global decisions live in theme settings and reach the CSS as custom properties in `snippets/css-variables.liquid`;
 values that do not depend on settings live in `assets/critical.css`; component-specific values stay inside each
@@ -93,7 +105,7 @@ block's or section's `{% stylesheet %}`. A value becomes a token only when at le
 - Focus ring and reduced motion are not settings: the ring is always visible on keyboard focus, and
   `prefers-reduced-motion` always turns animations off, whatever the "Animations" setting says.
 
-### 6. Color schemes
+### 7. Color schemes
 
 - A [`color_scheme_group`](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings#color_scheme_group)
   with four schemes (Base, Surface, Inverse, Accent). Each scheme becomes a `.color-<id>` class, and the first one also
@@ -108,7 +120,7 @@ block's or section's `{% stylesheet %}`. A value becomes a token only when at le
   [`color_darken`](https://shopify.dev/docs/api/liquid/filters/color_darken) filter. Mixing the button with the
   foreground color would give no visible hover in Inverse and Accent, where the two are the same color.
 
-### 7. Typography
+### 8. Typography
 
 - Two `font_picker` settings from the
   [Shopify font library](https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts):
@@ -118,7 +130,7 @@ block's or section's `{% stylesheet %}`. A value becomes a token only when at le
   text at those sizes look smaller and lighter than the Work Sans next to it (a 16px card title reads no larger than
   the 14px price under it), and a heavier weight such as `cormorant_n7` does not change the x-height.
 
-### 8. Spacing scale
+### 9. Spacing scale
 
 Spacing is a seven-step rem scale (`--space-1` … `--space-7`: 4, 8, 16, 24, 40, 64, 96px) in `assets/critical.css`.
 The `group` block's gap and padding and the `rich-text` section's vertical padding are `select` settings of these
@@ -126,7 +138,7 @@ steps, not pixel ranges, so every layout follows the same rhythm and a merchant 
 is not a theme setting: changing it would change every component at once, which is a design decision, not a merchant
 one. Sections are padded above and below by `--section-padding`: half of the "Section spacing" setting below 750px and the full value from 750px (64px by default), so desktop pages get generous air between sections while phones keep more content on screen. Breakpoints are 750px for layout and 1024px for the header menu.
 
-### 9. Line icons from Lucide
+### 10. Line icons from Lucide
 
 `snippets/icon.liquid` renders the theme's icons as inline SVG, with paths from [Lucide](https://lucide.dev)
 `lucide-static` v1.54.0 (ISC; some icons derive from Feather, MIT). One open set gives a consistent stroke for UI icons
@@ -136,7 +148,7 @@ width is 1.5 instead of Lucide's 2, to match the light typography. Licence texts
 
 ## Sections and pages
 
-### 10. `rich-text` utility section and the style guide
+### 11. `rich-text` utility section and the style guide
 
 - `sections/rich-text.liquid` holds headings, text, buttons and groups in one column, in any color scheme. It serves
   text pages (About) and the style guide and is not one of the showcase sections. It accepts `group`, `heading`,
@@ -150,7 +162,7 @@ width is 1.5 instead of Lucide's 2, to match the light typography. Licence texts
   ([block schema](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema)) so that its own
   element, not Shopify's `shopify-block` wrapper, is the flex item of the section and can stretch to the full width.
 
-### 11. Header and footer
+### 12. Header and footer
 
 - **Mobile menu on `<details>`.** Below 1024px the main menu is a `<details>` drawer, so it opens and closes without
   JavaScript; at tablet widths the menu items and icons don't fit one line. `assets/header-menu.js` (a `header-menu`
@@ -167,13 +179,13 @@ width is 1.5 instead of Lucide's 2, to match the light typography. Licence texts
   while Liquid stays the only source of the markup.
 - **Skip link and `<main>`.** The layout starts with a "Skip to content" link to `<main id="MainContent">`.
 
-### 12. Collection page
+### 13. Collection page
 
 `sections/main-collection.liquid`: title, product count, description, a 2-column (mobile) / 3- or 4-column grid of
 `product-card`, numbered pagination and an empty state. Sorting and filtering are out of scope. The first row of images
 loads eagerly and only the first image gets `fetchpriority="high"`, as the likely LCP element on mobile and desktop.
 
-### 13. Product page
+### 14. Product page
 
 - **Variant picker with progressive enhancement.** The variant is a `<select name="id">` that belongs to the product
   form, so the form adds the chosen variant without JavaScript. With JavaScript the options are radio buttons styled as
@@ -192,14 +204,14 @@ loads eagerly and only the first image gets `fetchpriority="high"`, as the likel
 - **Scope.** No dynamic checkout buttons, no tabs and no materials or care block; the catalog has no data for the
   latter.
 
-### 14. Cart page
+### 15. Cart page
 
 One form posted to `/cart` ([cart template](https://shopify.dev/docs/storefronts/themes/architecture/templates/cart))
 that works without JavaScript and is the fallback for the cart drawer: `updates[<line key>]` quantity fields, the order
 note, an Update button (first in the form, so Enter updates) and a Check out button. Remove links use
 `item.url_to_remove`. Line and cart-level discounts are listed when present.
 
-### 15. Hero banner
+### 16. Hero banner
 
 - **Art-directed image.** Desktop and mobile images are separate settings. `snippets/image.liquid` renders them as one
   `<picture>` whose `<source>` below 750px is the mobile image, so the browser downloads only one file; the hero
@@ -217,7 +229,7 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
 - **Blocks.** `heading`, `text` and `button`, at most six. Buttons sit in one row; headings and text take a full
   line.
 
-### 16. Collection grid
+### 17. Collection grid
 
 - **Private card block.** `_collection-card` (collection, optional image, optional label) is accepted only by
   `collection-grid`, at most eight per section. The image falls back to the collection image and then to the image of
@@ -237,7 +249,7 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
 - **Whole card as one link.** The title link's `::after` covers the card, so each card is one tab stop with the focus
   ring drawn around the whole card.
 
-### 17. Feature banner and feature list
+### 18. Feature banner and feature list
 
 - **Content blocks and apps.** `feature-banner` accepts `heading`, `text`, `button`, `group`, `list` and `@app`, at
   most six. It is the theme's one section that hosts
@@ -255,7 +267,7 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
 - **Emphasis in headings.** The heading font's italic face is loaded with `font_modify`, so `<em>` in a heading renders
   in real Cormorant italic, not a slanted regular face.
 
-### 18. Block titles in the theme editor
+### 19. Block titles in the theme editor
 
 The setting that names a block uses the id `heading`, `title` or `text`, because the theme editor shows the value of
 the first of these ids as the block's title in the sidebar
@@ -263,7 +275,7 @@ the first of these ids as the block's title in the sidebar
 block's label is therefore `text`, so several buttons in one section read "Button – Shop all", "Button – New arrivals"
 instead of a row of identical "Button" entries.
 
-### 19. FAQ accordion
+### 20. FAQ accordion
 
 - **Native disclosure.** Each question is a `<details>` with the question as its `<summary>`, so opening, closing,
   keyboard support and the expanded state for screen readers come from the browser and work without JavaScript.
@@ -281,7 +293,7 @@ instead of a row of identical "Button" entries.
 
 ## Cart
 
-### 20. Cart drawer with bundled section rendering
+### 21. Cart drawer with bundled section rendering
 
 - **One request per change.** Adding, changing and removing go through `/cart/add.js`, `/cart/change.js` and
   `/cart/update.js` with `sections` (`cart-drawer`, `cart-icon-bubble`, `cart-live-region-text`; the limit is
@@ -304,7 +316,7 @@ instead of a row of identical "Button" entries.
 - **Two cart layouts from one snippet.** The cart lines switch to the wide layout from 36rem of the list's own width (a
   container query), so the same markup is compact in the 28rem drawer and wide on the cart page.
 
-### 21. Cart changes in one queue
+### 22. Cart changes in one queue
 
 - **Order over speed.** `change.js` sets an absolute quantity, so two requests that reach the server out of order
   leave the wrong quantity in the cart even if the UI ignores the older response. The drawer therefore sends one
@@ -319,7 +331,7 @@ instead of a row of identical "Button" entries.
   quantity in the response with the request and says so. Reproduction steps for every state are in
   [cart-drawer.md](cart-drawer.md).
 
-### 22. Cart drawer content
+### 23. Cart drawer content
 
 - **Free-shipping progress.** The theme setting "Free shipping threshold" holds the same minimum as the free shipping
   rate in the store's shipping settings; the drawer shows how much is left and a thin progress bar labelled by that
@@ -338,7 +350,7 @@ instead of a row of identical "Button" entries.
   focus return), and closes on the backdrop; each cart change produces one polite announcement, errors use
   `role="alert"`, and the slide-in animation follows the motion tokens, so reduced motion turns it off.
 
-### 23. Empty sections render nothing
+### 24. Empty sections render nothing
 
 A section without blocks (and, for the hero and the feature banner, without an image) outputs nothing on the
 storefront, only the wrapper element that Shopify adds to every section. In the theme editor (`request.design_mode`)

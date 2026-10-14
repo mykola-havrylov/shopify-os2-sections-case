@@ -21,7 +21,7 @@ original work under [LICENSE](../LICENSE).
 | `locales/`   | `en.default.json`, `en.default.schema.json`                                                                                 |
 | `sections/`  | `404`, `article`, `blog`, `collections`, `page`, `password`, `search` (`.liquid`); `footer-group.json`, `header-group.json` |
 | `snippets/`  | `css-variables.liquid`, `image.liquid`, `meta-tags.liquid`                                                                  |
-| `templates/` | All `.json` templates except `page.styleguide.json`; `gift_card.liquid`                                                     |
+| `templates/` | All `.json` templates except `page.about.json`, `page.process.json` and `page.styleguide.json`; `gift_card.liquid`          |
 | Root         | `.gitattributes`, `.theme-check.yml`                                                                                        |
 
 ## Lucide icons

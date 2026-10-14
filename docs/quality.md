@@ -22,7 +22,7 @@ simulated slow 4G and 4× CPU slowdown; desktop: default desktop settings). Rang
 
 | Check                                     | Result               |
 | ----------------------------------------- | -------------------- |
-| Theme Check (`theme-check:recommended`)   | 64 files, 0 offenses |
+| Theme Check (`theme-check:recommended`)   | 77 files, 0 offenses |
 | Prettier (`npm run format:check`)         | All files formatted  |
 | ESLint (`npm run lint`)                   | 0 problems           |
 | Hardcoded `cdn.shopify.com` or store URLs | None in theme files  |

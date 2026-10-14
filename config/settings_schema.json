@@ -168,6 +168,18 @@
     ]
   },
   {
+    "name": "t:general.cart",
+    "settings": [
+      {
+        "type": "number",
+        "id": "cart_free_shipping_threshold",
+        "label": "t:labels.free_shipping_threshold",
+        "info": "t:info.free_shipping_threshold",
+        "default": 0
+      }
+    ]
+  },
+  {
     "name": "t:general.style",
     "settings": [
       {

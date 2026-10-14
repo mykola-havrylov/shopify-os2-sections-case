@@ -18,6 +18,7 @@
     "comment_form_title": "Add a comment"
   },
   "cart": {
+    "add": "Add",
     "checkout": "Checkout",
     "close": "Close cart",
     "continue_shopping": "Continue shopping",
@@ -26,6 +27,8 @@
       "network": "Your cart could not be updated. Check your connection and try again.",
       "generic": "Your cart could not be updated. Please try again."
     },
+    "free_shipping_reached": "Your order ships free.",
+    "free_shipping_remaining": "You are {{ amount }} away from free shipping.",
     "icon_label": {
       "one": "Cart, {{ count }} item",
       "other": "Cart, {{ count }} items"
@@ -39,7 +42,9 @@
       "other": "{{ count }} items in your cart, subtotal {{ subtotal }}."
     },
     "note": "Order note",
+    "note_toggle": "Add an order note",
     "quantity_for": "Quantity for {{ title }}",
+    "recommendations": "You may also like",
     "remove": "Remove",
     "retry": "Try again",
     "subtotal": "Subtotal",

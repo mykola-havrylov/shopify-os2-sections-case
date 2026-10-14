@@ -1,0 +1,102 @@
+{% comment %}
+  Up to three related products for the cart drawer, rendered through the Product Recommendations API with the first
+  cart line's product as the reference. Products already in the cart are left out. Each one can be added with its first
+  available variant. Not placed in templates.
+{% endcomment %}
+
+{%- if recommendations.performed? and recommendations.products_count > 0 -%}
+  {%- liquid
+    assign in_cart = cart.items | map: 'product_id' | join: ','
+    assign in_cart = ',' | append: in_cart | append: ','
+    assign shown = 0
+  -%}
+  <div class="cart-recommendations">
+    <h3 class="cart-recommendations__heading">{{ 'cart.recommendations' | t }}</h3>
+    <ul class="cart-recommendations__list" role="list">
+      {%- for product in recommendations.products -%}
+        {%- assign needle = ',' | append: product.id | append: ',' -%}
+        {%- if shown < 3 and product.available -%}
+          {%- unless in_cart contains needle -%}
+            {%- assign shown = shown | plus: 1 -%}
+            {%- assign product_title = product.title | escape -%}
+            <li class="cart-recommendation">
+              {% render 'image',
+                image: product.featured_image,
+                ratio: 'product',
+                class: 'cart-recommendation__media',
+                alt: '',
+                placeholder: 'product-1',
+                sizes: '4rem'
+              %}
+              <div class="cart-recommendation__details">
+                <a class="cart-recommendation__title" href="{{ product.url }}">{{ product_title }}</a>
+                {% render 'price', product: product, class: 'text-small text-muted' %}
+              </div>
+              <form action="{{ routes.cart_add_url }}" method="post" data-cart-add>
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="button button--secondary cart-recommendation__add">
+                  {{- 'cart.add' | t -}}
+                  <span class="visually-hidden"> {{ product_title }}</span>
+                </button>
+              </form>
+            </li>
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .cart-recommendations {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+  }
+
+  .cart-recommendations__heading {
+    font-size: 0.875em;
+    line-height: var(--line-height-snug);
+  }
+
+  .cart-recommendations__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cart-recommendation {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .cart-recommendation__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+  }
+
+  .cart-recommendation__title {
+    text-decoration: none;
+  }
+
+  .cart-recommendation__title:hover {
+    text-decoration: underline;
+  }
+
+  .cart-recommendation__add {
+    padding-inline: var(--space-3);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.cart_recommendations.name",
+  "settings": []
+}
+{% endschema %}

@@ -99,6 +99,7 @@
     "customer_account_menu": "Customer account menu",
     "first_open": "Open the first question",
     "foreground": "Text",
+    "free_shipping_threshold": "Free shipping threshold",
     "gap": "Gap",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
@@ -151,6 +152,7 @@
     "collection_card_image": "Optional. Uses the collection image, or its first product's image.",
     "collection_card_label": "Optional. Uses the collection title.",
     "corner_radius": "Applies to buttons, inputs and cards.",
+    "free_shipping_threshold": "In your store currency, the same minimum as the free shipping rate in your shipping settings. The cart drawer shows how much is left. Use 0 to hide it.",
     "heading_level": "Use one H1 per page. The level is for screen readers and search engines; the size setting controls the look.",
     "hero_color_scheme": "Sets the text colors and the overlay color.",
     "hero_height": "Full screen fills the window below the header.",
@@ -285,6 +287,9 @@
     },
     "cart_live_region_text": {
       "name": "Cart status"
+    },
+    "cart_recommendations": {
+      "name": "Cart recommendations"
     },
     "collection_grid": {
       "name": "Collection grid",

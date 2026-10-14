@@ -1,6 +1,6 @@
 # Sections
 
-The theme has five content sections that a merchant can add to any JSON template, and the page sections that the
+The theme has four content sections and one utility section (`rich-text`) that a merchant can add to any JSON template, and the page sections that the
 store's templates use. The content sections accept theme blocks by explicit type ([blocks.md](blocks.md)); none of
 them accepts `@theme`, and only `feature-banner` accepts app blocks. A content section without blocks renders nothing
 on the storefront and a selectable placeholder in the theme editor
@@ -20,7 +20,7 @@ on the storefront and a selectable placeholder in the theme editor
 
 A full-width image with a separate image for screens below 750px, and the content blocks on a 3×3 position grid. The
 overlay is the color scheme's background at the chosen strength, full behind the content and fading towards the
-opposite side, so the text stays readable while the photo keeps its light. "Full screen" fills the window under the
+opposite side, so the text stays readable while the image keeps its light. "Full screen" fills the window under the
 header. As the first section of a template the image is the LCP element: eager, `fetchpriority="high"`.
 
 ### Collection grid

@@ -223,9 +223,9 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
   template (`section.index > 1`). The comparison is written so that a `nil` index (theme editor, Section Rendering
   API) falls on the eager side
   ([section.index](https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-section-index)).
-- **Readable text over a photo.** The overlay is the color scheme's background color at the chosen strength (default
+- **Readable text over an image.** The overlay is the color scheme's background color at the chosen strength (default
   60%), full strength behind the content and fading out towards the opposite side: horizontally when the content sits
-  left or right, vertically on mobile and in the centre column, and uniform when the content is centred both ways. Over the light demo photos a uniform overlay needs about 55% to give paragraph text 4.5:1, which dulls the whole image; the faded overlay gives the text area 5.9:1 (desktop) and 6.5:1 (mobile) on average, and at least 4.5:1 for 90% of the area behind the text while the products stay bright.
+  left or right, vertically on mobile and in the centre column, and uniform when the content is centred both ways. Over the light demo images a uniform overlay needs about 55% to give paragraph text 4.5:1, which dulls the whole image; the faded overlay gives the text area 5.9:1 (desktop) and 6.5:1 (mobile) on average, and at least 4.5:1 for 90% of the area behind the text while the products stay bright.
 - **Blocks.** `heading`, `text` and `button`, at most six. Buttons sit in one row; headings and text take a full
   line.
 
@@ -237,7 +237,7 @@ note, an Update button (first in the form, so Enter updates) and a Check out but
 - **Label on the image.** A compact chip, sized to its content, whose background is the darker of the color scheme's
   background and text colors (chosen in Liquid with the
   [`color_brightness`](https://shopify.dev/docs/api/liquid/filters/color_brightness) filter) and whose text is the other one. The demo
-  product photos have a light background close to the Base scheme, so a chip in a light color would have no visible
+  product images have a light background close to the Base scheme, so a chip in a light color would have no visible
   edge; a dark chip stands out in every scheme and keeps the scheme's own text contrast (5.3:1 or more). No overlay
   darkens the image, and no border or shadow is added. The label can also sit under the image.
 - **Narrow cards.** Each card is a size container; below 14rem the chip tightens and drops the arrow, so the label

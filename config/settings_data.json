@@ -58,6 +58,7 @@
           "secondary_button_label": "#FFFFFF"
         }
       }
-    }
+    },
+    "cart_free_shipping_threshold": 70
   }
 }

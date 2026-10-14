@@ -6,6 +6,14 @@ it through the Cart API with bundled section rendering. Every request returns th
 announcement come from one response. The cart page `/cart` works without JavaScript and is the fallback for every
 state the drawer cannot handle.
 
+## Contents
+
+- Cart lines with quantity and remove controls, and related products ("You may also like") under them.
+- An "Add an order note" field, saved shortly after typing stops.
+- Free-shipping progress ("You are $14.00 away from free shipping."), subtotal, a taxes note, Checkout and a link to
+  the cart page.
+- An empty state with a link to all products.
+
 ## How changes are processed
 
 - **One request at a time.** All cart requests go through one promise queue, so the server receives them in the order

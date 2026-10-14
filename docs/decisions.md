@@ -311,3 +311,22 @@ instead of a row of identical "Button" entries.
 - **Inventory limits.** Shopify keeps the available quantity when more is requested; the drawer compares the line's
   quantity in the response with the request and says so. Reproduction steps for every state are in
   [cart-drawer.md](cart-drawer.md).
+
+### 22. Cart drawer content
+
+- **Free-shipping progress.** The theme setting "Free shipping threshold" holds the same minimum as the free shipping
+  rate in the store's shipping settings; the drawer shows how much is left and a thin progress bar labelled by that
+  text, and the live region repeats it. Liquid cannot convert an amount between currencies, so the bar is shown only
+  when the cart's currency is the store currency; it compares the threshold with the cart total after discounts.
+- **Order note.** The note field sits between the re-rendered regions, so cart changes never replace it while the
+  customer types. It is saved with `update.js` 500ms after typing stops, through the same queue as other changes, and
+  it belongs to the checkout form, so a note typed just before Checkout is submitted with it.
+- **Recommendations.** Up to three related products come from the
+  [Product Recommendations API](https://shopify.dev/docs/api/ajax/reference/product-recommendations) as the
+  `cart-recommendations` section, with the first cart line as the reference; products already in the cart are left
+  out. They load when the drawer opens and after each change while it is open, and never announce themselves.
+- **No discount code field.** Codes are entered at checkout, where Shopify validates them and shows the discounted
+  totals; a field in the drawer would duplicate that and is out of scope.
+- **Accessibility.** The dialog is named by its heading, modal through `showModal()` (inert background, Escape,
+  focus return), and closes on the backdrop; each cart change produces one polite announcement, errors use
+  `role="alert"`, and the slide-in animation follows the motion tokens, so reduced motion turns it off.

@@ -2,6 +2,7 @@
 
 const SECTIONS = ['cart-drawer', 'cart-icon-bubble', 'cart-live-region-text'];
 const TIMEOUT = 15000;
+const NOTE_DELAY = 500;
 
 const parse = (html) => new DOMParser().parseFromString(html, 'text/html');
 
@@ -28,10 +29,13 @@ class CartDrawer extends HTMLElement {
     this.pending = new Map();
     this.flushing = null;
     this.retry = null;
-    this.confirm(this.content, this.bubble);
+    this.noteTimer = null;
+    this.recommendations = new Map();
+    this.confirm({ regions: [...this.querySelectorAll('[data-cart-region]')], bubble: this.bubble });
 
     this.addEventListener('click', this.onClick);
     this.addEventListener('change', this.onChange);
+    this.addEventListener('input', this.onInput);
     this.addEventListener('submit', this.onSubmit);
     document.addEventListener('click', this.onDocumentClick);
   }
@@ -39,12 +43,9 @@ class CartDrawer extends HTMLElement {
   disconnectedCallback() {
     this.removeEventListener('click', this.onClick);
     this.removeEventListener('change', this.onChange);
+    this.removeEventListener('input', this.onInput);
     this.removeEventListener('submit', this.onSubmit);
     document.removeEventListener('click', this.onDocumentClick);
-  }
-
-  get content() {
-    return this.querySelector('[data-cart-drawer-content]');
   }
 
   get bubble() {
@@ -53,6 +54,7 @@ class CartDrawer extends HTMLElement {
 
   open() {
     if (!this.dialog.open) this.dialog.showModal();
+    this.loadRecommendations();
   }
 
   close() {
@@ -101,7 +103,7 @@ class CartDrawer extends HTMLElement {
         this.pending.delete(key);
         const data = await this.request(this.dataset.changeUrl, { id: key, quantity });
         if (this.pending.size) {
-          this.confirm(...this.parseSections(data.sections));
+          this.confirm(this.parseSections(data.sections));
         } else {
           this.render(data.sections);
           this.reportLimit(key, quantity, data);
@@ -141,32 +143,63 @@ class CartDrawer extends HTMLElement {
   }
 
   parseSections(sections) {
-    return [
-      parse(sections['cart-drawer']).querySelector('[data-cart-drawer-content]'),
-      parse(sections['cart-icon-bubble']).querySelector('.cart-icon-bubble'),
-    ];
+    return {
+      regions: [...parse(sections['cart-drawer']).querySelectorAll('[data-cart-region]')],
+      bubble: parse(sections['cart-icon-bubble']).querySelector('.cart-icon-bubble'),
+    };
   }
 
-  confirm(content, bubble) {
-    this.confirmed = { content: content?.cloneNode(true), bubble: bubble?.cloneNode(true) };
+  confirm({ regions, bubble }) {
+    this.confirmed = { regions: regions.map((region) => region.cloneNode(true)), bubble: bubble?.cloneNode(true) };
   }
 
   render(sections, { announce = true } = {}) {
-    const [content, bubble] = this.parseSections(sections);
-    this.confirm(content, bubble);
-    this.swap(content, bubble);
+    const parsed = this.parseSections(sections);
+    this.confirm(parsed);
+    this.swap(parsed);
     if (announce) this.announce(parse(sections['cart-live-region-text']).body.textContent.trim());
   }
 
   rollback() {
-    this.swap(this.confirmed.content?.cloneNode(true), this.confirmed.bubble?.cloneNode(true));
+    this.swap({
+      regions: this.confirmed.regions.map((region) => region.cloneNode(true)),
+      bubble: this.confirmed.bubble?.cloneNode(true),
+    });
   }
 
-  swap(content, bubble) {
+  swap({ regions, bubble }) {
     const focus = this.focusState();
-    if (content) this.content.replaceWith(content);
+    regions.forEach((region) => {
+      this.querySelector(`[data-cart-region="${region.dataset.cartRegion}"]`)?.replaceWith(region);
+    });
     if (bubble) document.getElementById('cart-icon-bubble')?.replaceChildren(bubble);
-    if (this.dialog.open && !this.contains(document.activeElement)) this.restoreFocus(focus);
+    if (this.dialog.open) {
+      if (!this.contains(document.activeElement)) this.restoreFocus(focus);
+      this.loadRecommendations();
+    }
+  }
+
+  async loadRecommendations() {
+    const container = this.querySelector('[data-cart-recommendations]');
+    if (!container || container.dataset.loaded) return;
+    container.dataset.loaded = 'true';
+    const lines = [...this.querySelectorAll('[data-line-key]')].map((line) => line.dataset.lineKey).join();
+    const key = `${container.dataset.url}|${lines}`;
+    try {
+      if (!this.recommendations.has(key)) {
+        const response = await fetch(container.dataset.url, { signal: AbortSignal.timeout(TIMEOUT) });
+        if (!response.ok) return;
+        this.recommendations.set(key, await response.text());
+      }
+      const recommendations = parse(this.recommendations.get(key)).querySelector('.cart-recommendations');
+      if (recommendations && container.isConnected) container.replaceChildren(recommendations);
+    } catch {
+      container.replaceChildren();
+    }
+  }
+
+  saveNote(note) {
+    this.update({ note }).catch((error) => this.showError(error, () => this.saveNote(note)));
   }
 
   reportLimit(key, requested, data) {
@@ -256,8 +289,26 @@ class CartDrawer extends HTMLElement {
     this.change(input.closest('[data-line-key]').dataset.lineKey, quantity);
   };
 
+  onInput = (event) => {
+    const note = event.target.closest('[data-cart-note]');
+    if (!note) return;
+    clearTimeout(this.noteTimer);
+    this.noteTimer = setTimeout(() => this.saveNote(note.value), NOTE_DELAY);
+  };
+
   onSubmit = (event) => {
-    if (this.hasAttribute('data-busy')) event.preventDefault();
+    if (this.hasAttribute('data-busy')) {
+      event.preventDefault();
+      return;
+    }
+
+    const form = event.target.closest('[data-cart-add]');
+    if (!form) return;
+    event.preventDefault();
+    const data = new FormData(form);
+    this.add({ id: Number(data.get('id')), quantity: Number(data.get('quantity')) || 1 }).catch((error) =>
+      this.showError(error, () => form.requestSubmit()),
+    );
   };
 }
 

@@ -35,36 +35,28 @@
         </button>
       </div>
 
-      <div class="cart-drawer__content" data-cart-drawer-content>
+      {%- liquid
+        assign threshold = settings.cart_free_shipping_threshold | times: 100
+        assign show_shipping = false
+        if threshold > 0 and cart.currency.iso_code == shop.currency
+          assign show_shipping = true
+          assign remaining = threshold | minus: cart.total_price
+          assign shipping_value = cart.total_price | at_most: threshold
+        endif
+      -%}
+
+      <div class="cart-drawer__body" data-cart-region="body">
         {%- if cart.item_count > 0 -%}
-          <ul class="cart-drawer__lines cart-lines" role="list">
+          <ul class="cart-lines" role="list">
             {%- for item in cart.items -%}
               {% render 'cart-line', item: item, id_prefix: 'Drawer' %}
             {%- endfor -%}
           </ul>
-
-          <div class="cart-drawer__footer">
-            <p class="cart-drawer__subtotal">
-              <span>{{ 'cart.subtotal' | t }}</span>
-              <span>{{ cart.total_price | money_with_currency }}</span>
-            </p>
-            <p class="text-small text-muted">
-              {%- if cart.taxes_included -%}
-                {{ 'cart.taxes_included' | t }}
-              {%- else -%}
-                {{ 'cart.taxes_excluded' | t }}
-              {%- endif -%}
-            </p>
-            <form action="{{ routes.cart_url }}" method="post">
-              <button type="submit" name="checkout" class="button cart-drawer__checkout">
-                {{- 'cart.checkout' | t -}}
-              </button>
-            </form>
-            <a class="link-arrow" href="{{ routes.cart_url }}">
-              {{- 'cart.view' | t -}}
-              {% render 'icon', name: 'arrow-right' %}
-            </a>
-          </div>
+          <div
+            class="cart-drawer__recommendations"
+            data-cart-recommendations
+            data-url="{{ routes.product_recommendations_url }}?section_id=cart-recommendations&product_id={{ cart.items.first.product_id }}&limit=4&intent=related"
+          ></div>
         {%- else -%}
           <div class="cart-drawer__empty">
             <p>{{ 'cart.empty' | t }}</p>
@@ -73,6 +65,65 @@
               {% render 'icon', name: 'arrow-right' %}
             </a>
           </div>
+        {%- endif -%}
+      </div>
+
+      <details
+        class="cart-drawer__note"
+        {% if cart.note != blank %}
+          open
+        {% endif %}
+      >
+        <summary class="cart-drawer__note-toggle">
+          {{- 'cart.note_toggle' | t -}}
+          {% render 'icon', name: 'chevron-down', class: 'cart-drawer__note-icon' %}
+        </summary>
+        <label class="visually-hidden" for="CartDrawerNote">{{ 'cart.note' | t }}</label>
+        <textarea class="input" id="CartDrawerNote" name="note" rows="3" form="CartDrawerCheckout" data-cart-note>
+          {{- cart.note -}}
+        </textarea>
+      </details>
+
+      <div class="cart-drawer__footer" data-cart-region="footer">
+        {%- if cart.item_count > 0 -%}
+          {%- if show_shipping -%}
+            <div class="cart-drawer__shipping">
+              <p class="text-small" id="CartDrawerShipping">
+                {%- if remaining > 0 -%}
+                  {%- assign remaining_money = remaining | money -%}
+                  {{ 'cart.free_shipping_remaining' | t: amount: remaining_money }}
+                {%- else -%}
+                  {{ 'cart.free_shipping_reached' | t }}
+                {%- endif -%}
+              </p>
+              <progress
+                class="cart-drawer__progress"
+                max="{{ threshold }}"
+                value="{{ shipping_value }}"
+                aria-labelledby="CartDrawerShipping"
+              ></progress>
+            </div>
+          {%- endif -%}
+          <p class="cart-drawer__subtotal">
+            <span>{{ 'cart.subtotal' | t }}</span>
+            <span>{{ cart.total_price | money_with_currency }}</span>
+          </p>
+          <p class="text-small text-muted">
+            {%- if cart.taxes_included -%}
+              {{ 'cart.taxes_included' | t }}
+            {%- else -%}
+              {{ 'cart.taxes_excluded' | t }}
+            {%- endif -%}
+          </p>
+          <form action="{{ routes.cart_url }}" method="post" id="CartDrawerCheckout">
+            <button type="submit" name="checkout" class="button cart-drawer__checkout">
+              {{- 'cart.checkout' | t -}}
+            </button>
+          </form>
+          <a class="link-arrow" href="{{ routes.cart_url }}">
+            {{- 'cart.view' | t -}}
+            {% render 'icon', name: 'arrow-right' %}
+          </a>
         {%- endif -%}
       </div>
     </div>
@@ -165,19 +216,79 @@
     cursor: progress;
   }
 
-  .cart-drawer__content {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: var(--space-4);
-    min-height: 0;
-  }
-
-  .cart-drawer__lines {
+  .cart-drawer__body {
     position: relative;
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+
+  .cart-drawer__recommendations:empty {
+    display: none;
+  }
+
+  .cart-drawer__note {
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  cart-drawer:has(.cart-drawer__empty) .cart-drawer__note {
+    display: none;
+  }
+
+  .cart-drawer__note-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--control-height);
+    font-size: 0.875em;
+    font-weight: var(--font-body--weight-bold);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .cart-drawer__note-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .cart-drawer__note[open] .cart-drawer__note-icon {
+    transform: rotate(180deg);
+  }
+
+  .cart-drawer__note textarea {
+    margin-block-end: var(--space-3);
+    resize: vertical;
+  }
+
+  .cart-drawer__shipping {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cart-drawer__progress {
+    width: 100%;
+    height: var(--space-1);
+    border: 0;
+    border-radius: var(--radius);
+    background-color: var(--color-border);
+    color: var(--color-foreground);
+    appearance: none;
+  }
+
+  .cart-drawer__progress::-webkit-progress-bar {
+    border-radius: var(--radius);
+    background-color: var(--color-border);
+  }
+
+  .cart-drawer__progress::-webkit-progress-value {
+    border-radius: var(--radius);
+    background-color: var(--color-foreground);
+  }
+
+  .cart-drawer__progress::-moz-progress-bar {
+    border-radius: var(--radius);
+    background-color: var(--color-foreground);
   }
 
   .cart-drawer__footer,

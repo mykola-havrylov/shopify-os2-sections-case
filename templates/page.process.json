@@ -12,9 +12,293 @@
     "main": {
       "type": "page",
       "settings": {}
+    },
+    "hero_banner_wNnw7y": {
+      "type": "hero-banner",
+      "blocks": {
+        "heading_x4KE8L": {
+          "type": "heading",
+          "settings": {
+            "heading": "Stoneware for slow mornings",
+            "tag": "h1",
+            "size": "h0",
+            "alignment": "left"
+          },
+          "blocks": {}
+        },
+        "text_nBmk97": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Thrown, trimmed and glazed by hand in small batches, and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          },
+          "blocks": {}
+        },
+        "button_KTbwia": {
+          "type": "button",
+          "settings": {
+            "text": "Shop now",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "primary"
+          },
+          "blocks": {}
+        },
+        "button_LkW8TC": {
+          "type": "button",
+          "settings": {
+            "text": "Learn more",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "link"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading_x4KE8L",
+        "text_nBmk97",
+        "button_KTbwia",
+        "button_LkW8TC"
+      ],
+      "name": "t:sections.hero_banner.name",
+      "settings": {
+        "height": "medium",
+        "overlay": 60,
+        "content_position": "middle-center",
+        "content_width": "narrow",
+        "color_scheme": "scheme-accent"
+      }
+    },
+    "collection_grid_VCUGqT": {
+      "type": "collection-grid",
+      "blocks": {
+        "collection_card_8mMr8a": {
+          "type": "_collection-card",
+          "name": "t:blocks.collection_card.name",
+          "settings": {
+            "collection": "vases",
+            "label": ""
+          },
+          "blocks": {}
+        },
+        "collection_card_zrQcge": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "",
+            "label": ""
+          },
+          "blocks": {}
+        },
+        "collection_card_C6BwkC": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "",
+            "label": ""
+          },
+          "blocks": {}
+        },
+        "collection_card_ywt3WH": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "",
+            "label": ""
+          },
+          "blocks": {}
+        },
+        "collection_card_X9i6Qa": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "",
+            "label": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "collection_card_8mMr8a",
+        "collection_card_zrQcge",
+        "collection_card_C6BwkC",
+        "collection_card_ywt3WH",
+        "collection_card_X9i6Qa"
+      ],
+      "name": "t:sections.collection_grid.name",
+      "settings": {
+        "heading": "Shop by category",
+        "columns_desktop": "4",
+        "image_ratio": "portrait",
+        "label_position": "below",
+        "show_count": true,
+        "mobile_layout": "grid",
+        "color_scheme": ""
+      }
+    },
+    "faq_accordion_4tHzQP": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_item_BkiHAp": {
+          "type": "_faq-item",
+          "name": "t:blocks.faq_item.name",
+          "settings": {
+            "title": "Do you take custom orders?",
+            "text": "<p>Yes, for sets of six or more.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_WmbMT7": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "How do I care for stoneware?",
+            "text": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_6WNNV6": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "How long does shipping take?",
+            "text": "<p>Orders leave the studio within three working days. You get an email with tracking as soon as yours is on its way.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_LxNYQE": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "Can I return an item?",
+            "text": "<p>Unused pieces can be returned within 30 days of delivery. Write to us with your order number and we send the return details.</p>"
+          },
+          "blocks": {}
+        },
+        "heading": {
+          "type": "heading",
+          "static": true,
+          "settings": {
+            "heading": "Questions",
+            "tag": "h2",
+            "size": "h2",
+            "alignment": "left"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "faq_item_BkiHAp",
+        "faq_item_WmbMT7",
+        "faq_item_6WNNV6",
+        "faq_item_LxNYQE"
+      ],
+      "name": "t:sections.faq_accordion.name",
+      "settings": {
+        "first_open": true,
+        "single_open": true,
+        "content_width": "normal",
+        "color_scheme": ""
+      }
+    },
+    "feature_banner_3J4CWA": {
+      "type": "feature-banner",
+      "blocks": {
+        "shop_shop_login_button_app_block_QmJbGW": {
+          "type": "shopify://apps/shop/blocks/shop-login-button-app-block/7cab7c4a-1dfc-4b7e-8e53-31f104f2fa4e",
+          "settings": {}
+        },
+        "text_3aHhgM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our studio</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          },
+          "blocks": {}
+        },
+        "heading_P3M9zp": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made slowly, <em>used every day</em>",
+            "tag": "h2",
+            "size": "h1",
+            "alignment": "left"
+          },
+          "blocks": {}
+        },
+        "text_BQdf33": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every piece starts as a lump of clay on the wheel in our studio and ends on someone’s table. We keep the batches small, so we can look at each one before it leaves.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          },
+          "blocks": {}
+        },
+        "list_TpeqQ9": {
+          "type": "list",
+          "settings": {},
+          "blocks": {
+            "list_item_UEr9iK": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "hand",
+                "title": "Thrown by hand",
+                "text": "Shaped on the wheel and trimmed by hand, one piece at a time."
+              },
+              "blocks": {}
+            },
+            "list_item_V3g8zt": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "leaf",
+                "title": "Small batches",
+                "text": "Glazes are mixed and fired in small batches, so no two pieces are quite the same."
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "list_item_UEr9iK",
+            "list_item_V3g8zt"
+          ]
+        },
+        "button_GhMGpJ": {
+          "type": "button",
+          "settings": {
+            "text": "Shop the collection",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "link"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "shop_shop_login_button_app_block_QmJbGW",
+        "text_3aHhgM",
+        "heading_P3M9zp",
+        "text_BQdf33",
+        "list_TpeqQ9",
+        "button_GhMGpJ"
+      ],
+      "name": "t:sections.feature_banner.preset_image_right",
+      "settings": {
+        "image_side": "left",
+        "image_ratio": "portrait",
+        "layout": "container",
+        "vertical_alignment": "center",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "hero_banner_wNnw7y",
+    "collection_grid_VCUGqT",
+    "faq_accordion_4tHzQP",
+    "feature_banner_3J4CWA"
   ]
 }

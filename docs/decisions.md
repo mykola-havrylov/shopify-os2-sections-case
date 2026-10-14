@@ -330,3 +330,10 @@ instead of a row of identical "Button" entries.
 - **Accessibility.** The dialog is named by its heading, modal through `showModal()` (inert background, Escape,
   focus return), and closes on the backdrop; each cart change produces one polite announcement, errors use
   `role="alert"`, and the slide-in animation follows the motion tokens, so reduced motion turns it off.
+
+### 23. Empty sections render nothing
+
+A section without blocks (and, for the hero and the feature banner, without an image) outputs nothing on the
+storefront, only the wrapper element that Shopify adds to every section. In the theme editor (`request.design_mode`)
+it renders, so the merchant can select it and add blocks. Customers never see an empty coloured band or a
+heading with nothing under it.

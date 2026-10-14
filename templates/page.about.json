@@ -1,0 +1,178 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>About us</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Everyday stoneware from a small studio",
+            "tag": "h1",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Hearth & Clay is a small studio making everyday stoneware: matte glazes in three colours, forms that stack, and nothing decorative that gets in the way of use.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        }
+      },
+      "block_order": ["eyebrow", "heading", "text"],
+      "settings": {
+        "color_scheme": "scheme-base",
+        "content_width": "narrow",
+        "alignment": "flex-start",
+        "padding": "section"
+      }
+    },
+    "story": {
+      "type": "feature-banner",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>How we work</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "From clay <em>to your table</em>",
+            "tag": "h2",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Each piece is thrown, trimmed and glazed in the studio, in batches small enough to check one by one before it is packed.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "steps": {
+          "type": "list",
+          "blocks": {
+            "hand": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "hand",
+                "title": "Thrown by hand",
+                "text": "Shaped on the wheel and trimmed by hand, one piece at a time."
+              }
+            },
+            "flame": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "flame",
+                "title": "Fired twice",
+                "text": "A bisque firing, then a glaze firing that makes the stoneware dense and strong."
+              }
+            },
+            "package": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "package",
+                "title": "Packed in the studio",
+                "text": "Every order is checked and packed by the people who made it."
+              }
+            }
+          },
+          "block_order": ["hand", "flame", "package"],
+          "settings": {}
+        },
+        "link": {
+          "type": "button",
+          "settings": {
+            "text": "Shop the collection",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "link"
+          }
+        }
+      },
+      "block_order": ["eyebrow", "heading", "text", "steps", "link"],
+      "settings": {
+        "image": "shopify://shop_images/hero-desktop.jpg",
+        "image_side": "right",
+        "image_ratio": "landscape",
+        "layout": "container",
+        "vertical_alignment": "center",
+        "color_scheme": "scheme-surface"
+      }
+    },
+    "glazes": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Three quiet glazes",
+            "tag": "h2",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Oat, Moss and Charcoal: three matte glazes that sit well together, so pieces bought years apart still match on the table.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "link": {
+          "type": "button",
+          "settings": {
+            "text": "See the mugs",
+            "link": "shopify://collections/mugs",
+            "new_tab": false,
+            "style": "link"
+          }
+        }
+      },
+      "block_order": ["heading", "text", "link"],
+      "settings": {
+        "color_scheme": "scheme-base",
+        "content_width": "narrow",
+        "alignment": "flex-start",
+        "padding": "section"
+      }
+    }
+  },
+  "order": ["intro", "story", "glazes"]
+}

@@ -11,22 +11,24 @@
   endif
 -%}
 
-<div
-  class="collection-grid full-bleed section-spacing color-{{ section.settings.color_scheme }}"
-  style="--collection-grid-columns: {{ section.settings.columns_desktop }};"
->
-  <div class="collection-grid__inner">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="collection-grid__heading h2">{{ section.settings.heading }}</h2>
-    {%- endif -%}
-    <{{ list_tag }} class="collection-grid__list collection-grid__list--{{ section.settings.mobile_layout }}">
-      {% content_for 'blocks' %}
-    </{{ list_tag }}>
+{%- if section.blocks.size > 0 or request.design_mode -%}
+  <div
+    class="collection-grid full-bleed section-spacing color-{{ section.settings.color_scheme }}"
+    style="--collection-grid-columns: {{ section.settings.columns_desktop }};"
+  >
+    <div class="collection-grid__inner">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="collection-grid__heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      <{{ list_tag }} class="collection-grid__list collection-grid__list--{{ section.settings.mobile_layout }}">
+        {% content_for 'blocks' %}
+      </{{ list_tag }}>
+    </div>
   </div>
-</div>
 
-{%- if section.settings.mobile_layout == 'scroll' -%}
-  <script src="{{ 'scroll-row.js' | asset_url }}" type="module"></script>
+  {%- if section.settings.mobile_layout == 'scroll' -%}
+    <script src="{{ 'scroll-row.js' | asset_url }}" type="module"></script>
+  {%- endif -%}
 {%- endif -%}
 
 {% stylesheet %}

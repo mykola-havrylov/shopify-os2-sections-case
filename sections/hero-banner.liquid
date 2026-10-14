@@ -47,32 +47,34 @@
   endif
 -%}
 
-<div
-  class="hero hero--{{ section.settings.height }} hero--fade-mobile-{{ fade_mobile | replace: ' ', '-' }} hero--fade-desktop-{{ fade_desktop | replace: ' ', '-' }} full-bleed color-{{ section.settings.color_scheme }}"
-  style="
-    --hero-align: {{ align }};
-    --hero-justify: {{ justify }};
-    --hero-content-width: {{ content_width }};
-    --hero-overlay: {{ section.settings.overlay }}%;
-  "
->
-  {% render 'image',
-    image: section.settings.image,
-    mobile_image: section.settings.image_mobile,
-    class: 'hero__media',
-    placeholder: 'lifestyle-2',
-    sizes: '100vw',
-    widths: '750, 1100, 1500, 1800, 2400',
-    loading: loading,
-    fetchpriority: fetchpriority
-  %}
+{%- if section.blocks.size > 0 or section.settings.image != blank or request.design_mode -%}
+  <div
+    class="hero hero--{{ section.settings.height }} hero--fade-mobile-{{ fade_mobile | replace: ' ', '-' }} hero--fade-desktop-{{ fade_desktop | replace: ' ', '-' }} full-bleed color-{{ section.settings.color_scheme }}"
+    style="
+      --hero-align: {{ align }};
+      --hero-justify: {{ justify }};
+      --hero-content-width: {{ content_width }};
+      --hero-overlay: {{ section.settings.overlay }}%;
+    "
+  >
+    {% render 'image',
+      image: section.settings.image,
+      mobile_image: section.settings.image_mobile,
+      class: 'hero__media',
+      placeholder: 'lifestyle-2',
+      sizes: '100vw',
+      widths: '750, 1100, 1500, 1800, 2400',
+      loading: loading,
+      fetchpriority: fetchpriority
+    %}
 
-  <div class="hero__content">
-    <div class="hero__blocks">
-      {% content_for 'blocks' %}
+    <div class="hero__content">
+      <div class="hero__blocks">
+        {% content_for 'blocks' %}
+      </div>
     </div>
   </div>
-</div>
+{%- endif -%}
 
 {% stylesheet %}
   .hero {

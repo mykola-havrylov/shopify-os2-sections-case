@@ -29,24 +29,26 @@
   endif
 -%}
 
-<div
-  class="feature-banner feature-banner--image-{{ section.settings.image_side }} feature-banner--{{ section.settings.layout }} full-bleed section-spacing color-{{ section.settings.color_scheme }}"
-  style="--feature-banner-align: {{ align }};"
->
-  <div class="feature-banner__inner">
-    {% render 'image',
-      image: section.settings.image,
-      aspect_ratio: aspect_ratio,
-      class: 'feature-banner__media',
-      placeholder: 'lifestyle-1',
-      sizes: '(min-width: 750px) 50vw, 100vw',
-      loading: loading
-    %}
-    <div class="feature-banner__content">
-      {% content_for 'blocks' %}
+{%- if section.blocks.size > 0 or section.settings.image != blank or request.design_mode -%}
+  <div
+    class="feature-banner feature-banner--image-{{ section.settings.image_side }} feature-banner--{{ section.settings.layout }} full-bleed section-spacing color-{{ section.settings.color_scheme }}"
+    style="--feature-banner-align: {{ align }};"
+  >
+    <div class="feature-banner__inner">
+      {% render 'image',
+        image: section.settings.image,
+        aspect_ratio: aspect_ratio,
+        class: 'feature-banner__media',
+        placeholder: 'lifestyle-1',
+        sizes: '(min-width: 750px) 50vw, 100vw',
+        loading: loading
+      %}
+      <div class="feature-banner__content">
+        {% content_for 'blocks' %}
+      </div>
     </div>
   </div>
-</div>
+{%- endif -%}
 
 {% stylesheet %}
   .feature-banner__inner {

@@ -4,14 +4,16 @@
   time" is on, the items share a `name`, and browsers that support exclusive accordions close the other items.
 {% endcomment %}
 
-<div class="faq-accordion full-bleed section-spacing color-{{ section.settings.color_scheme }}">
-  <div class="faq-accordion__inner faq-accordion__inner--{{ section.settings.content_width }}">
-    {% content_for 'block', type: 'heading', id: 'heading' %}
-    <div class="faq-accordion__items">
-      {% content_for 'blocks' %}
+{%- if section.blocks.size > 0 or request.design_mode -%}
+  <div class="faq-accordion full-bleed section-spacing color-{{ section.settings.color_scheme }}">
+    <div class="faq-accordion__inner faq-accordion__inner--{{ section.settings.content_width }}">
+      {% content_for 'block', type: 'heading', id: 'heading' %}
+      <div class="faq-accordion__items">
+        {% content_for 'blocks' %}
+      </div>
     </div>
   </div>
-</div>
+{%- endif -%}
 
 {% stylesheet %}
   .faq-accordion__inner {

@@ -14,17 +14,19 @@
   endcase
 %}
 
-<div
-  class="rich-text full-bleed color-{{ section.settings.color_scheme }}"
-  style="
-    --rich-text-padding: {{ padding }};
-    --rich-text-alignment: {{ section.settings.alignment }};
-  "
->
-  <div class="rich-text__content rich-text__content--{{ section.settings.content_width }}">
-    {% content_for 'blocks' %}
+{%- if section.blocks.size > 0 or request.design_mode -%}
+  <div
+    class="rich-text full-bleed color-{{ section.settings.color_scheme }}"
+    style="
+      --rich-text-padding: {{ padding }};
+      --rich-text-alignment: {{ section.settings.alignment }};
+    "
+  >
+    <div class="rich-text__content rich-text__content--{{ section.settings.content_width }}">
+      {% content_for 'blocks' %}
+    </div>
   </div>
-</div>
+{%- endif -%}
 
 {% stylesheet %}
   .rich-text {

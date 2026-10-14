@@ -53,14 +53,4 @@ starts at 8px.
 
 ## Sections that accept theme blocks
 
-| Section           | Accepts                                                           | Settings                                                                                            |
-| ----------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `rich-text`       | `group`, `heading`, `text`, `button` (and `_styleguide-specimen`) | Color scheme, content width (narrow, normal, wide), alignment, vertical padding                     |
-| `hero-banner`     | `heading`, `text`, `button` (max 6)                               | Image, mobile image, height, overlay, content position (3×3), content width, color scheme           |
-| `collection-grid` | `_collection-card` (max 8)                                        | Heading, columns (2–4), image ratio, label position, product count, mobile layout, color scheme     |
-| `feature-banner`  | `heading`, `text`, `button`, `group`, `list`, `@app` (max 6)      | Image, image side, image ratio, layout (page width or full width), vertical alignment, color scheme |
-| `faq-accordion`   | `_faq-item` (max 16); static `heading`                            | First question open, one open at a time, content width, color scheme                                |
-
-`rich-text` is a utility section for text content such as an About page or a short statement between other sections.
-Its preset holds a heading, a text and a button. Vertical padding defaults to "Section spacing", the same space other
-sections use; 40, 64 or 96px can be chosen when the section has its own background color.
+The sections, their block lists, settings and presets are in [sections.md](sections.md).

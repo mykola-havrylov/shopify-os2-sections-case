@@ -1,13 +1,31 @@
 {% comment %}
-  This section is used in the page template to render store pages like About us
-  or Contact us.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/page
+  Default page: the page title and the page content from the admin, in a readable text column. Also renders the pages
+  Shopify creates itself, such as the privacy choices page with its opt-out form.
 {% endcomment %}
 
-<h1>{{ page.title }}</h1>
+<div class="main-page section-spacing">
+  <h1 class="h1">{{ page.title | escape }}</h1>
+  <div class="main-page__content">{{ page.content }}</div>
+</div>
 
-{{ page.content }}
+{% stylesheet %}
+  .main-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .main-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    max-width: var(--text-measure);
+  }
+
+  .main-page__content > :is(h2, h3, h4):not(:first-child) {
+    margin-block-start: 0.5em;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

@@ -1,1 +1,5 @@
 extends: theme-check:recommended
+
+JSONMissingBlock:
+  ignore:
+    - templates/page.process.json

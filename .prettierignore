@@ -2,3 +2,6 @@ node_modules
 package-lock.json
 LICENSE.md
 agents-doc/
+templates/*.json
+sections/*-group.json
+config/settings_data.json

@@ -32,7 +32,14 @@ templates, theme blocks and Theme Editor control — so it uses the last Skeleto
 
 ### 2. Theme Check and CI
 
-- `.theme-check.yml` extends `theme-check:recommended` with no checks disabled.
+- `.theme-check.yml` extends `theme-check:recommended`. The only exception is `JSONMissingBlock`, ignored for
+  `templates/page.process.json` ([configuration](https://shopify.dev/docs/storefronts/themes/tools/theme-check/configuration)).
+  That template holds an app block, and the check looks for app block types (`shopify://apps/…`) as files in `blocks/`,
+  where they never exist. Every other template keeps the check.
+- Files the Theme Editor writes — `templates/*.json`, `sections/*-group.json` and `config/settings_data.json` — are in
+  `.prettierignore`. An editor save commits them in Shopify's own JSON layout
+  ([GitHub integration](https://shopify.dev/docs/storefronts/themes/tools/github)), so formatting them in code would
+  only produce a diff on the next save. Theme Check still validates them.
 - CI runs `shopify/theme-check-action@v2` without its optional `token` input. With the token the action also posts a
   GitHub check run, which in this repository fails with `HttpError: Not Found` before any result is reported. Without
   it the action runs `shopify theme check` and fails the job on errors; only the check annotations are missing

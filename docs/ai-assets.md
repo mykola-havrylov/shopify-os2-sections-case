@@ -1,24 +1,26 @@
-# AI assets
+# AI-generated assets
 
-## Demo catalog and hero images
+The 30 JPEG files in [`data/images/`](../data/images/) are AI-generated: 28 product images and 2 hero images.
 
-The 30 JPEG files in [`data/images/`](../data/images/) were generated or edited with the built-in
-`image_gen.imagegen` tool. The tool did not expose the exact model identifier.
+| Date       | Tool                             | Scope                                          | Method                                                                  |
+| ---------- | -------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
+| 2026-10-08 | Codex (OpenAI), image generation | Initial set: 28 product images, 2 hero images  | Generated from prompts, or edited from a base image of the same product |
+| 2026-10-08 | Codex (OpenAI), image generation | Four images revised after review, listed below | Edited from an existing image                                           |
 
-| Date       | Tool                 | Scope                                            | Method                                                     |
-| ---------- | -------------------- | ------------------------------------------------ | ---------------------------------------------------------- |
-| 2026-10-08 | `image_gen.imagegen` | Initial set: 28 product images and 2 hero images | 16 generated from prompts; 14 edited from saved base JPEGs |
-| 2026-10-08 | `image_gen.imagegen` | Four images revised after review, listed below   | Image edits; the other 26 JPEGs were kept unchanged        |
+The revised images:
 
-The revision changed:
+- `ridge-vase-tall.jpg`: a taller, slimmer vase, edited from `ridge-vase-short.jpg`.
+- `serving-bowl-large.jpg`: larger frame fill, edited from `serving-bowl-medium.jpg`.
+- `four-piece-dinner-set-oat.jpg`: closer, higher camera framing.
+- `four-piece-dinner-set-moss.jpg`: the Moss glaze, edited from the revised Oat image.
 
-- `ridge-vase-tall.jpg`: edited from `ridge-vase-short.jpg` to make the vase taller and slimmer.
-- `serving-bowl-large.jpg`: edited from `serving-bowl-medium.jpg` to increase frame fill.
-- `four-piece-dinner-set-oat.jpg`: edited from its previous version for closer, higher camera framing.
-- `four-piece-dinner-set-moss.jpg`: edited from the updated Oat image to change the glaze to Moss.
+Prompts: [`brief.md`](../data/images/brief.md) and [`prompts.json`](../data/images/prompts.json).
 
-Prompt sources: [`brief.md`](../data/images/brief.md) and [`prompts.json`](../data/images/prompts.json).
-The revised images used edit prompts with adjusted vase proportions and frame fill; these are not part of `brief.md`.
+Final sizes: products 1600×2000 px, desktop hero 2400×1350 px, mobile hero 1200×1500 px.
 
-Final JPEGs were resized without stretching and encoded with PowerShell/System.Drawing at quality 90:
-products at 1600×2000 px, desktop hero at 2400×1350 px, and mobile hero at 1200×1500 px.
+## Status of the images
+
+- The images show a fictional brand and fictional products. They are not photographs.
+- The repository author does not assert copyright in the AI-generated portions of these images.
+- The [MIT License](../LICENSE) covers the code and the documentation, not these images.
+- Use of the generated output is subject to the [OpenAI Terms of Use](https://openai.com/policies/row-terms-of-use/).

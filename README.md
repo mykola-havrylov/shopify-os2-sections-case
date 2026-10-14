@@ -3,8 +3,11 @@
 **Live demo:** [os2-sections-demo.myshopify.com](https://os2-sections-demo.myshopify.com) · storefront password:
 `tohcka`
 
-A custom Shopify theme for a small ceramics studio, built on Shopify's Skeleton theme: four content sections a
-merchant composes in the theme editor, a shared library of theme blocks, and an accessible cart drawer driven by the
+Portfolio demo: a fictional brand and products; product and hero images were generated with Codex (OpenAI)
+([details](docs/ai-assets.md)).
+
+A custom Shopify theme for a fictional ceramics studio, built on Shopify's Skeleton theme: four content sections and a
+rich-text utility section a merchant composes in the theme editor, a shared library of theme blocks, and an accessible cart drawer driven by the
 Cart AJAX API with bundled section rendering.
 
 ![Cart drawer: adding a product, changing the quantity and removing a line](docs/media/cart-drawer.gif)
@@ -12,7 +15,7 @@ Cart AJAX API with bundled section rendering.
 ![Building a page in the theme editor from the four sections](docs/media/theme-editor.gif)
 
 **Problem and result.** A merchant needs landing pages they can build and rearrange without a developer, and
-customers need a cart that never loses or misreports a change. The theme gives the merchant five sections and a library of
+customers need a cart that never loses or misreports a change. The theme gives the merchant four content sections, a rich-text utility section and a library of
 theme blocks with presets in the theme editor, and gives customers a cart drawer that keeps every change in order,
 announces it to screen readers and falls back to the cart page whenever JavaScript or the network fails. Lighthouse on
 the published theme: 95–100 performance, 100 accessibility, best practices and SEO ([quality.md](docs/quality.md)).
@@ -111,4 +114,4 @@ Menus are created by hand in the admin ([catalog.md](data/catalog.md)).
 - Original work is under the [MIT License](LICENSE).
 - Files derived from Skeleton stay under Shopify's theme licence in [LICENSE.md](LICENSE.md); they are listed with the
   source commit in [third-party-assets.md](docs/third-party-assets.md), together with the Lucide icons.
-- Provenance of the product and hero photos: [ai-assets.md](docs/ai-assets.md).
+- Product and hero images are AI-generated: [ai-assets.md](docs/ai-assets.md).

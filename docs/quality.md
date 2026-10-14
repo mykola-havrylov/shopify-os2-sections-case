@@ -4,6 +4,20 @@ Results of the checks run on the theme. Browser checks ran against a development
 dev`) in headless Chrome with an empty cart at the start of each run; performance numbers from that preview are not
 production results and are not listed here.
 
+## Lighthouse
+
+Lighthouse 13.4.1 in Chrome DevTools on the published theme, incognito, one or two runs per page and form factor (mobile:
+simulated slow 4G and 4× CPU slowdown; desktop: default desktop settings). Ranges cover both runs where there were two.
+
+| Page                  | Form factor | Performance | Accessibility | Best practices | SEO | LCP       | CLS | TBT        |
+| --------------------- | ----------- | ----------- | ------------- | -------------- | --- | --------- | --- | ---------- |
+| Home                  | Mobile      | 95          | 100           | 100            | 100 | 2.6 s     | 0   | 110 ms     |
+| Collection (Mugs)     | Mobile      | 96–97       | 100           | 100            | 100 | 2.0–2.1 s | 0   | 100–150 ms |
+| Product (tea cup)     | Mobile      | 96–98       | 100           | 100            | 100 | 1.9–2.0 s | 0   | 80–160 ms  |
+| Home                  | Desktop     | 99          | 100           | 100            | 100 | 0.8–0.9 s | 0   | 0 ms       |
+| Collection (Mugs)     | Desktop     | 100         | 100           | 100            | 100 | 0.6 s     | 0   | 0 ms       |
+| Product (cereal bowl) | Desktop     | 100         | 100           | 100            | 100 | 0.7 s     | 0   | 0 ms       |
+
 ## Static checks
 
 | Check                                     | Result               |

@@ -1,4 +1,4 @@
-/* Header drawer enhancement: closes the <details> menu with Escape and returns focus to its toggle. */
+/* Header drawer enhancement: makes the page behind the open menu inert, closes it with Escape and returns focus. */
 
 class HeaderMenu extends HTMLElement {
   connectedCallback() {
@@ -13,7 +13,11 @@ class HeaderMenu extends HTMLElement {
   }
 
   onToggle = () => {
-    if (this.details.open) {
+    const open = this.details.open;
+    document.querySelectorAll('main, footer').forEach((element) => {
+      element.inert = open;
+    });
+    if (open) {
       document.addEventListener('keydown', this.onKeydown);
     } else {
       document.removeEventListener('keydown', this.onKeydown);

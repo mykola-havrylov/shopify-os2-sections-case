@@ -4,6 +4,10 @@
     "not_found": "Page not found.",
     "back_to_shopping": "Back to shopping"
   },
+  "accessibility": {
+    "opens_in_new_tab": "(opens in a new tab)",
+    "skip_to_content": "Skip to content"
+  },
   "blog": {
     "article_comments": "Comments",
     "article_metadata_html": "{{ date }} by {{ author }}",
@@ -14,10 +18,52 @@
     "comment_form_title": "Add a comment"
   },
   "cart": {
+    "add": "Add",
     "checkout": "Checkout",
+    "close": "Close cart",
+    "continue_shopping": "Continue shopping",
+    "empty": "Your cart is empty.",
+    "errors": {
+      "network": "Your cart could not be updated. Check your connection and try again.",
+      "generic": "Your cart could not be updated. Please try again."
+    },
+    "free_shipping_reached": "Your order ships free.",
+    "free_shipping_remaining": "You are {{ amount }} away from free shipping.",
+    "icon_label": {
+      "one": "Cart, {{ count }} item",
+      "other": "Cart, {{ count }} items"
+    },
+    "limited": {
+      "one": "Only {{ count }} is available, so your cart has {{ count }}.",
+      "other": "Only {{ count }} are available, so your cart has {{ count }}."
+    },
+    "live_region": {
+      "one": "{{ count }} item in your cart, subtotal {{ subtotal }}.",
+      "other": "{{ count }} items in your cart, subtotal {{ subtotal }}."
+    },
+    "note": "Order note",
+    "note_toggle": "Add an order note",
+    "quantity_for": "Quantity for {{ title }}",
+    "recommendations": "You may also like",
+    "remove": "Remove",
+    "retry": "Try again",
+    "subtotal": "Subtotal",
+    "taxes_excluded": "Taxes and shipping calculated at checkout.",
+    "taxes_included": "Taxes included. Shipping calculated at checkout.",
     "title": "Cart",
-    "update": "Update",
-    "remove": "Remove"
+    "update": "Update cart",
+    "view": "View cart"
+  },
+  "collections": {
+    "browse_all": "Browse all products",
+    "empty": "There are no products in this collection yet.",
+    "placeholder_title": "Collection",
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "sort_by": "Sort by",
+    "title": "Collections"
   },
   "customers": {
     "login": {
@@ -27,8 +73,14 @@
       "title": "Login"
     }
   },
-  "collections": {
-    "title": "Collections"
+  "footer": {
+    "navigation": "Footer",
+    "payment_methods": "Payment methods"
+  },
+  "general": {
+    "email": "Email",
+    "title_page": "Page {{ page }}",
+    "title_tagged": "tagged \"{{ tags }}\""
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
@@ -37,10 +89,34 @@
     "expires_on": "Expires on {{ expires_on }}",
     "use_at_checkout": "Use this gift card at checkout"
   },
+  "header": {
+    "menu": "Menu",
+    "navigation": "Main"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {{ number }}"
+  },
   "password": {
     "title": "This shop is private",
     "password": "Password",
     "enter": "Enter"
+  },
+  "products": {
+    "add_error": "This item could not be added to your cart. Please try again.",
+    "add_to_cart": "Add to cart",
+    "decrease_quantity": "Decrease quantity",
+    "gallery": "Product images",
+    "increase_quantity": "Increase quantity",
+    "options": "Options",
+    "price_from": "From {{ price }}",
+    "quantity": "Quantity",
+    "regular_price": "Regular price",
+    "sale_price": "Sale price",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable"
   },
   "search": {
     "title": "Search",
@@ -48,5 +124,8 @@
     "submit": "Search",
     "no_results_html": "No results found for {{ terms }}",
     "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "styleguide": {
+    "product_title": "Product title"
   }
 }

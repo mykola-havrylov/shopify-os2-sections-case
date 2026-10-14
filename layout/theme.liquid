@@ -1,36 +1,47 @@
+{%- comment -%}
+  Main layout: design tokens, font preloading, theme styles, meta tags, header and footer section groups.
+{%- endcomment -%}
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
 
-    {% comment %}
-      Font preloading:
-      1. Preconnect to font CDN for faster connection
-      2. Preload only the critical font variant (base weight)
-      3. Additional variants load on-demand via @font-face
-    {% endcomment %}
-    {% unless settings.type_primary_font.system? %}
+    {% liquid
+      assign preconnect_fonts = false
+      unless settings.type_body_font.system?
+        assign preconnect_fonts = true
+      endunless
+      unless settings.type_heading_font.system?
+        assign preconnect_fonts = true
+      endunless
+    %}
+    {% if preconnect_fonts %}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {% endif %}
 
-      {% comment %} Preload the base font variant for initial page render {% endcomment %}
-      {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+    {% unless settings.type_body_font.system? %}
+      {{ settings.type_body_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
     {% endunless %}
 
-    {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'components.css' | asset_url | stylesheet_tag }}
 
-    {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
   </head>
 
   <body>
+    <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
     {% sections 'header-group' %}
 
-    {{ content_for_layout }}
+    <main id="MainContent" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
 
     {% sections 'footer-group' %}
+
+    {% section 'cart-drawer' %}
   </body>
 </html>

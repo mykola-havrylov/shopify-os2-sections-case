@@ -2,12 +2,15 @@
   "general": {
     "404": "Not found",
     "article": "Article",
+    "banners": "Banners",
     "block": "Block",
     "blog": "Blog",
+    "buttons": "Buttons",
+    "buttons_row": "Buttons",
     "cart": "Cart",
     "collection": "Collection",
-    "collections": "Collections",
     "collection_card": "Collection card",
+    "collections": "Collections",
     "collections_grid": "Collections grid",
     "colors": "Colors",
     "column": "Column",
@@ -17,6 +20,7 @@
     "footer": "Footer",
     "group": "Group",
     "header": "Header",
+    "image": "Image",
     "layout": "Layout",
     "main": "Main",
     "page": "Page",
@@ -29,26 +33,138 @@
     "section": "Section",
     "settings": "Settings",
     "sidebar": "Sidebar",
+    "style": "Style",
     "text": "Text",
     "theme": "Theme",
     "typography": "Typography"
   },
+  "blocks": {
+    "button": {
+      "name": "Button",
+      "default": "Shop now",
+      "secondary_default": "Learn more"
+    },
+    "collection_card": {
+      "name": "Collection card"
+    },
+    "faq_item": {
+      "name": "Question",
+      "default_question": "How do I care for stoneware?",
+      "default_answer": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>"
+    },
+    "group": {
+      "name": "Group"
+    },
+    "heading": {
+      "name": "Heading",
+      "default": "Made by hand, for every day"
+    },
+    "list": {
+      "name": "List"
+    },
+    "list_item": {
+      "name": "List item",
+      "preset_1_title": "Thrown by hand",
+      "preset_1_text": "Shaped on the wheel and trimmed by hand, one piece at a time.",
+      "preset_2_title": "Fired twice",
+      "preset_2_text": "A bisque firing, then a glaze firing that makes the stoneware dense and strong.",
+      "preset_3_title": "Small batches",
+      "preset_3_text": "Glazes are mixed and fired in small batches, so no two pieces are quite the same."
+    },
+    "styleguide_specimen": {
+      "name": "Style guide specimen"
+    },
+    "text": {
+      "name": "Text",
+      "default": "<p>Stoneware thrown in small batches, glazed in three quiet colours and made to be used.</p>"
+    }
+  },
   "labels": {
     "alignment": "Alignment",
+    "animations": "Animations",
+    "answer": "Answer",
     "background": "Background",
-    "foreground": "Foreground",
+    "body_font": "Body font",
+    "body_size": "Body text size",
+    "border": "Borders",
+    "button": "Button",
+    "button_label": "Button label",
+    "button_text": "Label",
+    "collection": "Collection",
+    "color_scheme": "Color scheme",
+    "columns_desktop": "Columns on desktop",
+    "content_position": "Content position",
+    "content_width": "Content width",
+    "corner_radius": "Corner radius",
+    "customer_account_menu": "Customer account menu",
+    "first_open": "Open the first question",
+    "foreground": "Text",
+    "free_shipping_threshold": "Free shipping threshold",
+    "gap": "Gap",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
-    "input_corner_radius": "Input corner radius",
+    "heading": "Heading",
+    "heading_font": "Heading font",
+    "heading_level": "Heading level",
+    "heading_scale": "Heading size",
+    "height": "Height",
+    "icon": "Icon",
+    "image": "Image",
+    "image_mobile": "Mobile image",
+    "image_ratio": "Image ratio",
+    "image_side": "Image side",
+    "label": "Label",
+    "label_position": "Label position",
+    "layout": "Layout",
     "layout_direction": "Layout direction",
+    "link": "Link",
+    "logo": "Logo",
+    "logo_width": "Logo width",
+    "max_width": "Maximum width",
     "menu": "Menu",
-    "customer_account_menu": "Customer account menu",
+    "mobile_layout": "Mobile layout",
+    "muted": "Secondary text",
+    "muted_text": "Use secondary text color",
+    "new_tab": "Open link in a new tab",
+    "overlay": "Overlay opacity",
     "padding": "Padding",
     "page_margin": "Page margin",
     "page_width": "Page width",
+    "products": "Products",
+    "products_per_page": "Products per page",
+    "question": "Question",
+    "secondary_button_label": "Secondary button",
+    "section_spacing": "Section spacing",
+    "show_count": "Show product count",
     "show_payment_icons": "Show payment icons",
-    "text_style": "Text style",
-    "text": "Text"
+    "single_open": "One open at a time",
+    "size": "Size",
+    "specimen": "Specimen",
+    "style": "Style",
+    "surface": "Surface",
+    "text": "Text",
+    "title": "Title",
+    "vertical_alignment": "Vertical alignment",
+    "vertical_padding": "Vertical padding"
+  },
+  "info": {
+    "animations": "Animations are always turned off for visitors who ask for reduced motion.",
+    "collection_card_image": "Optional. Uses the collection image, or its first product's image.",
+    "collection_card_label": "Optional. Uses the collection title.",
+    "corner_radius": "Applies to buttons, inputs and cards.",
+    "free_shipping_threshold": "In your store currency, the same minimum as the free shipping rate in your shipping settings. The cart drawer shows how much is left. Use 0 to hide it.",
+    "heading_level": "Use one H1 per page. The level is for screen readers and search engines; the size setting controls the look.",
+    "hero_color_scheme": "Sets the text colors and the overlay color.",
+    "hero_height": "Full screen fills the window below the header.",
+    "image_mobile": "Shown below 750px. The main image is used when this is empty.",
+    "muted": "Used for prices, captions and other secondary text. Keep a contrast of at least 4.5:1 with the background.",
+    "muted_text": "Eyebrow text always uses the secondary text color.",
+    "overlay": "Strength of the shade behind the content. It fades out towards the opposite side of the image.",
+    "section_alignment": "Positions the content column and the blocks in it. Text alignment inside heading and text blocks is set on each block.",
+    "section_spacing": "Space above and below each section from 750px wide; half of it on smaller screens.",
+    "single_open": "Opening a question closes the others, in browsers that support it.",
+    "surface": "Background behind images and image placeholders.",
+    "vertical_padding": "Section spacing matches the space other sections use. Use a larger step when the section has its own background color."
   },
   "options": {
     "alignment": {
@@ -56,22 +172,164 @@
       "center": "Center",
       "right": "Right"
     },
+    "banner_layout": {
+      "container": "Page width",
+      "full": "Full width"
+    },
+    "button_style": {
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "link": "Link with arrow"
+    },
+    "content_width": {
+      "narrow": "Narrow",
+      "normal": "Normal",
+      "wide": "Wide"
+    },
     "direction": {
       "horizontal": "Horizontal",
       "vertical": "Vertical"
+    },
+    "heading_size": {
+      "display": "Display",
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small",
+      "extra_small": "Extra small"
+    },
+    "hero_height": {
+      "adapt": "Adapt to image",
+      "full": "Full screen",
+      "medium": "Medium"
+    },
+    "icon": {
+      "none": "None",
+      "hand": "Hand",
+      "flame": "Flame",
+      "leaf": "Leaf",
+      "package": "Package",
+      "refresh": "Refresh",
+      "arrow": "Arrow"
+    },
+    "image_ratio": {
+      "portrait": "Portrait (4:5)",
+      "square": "Square",
+      "landscape": "Landscape (3:2)"
+    },
+    "label_position": {
+      "overlay": "On image",
+      "below": "Below image"
+    },
+    "max_width": {
+      "narrow": "Narrow",
+      "normal": "Normal",
+      "none": "Full width"
+    },
+    "mobile_layout": {
+      "grid": "Grid, 2 columns",
+      "scroll": "Horizontal scroll"
     },
     "page_width": {
       "narrow": "Narrow",
       "wide": "Wide"
     },
+    "position": {
+      "top_left": "Top left",
+      "top_center": "Top center",
+      "top_right": "Top right",
+      "middle_left": "Middle left",
+      "middle_center": "Middle center",
+      "middle_right": "Middle right",
+      "bottom_left": "Bottom left",
+      "bottom_center": "Bottom center",
+      "bottom_right": "Bottom right"
+    },
     "size": {
       "large": "Large",
       "small": "Small"
     },
-    "text_style": {
-      "title": "Title",
-      "subtitle": "Subtitle",
-      "normal": "Normal text"
+    "spacing": {
+      "none": "None",
+      "space_1": "4 px",
+      "space_2": "8 px",
+      "space_3": "16 px",
+      "space_4": "24 px",
+      "space_5": "40 px",
+      "space_6": "64 px",
+      "space_7": "96 px"
+    },
+    "specimen": {
+      "product_cards": "Product cards",
+      "controls": "Form controls",
+      "icons": "Icons"
+    },
+    "text_size": {
+      "eyebrow": "Eyebrow",
+      "small": "Small",
+      "body": "Body",
+      "large": "Large"
+    },
+    "vertical_alignment": {
+      "top": "Top",
+      "center": "Center",
+      "bottom": "Bottom"
+    },
+    "vertical_padding": {
+      "section": "Section spacing"
+    }
+  },
+  "sections": {
+    "cart_drawer": {
+      "name": "Cart drawer"
+    },
+    "cart_icon_bubble": {
+      "name": "Cart icon"
+    },
+    "cart_live_region_text": {
+      "name": "Cart status"
+    },
+    "cart_recommendations": {
+      "name": "Cart recommendations"
+    },
+    "collection_grid": {
+      "name": "Collection grid",
+      "heading": "Shop by category"
+    },
+    "faq_accordion": {
+      "name": "FAQ",
+      "heading": "Questions",
+      "q1": "How do I care for stoneware?",
+      "a1": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>",
+      "q2": "How long does shipping take?",
+      "a2": "<p>Orders leave the studio within three working days. You get an email with tracking as soon as yours is on its way.</p>",
+      "q3": "Can I return an item?",
+      "a3": "<p>Unused pieces can be returned within 30 days of delivery. Write to us with your order number and we send the return details.</p>"
+    },
+    "feature_banner": {
+      "name": "Feature banner",
+      "preset_image_left": "Image left",
+      "preset_image_right": "Image right",
+      "eyebrow": "<p>Our studio</p>",
+      "heading": "Made slowly, <em>used every day</em>",
+      "text": "<p>Every piece starts as a lump of clay on the wheel in our studio and ends on someone’s table. We keep the batches small, so we can look at each one before it leaves.</p>",
+      "link": "Shop the collection"
+    },
+    "hero_banner": {
+      "name": "Hero banner",
+      "heading": "Stoneware for slow mornings",
+      "text": "<p>Thrown, trimmed and glazed by hand in small batches, and made to be used every day.</p>"
+    },
+    "main_cart": {
+      "name": "Cart"
+    },
+    "main_collection": {
+      "name": "Collection"
+    },
+    "main_product": {
+      "name": "Product"
+    },
+    "rich_text": {
+      "name": "Rich text"
     }
   }
 }

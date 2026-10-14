@@ -1,0 +1,154 @@
+{% doc %}
+  Style guide only: renders shared components that no merchant-facing block shows — product cards, form controls and
+  the icon set — so they can be reviewed in every color scheme. The schema has no presets, so the block is never
+  offered in the theme editor's block picker; it is placed only by the `page.styleguide` template.
+
+  @example
+  {% content_for 'block', type: '_styleguide-specimen', id: 'specimen' %}
+{% enddoc %}
+
+<div class="specimen specimen--{{ block.settings.kind }}" {{ block.shopify_attributes }}>
+  {%- case block.settings.kind -%}
+    {%- when 'product_cards' -%}
+      <ul class="specimen__cards" role="list">
+        {%- for product in block.settings.products -%}
+          <li>
+            {% render 'product-card', product: product, sizes: '(min-width: 750px) 33vw, 50vw' %}
+          </li>
+        {%- else -%}
+          <li class="product-card">
+            {% render 'image', image: blank, ratio: 'product', class: 'product-card__media', placeholder: 'product-1' %}
+            <div class="product-card__info">
+              <h3 class="product-card__title">{{ 'styleguide.product_title' | t }}</h3>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+    {%- when 'controls' -%}
+      <div class="specimen__controls">
+        <div class="field">
+          <label class="field__label" for="Email-{{ block.id }}">{{ 'general.email' | t }}</label>
+          <input class="input" type="email" id="Email-{{ block.id }}" name="email" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="Sort-{{ block.id }}">{{ 'collections.sort_by' | t }}</label>
+          <div class="select">
+            <select id="Sort-{{ block.id }}" name="sort_by">
+              {%- for option in collections.all.sort_options -%}
+                <option value="{{ option.value }}">{{ option.name }}</option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon', name: 'chevron-down' %}
+          </div>
+        </div>
+
+        {%- liquid
+          assign quantity_id = 'Quantity-' | append: block.id
+          assign quantity_label = 'products.quantity' | t
+        -%}
+        {% render 'quantity-input', id: quantity_id, name: 'quantity', label: quantity_label %}
+
+        <hr class="divider">
+
+        <div class="specimen__badge">
+          <span class="badge">{{ 'products.sold_out' | t }}</span>
+        </div>
+      </div>
+
+    {%- when 'icons' -%}
+      {%- assign icon_names = 'cart,account,close,minus,plus,arrow-right,chevron-down,hand,flame,leaf,package,refresh'
+        | split: ','
+      -%}
+      <ul class="specimen__icons" role="list">
+        {%- for icon_name in icon_names -%}
+          <li class="specimen__icon">
+            {% render 'icon', name: icon_name %}
+            <code>{{ icon_name }}</code>
+          </li>
+        {%- endfor -%}
+      </ul>
+  {%- endcase -%}
+</div>
+
+{% stylesheet %}
+  .specimen {
+    align-self: stretch;
+  }
+
+  .specimen__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--grid-gutter);
+  }
+
+  .specimen__controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: var(--text-measure);
+  }
+
+  .specimen__badge {
+    align-self: flex-start;
+    padding: var(--space-3);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+  }
+
+  .specimen__icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: var(--space-4);
+  }
+
+  .specimen__icon {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .specimen__icon > .icon {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .specimen__icon > code {
+    color: var(--color-muted);
+    font-size: 0.875em;
+  }
+
+  @media (min-width: 750px) {
+    .specimen__cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:blocks.styleguide_specimen.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "kind",
+      "label": "t:labels.specimen",
+      "default": "controls",
+      "options": [
+        { "value": "product_cards", "label": "t:options.specimen.product_cards" },
+        { "value": "controls", "label": "t:options.specimen.controls" },
+        { "value": "icons", "label": "t:options.specimen.icons" }
+      ]
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "t:labels.products",
+      "limit": 3
+    }
+  ]
+}
+{% endschema %}

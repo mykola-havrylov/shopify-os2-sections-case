@@ -1,59 +1,90 @@
 {% doc %}
-  Renders a text block.
+  Renders rich text: paragraphs, lists and links. Headings have their own `heading` block. The "Eyebrow" size is a
+  small uppercase label in the secondary text color, meant for a line above a heading.
 
   @example
   {% content_for 'block', type: 'text', id: 'text' %}
 {% enddoc %}
 
-<div
-  class="text {{ block.settings.text_style }}"
-  style="--text-align: {{ block.settings.alignment }}"
-  {{ block.shopify_attributes }}
->
-  {{ block.settings.text }}
-</div>
+{% liquid
+  case block.settings.max_width
+    when 'narrow'
+      assign max_width = 'var(--text-measure-narrow)'
+    when 'normal'
+      assign max_width = 'var(--text-measure)'
+    else
+      assign max_width = 'none'
+  endcase
+%}
+
+{% if block.settings.text != blank %}
+  <div
+    class="text {{ block.settings.size }}{% if block.settings.muted %} text-muted{% endif %}"
+    style="--text-align: {{ block.settings.alignment }}; --text-max-width: {{ max_width }};"
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.text }}
+  </div>
+{% endif %}
 
 {% stylesheet %}
   .text {
+    max-width: var(--text-max-width);
     text-align: var(--text-align);
   }
-  .text--title {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-  .text--subtitle {
-    font-size: 1.5rem;
+
+  .text > * + * {
+    margin-block-start: 0.75em;
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.text",
+  "name": "t:blocks.text.name",
   "settings": [
     {
-      "type": "text",
+      "type": "richtext",
       "id": "text",
       "label": "t:labels.text",
-      "default": "Text"
+      "default": "t:blocks.text.default"
     },
     {
       "type": "select",
-      "id": "text_style",
-      "label": "t:labels.text_style",
+      "id": "size",
+      "label": "t:labels.size",
+      "default": "text-body",
       "options": [
-        { "value": "text--title", "label": "t:options.text_style.title" },
-        { "value": "text--subtitle", "label": "t:options.text_style.subtitle" },
-        { "value": "text--normal", "label": "t:options.text_style.normal" }
-      ],
-      "default": "text--title"
+        { "value": "text-eyebrow", "label": "t:options.text_size.eyebrow" },
+        { "value": "text-small", "label": "t:options.text_size.small" },
+        { "value": "text-body", "label": "t:options.text_size.body" },
+        { "value": "text-large", "label": "t:options.text_size.large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "max_width",
+      "label": "t:labels.max_width",
+      "default": "normal",
+      "options": [
+        { "value": "narrow", "label": "t:options.max_width.narrow" },
+        { "value": "normal", "label": "t:options.max_width.normal" },
+        { "value": "none", "label": "t:options.max_width.none" }
+      ]
     },
     {
       "type": "text_alignment",
       "id": "alignment",
       "label": "t:labels.alignment",
       "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "muted",
+      "label": "t:labels.muted_text",
+      "info": "t:info.muted_text",
+      "default": false
     }
   ],
-  "presets": [{ "name": "t:general.text" }]
+  "presets": [{ "name": "t:blocks.text.name" }]
 }
 {% endschema %}

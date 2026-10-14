@@ -1,0 +1,29 @@
+{% comment %}
+  Short cart status ("2 items in your cart, subtotal …", plus the distance to free shipping when it is set up)
+  requested with every cart change through bundled section rendering; cart-drawer.js copies its text into the drawer's
+  polite live region. Not placed in templates.
+{% endcomment %}
+
+{%- liquid
+  assign subtotal = cart.total_price | money
+  assign threshold = settings.cart_free_shipping_threshold | times: 100
+  assign remaining = threshold | minus: cart.total_price
+-%}
+<p>
+  {{ 'cart.live_region' | t: count: cart.item_count, subtotal: subtotal }}
+  {%- if threshold > 0 and cart.item_count > 0 and cart.currency.iso_code == shop.currency -%}
+    {%- if remaining > 0 -%}
+      {%- assign remaining_money = remaining | money %}
+      {{ 'cart.free_shipping_remaining' | t: amount: remaining_money }}
+    {%- else %}
+      {{ 'cart.free_shipping_reached' | t }}
+    {%- endif -%}
+  {%- endif -%}
+</p>
+
+{% schema %}
+{
+  "name": "t:sections.cart_live_region_text.name",
+  "settings": []
+}
+{% endschema %}

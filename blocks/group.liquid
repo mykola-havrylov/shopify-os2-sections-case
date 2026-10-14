@@ -1,21 +1,29 @@
 {% doc %}
-  Renders a group of blocks with configurable layout direction, gap and
-  alignment.
-
-  All settings apply to only one dimension to reduce configuration complexity.
-
-  This component is a wrapper concerned only with rendering its children in
-  the specified layout direction with appropriate padding and alignment.
+  Renders a group of blocks in a row or a column, with alignment, and a gap and padding chosen from the spacing scale.
+  Rows wrap on narrow screens, so their children never overflow the viewport.
 
   @example
   {% content_for 'block', type: 'group', id: 'group' %}
 {% enddoc %}
 
+{% liquid
+  assign gap = '0'
+  if block.settings.gap != 'none'
+    assign gap = 'var(--' | append: block.settings.gap | append: ')'
+  endif
+
+  assign padding = '0'
+  if block.settings.padding != 'none'
+    assign padding = 'var(--' | append: block.settings.padding | append: ')'
+  endif
+%}
+
 <div
   class="group {{ block.settings.layout_direction }}"
   style="
-    --padding: {{ block.settings.padding }}px;
-    --alignment: {{ block.settings.alignment }};
+    --group-gap: {{ gap }};
+    --group-padding: {{ padding }};
+    --group-alignment: {{ block.settings.alignment }};
   "
   {{ block.shopify_attributes }}
 >
@@ -25,29 +33,28 @@
 {% stylesheet %}
   .group {
     display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
+    gap: var(--group-gap);
     width: 100%;
+    padding: var(--group-padding);
   }
 
   .group--horizontal {
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    padding: 0 var(--padding);
+    justify-content: var(--group-alignment);
   }
 
   .group--vertical {
     flex-direction: column;
-    align-items: var(--alignment);
-    padding: var(--padding) 0;
+    align-items: var(--group-alignment);
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.group",
-  "blocks": [{ "type": "@theme" }],
+  "name": "t:blocks.group.name",
+  "blocks": [{ "type": "heading" }, { "type": "text" }, { "type": "button" }],
   "settings": [
     {
       "type": "select",
@@ -60,7 +67,6 @@
       ]
     },
     {
-      "visible_if": "{{ block.settings.layout_direction == 'group--vertical' }}",
       "type": "select",
       "id": "alignment",
       "label": "t:labels.alignment",
@@ -72,33 +78,57 @@
       ]
     },
     {
-      "type": "range",
+      "type": "select",
+      "id": "gap",
+      "label": "t:labels.gap",
+      "default": "space-3",
+      "options": [
+        { "value": "none", "label": "t:options.spacing.none" },
+        { "value": "space-1", "label": "t:options.spacing.space_1" },
+        { "value": "space-2", "label": "t:options.spacing.space_2" },
+        { "value": "space-3", "label": "t:options.spacing.space_3" },
+        { "value": "space-4", "label": "t:options.spacing.space_4" },
+        { "value": "space-5", "label": "t:options.spacing.space_5" },
+        { "value": "space-6", "label": "t:options.spacing.space_6" }
+      ]
+    },
+    {
+      "type": "select",
       "id": "padding",
       "label": "t:labels.padding",
-      "default": 0,
-      "min": 0,
-      "max": 200,
-      "step": 2,
-      "unit": "px"
+      "default": "none",
+      "options": [
+        { "value": "none", "label": "t:options.spacing.none" },
+        { "value": "space-2", "label": "t:options.spacing.space_2" },
+        { "value": "space-3", "label": "t:options.spacing.space_3" },
+        { "value": "space-4", "label": "t:options.spacing.space_4" },
+        { "value": "space-5", "label": "t:options.spacing.space_5" },
+        { "value": "space-6", "label": "t:options.spacing.space_6" }
+      ]
     }
   ],
   "presets": [
     {
       "name": "t:general.column",
       "category": "t:general.layout",
-      "settings": {
-        "layout_direction": "group--vertical",
-        "alignment": "flex-start",
-        "padding": 0
-      }
+      "settings": { "layout_direction": "group--vertical", "alignment": "flex-start", "gap": "space-3" },
+      "blocks": [{ "type": "heading" }, { "type": "text" }]
     },
     {
-      "name": "t:general.row",
+      "name": "t:general.buttons_row",
       "category": "t:general.layout",
-      "settings": {
-        "layout_direction": "group--horizontal",
-        "padding": 0
-      }
+      "settings": { "layout_direction": "group--horizontal", "alignment": "flex-start", "gap": "space-3" },
+      "blocks": [
+        { "type": "button", "settings": { "link": "shopify://collections/all" } },
+        {
+          "type": "button",
+          "settings": {
+            "style": "secondary",
+            "text": "t:blocks.button.secondary_default",
+            "link": "shopify://collections/all"
+          }
+        }
+      ]
     }
   ]
 }

@@ -8,6 +8,228 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Stoneware for slow mornings",
+            "tag": "h1",
+            "size": "h0",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Thrown, trimmed and glazed by hand in small batches, and made to be used every day.</p>",
+            "size": "text-large",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "button_primary": {
+          "type": "button",
+          "settings": {
+            "text": "Shop all",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "primary"
+          }
+        },
+        "button_secondary": {
+          "type": "button",
+          "settings": {
+            "text": "New arrivals",
+            "link": "shopify://collections/new-arrivals",
+            "new_tab": false,
+            "style": "secondary"
+          }
+        }
+      },
+      "block_order": ["heading", "text", "button_primary", "button_secondary"],
+      "settings": {
+        "image": "shopify://shop_images/hero-desktop.jpg",
+        "image_mobile": "shopify://shop_images/hero-mobile.jpg",
+        "height": "full",
+        "overlay": 60,
+        "content_position": "bottom-left",
+        "content_width": "narrow",
+        "color_scheme": "scheme-inverse"
+      }
+    },
+    "collection_grid": {
+      "type": "collection-grid",
+      "blocks": {
+        "mugs": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "mugs",
+            "label": ""
+          }
+        },
+        "bowls": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "bowls",
+            "label": ""
+          }
+        },
+        "plates": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "plates",
+            "label": ""
+          }
+        },
+        "vases": {
+          "type": "_collection-card",
+          "settings": {
+            "collection": "vases",
+            "label": ""
+          }
+        }
+      },
+      "block_order": ["mugs", "bowls", "plates", "vases"],
+      "settings": {
+        "heading": "Shop by category",
+        "columns_desktop": "4",
+        "image_ratio": "portrait",
+        "label_position": "overlay",
+        "show_count": true,
+        "mobile_layout": "grid",
+        "color_scheme": "scheme-base"
+      }
+    },
+    "feature_banner": {
+      "type": "feature-banner",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our studio</p>",
+            "size": "text-eyebrow",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made slowly, <em>used every day</em>",
+            "tag": "h2",
+            "size": "h1",
+            "alignment": "left"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every piece starts as a lump of clay on the wheel in our studio and ends on someone’s table. We keep the batches small, so we can look at each one before it leaves.</p>",
+            "size": "text-body",
+            "max_width": "normal",
+            "alignment": "left",
+            "muted": false
+          }
+        },
+        "features": {
+          "type": "list",
+          "blocks": {
+            "hand": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "hand",
+                "title": "Thrown by hand",
+                "text": "Shaped on the wheel and trimmed by hand, one piece at a time."
+              }
+            },
+            "flame": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "flame",
+                "title": "Fired twice",
+                "text": "A bisque firing, then a glaze firing that makes the stoneware dense and strong."
+              }
+            },
+            "leaf": {
+              "type": "_list-item",
+              "settings": {
+                "icon": "leaf",
+                "title": "Small batches",
+                "text": "Glazes are mixed and fired in small batches, so no two pieces are quite the same."
+              }
+            }
+          },
+          "block_order": ["hand", "flame", "leaf"],
+          "settings": {}
+        },
+        "link": {
+          "type": "button",
+          "settings": {
+            "text": "Shop the collection",
+            "link": "shopify://collections/all",
+            "new_tab": false,
+            "style": "link"
+          }
+        }
+      },
+      "block_order": ["eyebrow", "heading", "text", "features", "link"],
+      "settings": {
+        "image": "shopify://shop_images/hero-mobile.jpg",
+        "image_side": "left",
+        "image_ratio": "portrait",
+        "layout": "container",
+        "vertical_alignment": "center",
+        "color_scheme": "scheme-surface"
+      }
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "static": true,
+          "settings": {
+            "heading": "Questions",
+            "tag": "h2",
+            "size": "h2",
+            "alignment": "left"
+          }
+        },
+        "care": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "How do I care for stoneware?",
+            "text": "<p>Wash by hand or on a gentle dishwasher cycle. Avoid sudden changes of temperature, such as moving a dish from the fridge straight into a hot oven, so the clay does not crack.</p>"
+          }
+        },
+        "shipping": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "How long does shipping take?",
+            "text": "<p>Orders leave the studio within three working days. You get an email with tracking as soon as yours is on its way.</p>"
+          }
+        },
+        "returns": {
+          "type": "_faq-item",
+          "settings": {
+            "title": "Can I return an item?",
+            "text": "<p>Unused pieces can be returned within 30 days of delivery. Write to us with your order number and we send the return details.</p>"
+          }
+        }
+      },
+      "block_order": ["care", "shipping", "returns"],
+      "settings": {
+        "first_open": true,
+        "single_open": true,
+        "content_width": "normal",
+        "color_scheme": "scheme-base"
+      }
+    }
+  },
+  "order": ["hero", "collection_grid", "feature_banner", "faq"]
 }

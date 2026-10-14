@@ -8,5 +8,57 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "color_schemes": {
+      "scheme-base": {
+        "settings": {
+          "background": "#F6F1EA",
+          "foreground": "#2B2622",
+          "muted": "#6E655C",
+          "border": "#D9CFC2",
+          "surface": "#EDE5DA",
+          "button": "#9A5B3C",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#2B2622"
+        }
+      },
+      "scheme-surface": {
+        "settings": {
+          "background": "#EDE5DA",
+          "foreground": "#2B2622",
+          "muted": "#6E655C",
+          "border": "#D2C6B7",
+          "surface": "#E3D9CC",
+          "button": "#9A5B3C",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#2B2622"
+        }
+      },
+      "scheme-inverse": {
+        "settings": {
+          "background": "#2B2622",
+          "foreground": "#F6F1EA",
+          "muted": "#C9BFB3",
+          "border": "#4A433D",
+          "surface": "#38312C",
+          "button": "#F6F1EA",
+          "button_label": "#2B2622",
+          "secondary_button_label": "#F6F1EA"
+        }
+      },
+      "scheme-accent": {
+        "settings": {
+          "background": "#9A5B3C",
+          "foreground": "#FFFFFF",
+          "muted": "#F6F1EA",
+          "border": "#B0785B",
+          "surface": "#8A5034",
+          "button": "#FFFFFF",
+          "button_label": "#2B2622",
+          "secondary_button_label": "#FFFFFF"
+        }
+      }
+    },
+    "cart_free_shipping_threshold": 70
+  }
 }

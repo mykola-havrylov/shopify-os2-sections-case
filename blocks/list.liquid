@@ -1,0 +1,59 @@
+{% doc %}
+  Renders a short list of features as a `<ul>`: each `_list-item` child is a line icon, a title and a short text.
+
+  @example
+  {% content_for 'block', type: 'list', id: 'list' %}
+{% enddoc %}
+
+<ul class="list" role="list" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</ul>
+
+{% stylesheet %}
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:blocks.list.name",
+  "tag": null,
+  "blocks": [{ "type": "_list-item" }],
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:blocks.list.name",
+      "blocks": [
+        {
+          "type": "_list-item",
+          "settings": {
+            "icon": "hand",
+            "title": "t:blocks.list_item.preset_1_title",
+            "text": "t:blocks.list_item.preset_1_text"
+          }
+        },
+        {
+          "type": "_list-item",
+          "settings": {
+            "icon": "flame",
+            "title": "t:blocks.list_item.preset_2_title",
+            "text": "t:blocks.list_item.preset_2_text"
+          }
+        },
+        {
+          "type": "_list-item",
+          "settings": {
+            "icon": "leaf",
+            "title": "t:blocks.list_item.preset_3_title",
+            "text": "t:blocks.list_item.preset_3_text"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

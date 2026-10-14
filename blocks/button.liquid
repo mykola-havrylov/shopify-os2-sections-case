@@ -1,0 +1,86 @@
+{% doc %}
+  Renders a link styled as a primary or secondary button, or as a text link with an arrow. Nothing is rendered on the
+  storefront until both the label and the link are set; in the theme editor an incomplete button shows as disabled so
+  the merchant can still select it.
+
+  @example
+  {% content_for 'block', type: 'button', id: 'button' %}
+{% enddoc %}
+
+{% liquid
+  assign label = block.settings.text | strip
+  assign link = block.settings.link
+  case block.settings.style
+    when 'secondary'
+      assign style_class = 'button button--secondary'
+    when 'link'
+      assign style_class = 'link-arrow'
+    else
+      assign style_class = 'button'
+  endcase
+%}
+
+{% if label != blank and link != blank %}
+  <a
+    class="{{ style_class }}"
+    href="{{ link }}"
+    {% if block.settings.new_tab %}
+      target="_blank" rel="noopener"
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {{- label -}}
+    {%- if block.settings.new_tab -%}
+      <span class="visually-hidden"> {{ 'accessibility.opens_in_new_tab' | t }}</span>
+    {%- endif -%}
+    {%- if block.settings.style == 'link' -%}
+      {% render 'icon', name: 'arrow-right' %}
+    {%- endif -%}
+  </a>
+{% elsif request.design_mode %}
+  <span class="{{ style_class }}" aria-disabled="true" {{ block.shopify_attributes }}>
+    {{- label | default: block.settings.text -}}
+  </span>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:blocks.button.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:labels.button_text",
+      "default": "t:blocks.button.default"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "checkbox",
+      "id": "new_tab",
+      "label": "t:labels.new_tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:labels.style",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "t:options.button_style.primary" },
+        { "value": "secondary", "label": "t:options.button_style.secondary" },
+        { "value": "link", "label": "t:options.button_style.link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.button.name",
+      "settings": { "link": "shopify://collections/all" }
+    }
+  ]
+}
+{% endschema %}

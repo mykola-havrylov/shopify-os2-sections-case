@@ -1,0 +1,199 @@
+{% comment %}
+  Collection page: title, product count and description, a paginated grid of product cards with numbered pagination,
+  and an empty state with a link to all products.
+{% endcomment %}
+
+{%- liquid
+  assign columns = section.settings.columns_desktop | plus: 0
+  assign card_sizes = '(min-width: 750px) calc(100vw / ' | append: columns | append: '), 50vw'
+-%}
+
+<div class="main-collection section-spacing">
+  <div class="main-collection__header">
+    <h1 class="h2">{{ collection.title | escape }}</h1>
+    <p class="main-collection__count text-muted">
+      {{- 'collections.product_count' | t: count: collection.products_count -}}
+    </p>
+    {%- if collection.description != blank -%}
+      <div class="main-collection__description">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- if collection.products.size > 0 -%}
+      <ul class="main-collection__grid" role="list" style="--columns-desktop: {{ columns }};">
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign loading = 'lazy'
+            assign fetchpriority = null
+            if paginate.current_page == 1 and forloop.index <= columns
+              assign loading = 'eager'
+              if forloop.first
+                assign fetchpriority = 'high'
+              endif
+            endif
+          -%}
+          <li>
+            {% render 'product-card',
+              product: product,
+              heading_tag: 'h2',
+              sizes: card_sizes,
+              loading: loading,
+              fetchpriority: fetchpriority
+            %}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if paginate.pages > 1 -%}
+        {%- assign current_page = paginate.current_page | append: '' -%}
+        <nav class="pagination" aria-label="{{ 'pagination.label' | t }}">
+          <ul class="pagination__list" role="list">
+            {%- if paginate.previous -%}
+              <li>
+                <a
+                  class="pagination__item pagination__item--previous"
+                  href="{{ paginate.previous.url }}"
+                  aria-label="{{ 'pagination.previous' | t }}"
+                >
+                  {%- render 'icon', name: 'arrow-right' -%}
+                </a>
+              </li>
+            {%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- assign part_title = part.title | append: '' -%}
+              <li>
+                {%- if part.is_link -%}
+                  <a
+                    class="pagination__item"
+                    href="{{ part.url }}"
+                    aria-label="{{ 'pagination.page' | t: number: part.title }}"
+                  >
+                    {{- part.title -}}
+                  </a>
+                {%- elsif part_title == current_page -%}
+                  <span
+                    class="pagination__item pagination__item--current"
+                    aria-current="page"
+                  >
+                    {{- part.title -}}
+                  </span>
+                {%- else -%}
+                  <span class="pagination__item">{{ part.title }}</span>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+            {%- if paginate.next -%}
+              <li>
+                <a class="pagination__item" href="{{ paginate.next.url }}" aria-label="{{ 'pagination.next' | t }}">
+                  {%- render 'icon', name: 'arrow-right' -%}
+                </a>
+              </li>
+            {%- endif -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    {%- elsif collection.products_count == 0 -%}
+      <div class="main-collection__empty">
+        <p>{{ 'collections.empty' | t }}</p>
+        <a class="link-arrow" href="{{ routes.all_products_collection_url }}">
+          {{- 'collections.browse_all' | t -}}
+          {% render 'icon', name: 'arrow-right' %}
+        </a>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% stylesheet %}
+  .main-collection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .main-collection__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .main-collection__description {
+    max-width: var(--text-measure);
+  }
+
+  .main-collection__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--grid-gutter);
+  }
+
+  .main-collection__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .pagination__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .pagination__item {
+    display: grid;
+    place-items: center;
+    min-width: var(--control-height);
+    min-height: var(--control-height);
+    border-radius: var(--radius);
+    text-decoration: none;
+  }
+
+  a.pagination__item:hover {
+    text-decoration: underline;
+  }
+
+  .pagination__item--current {
+    font-weight: var(--font-body--weight-bold);
+    text-decoration: underline;
+  }
+
+  .pagination__item--previous > .icon {
+    scale: -1 1;
+  }
+
+  @media (min-width: 750px) {
+    .main-collection__grid {
+      grid-template-columns: repeat(var(--columns-desktop), minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.main_collection.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "t:labels.products_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "t:labels.columns_desktop",
+      "default": "3",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    }
+  ]
+}
+{% endschema %}

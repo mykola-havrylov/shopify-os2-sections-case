@@ -140,7 +140,7 @@ fill against the section background and form control boundaries need 3:1. Hover 
 | Control boundary against background (3:1)   | 5.08  | 4.57    | 8.26    | 4.75   |
 | Focus ring against background (3:1)         | 13.32 | 11.99   | 13.32   | 5.34   |
 
-Text over a photo (the hero) sits on an overlay in the scheme's background color that fades out away from the content; with the default strength the text area measures above 4.5:1 on the demo images. Text is never placed on the surface color directly; the surface sits behind images and the badge frame. The border
+Text over an image (the hero) sits on an overlay in the scheme's background color that fades out away from the content; with the default strength the text area measures above 4.5:1 on the demo images. Text is never placed on the surface color directly; the surface sits behind images and the badge frame. The border
 color is used only for decorative dividers, which need no minimum contrast.
 
 ## Rejected patterns

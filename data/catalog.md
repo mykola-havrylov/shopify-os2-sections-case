@@ -71,7 +71,7 @@ Warm studio.
   `#8A7F73`, surface `#EDE5DA`.
 - **Typography:** a serif for headings and a clean sans for text. Candidates to confirm in the theme editor's font
   picker: Cormorant or Newsreader for headings, Work Sans for body (Work Sans is already used by Skeleton).
-- **Photography:** warm daylight, soft shadows, slightly muted colour.
+- **Imagery:** warm daylight, soft shadows, slightly muted colour.
 - **Character:** handmade, domestic, unhurried.
 
 Text on background must reach 4.5:1.
